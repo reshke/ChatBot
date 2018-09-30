@@ -1,1 +1,5 @@
 
+public interface IDialog {
+	public Iterable<String> HandleQuery(String line);
+	public Iterable<String> GetHelp();
+}
