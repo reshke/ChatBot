@@ -6,5 +6,11 @@ public class Bot {
 	
 	public void StartBot() {
 		writer.WriteLine("Welcome! I'm chat bot!");
+		while (true) {
+			String query = reader.ReadQuery();
+			String answer = "Answer";
+			// Answer should work with bot dialog.
+			writer.WriteLine(answer);
+		}
 	}
 }
