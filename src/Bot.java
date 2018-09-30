@@ -13,11 +13,4 @@ public class Bot {
 			writer.WriteLine(answer);
 		}
 	}
-	
-	public static void  main(String[] args){
-		int i = - 1000000;
-		while (i < 1000000)
-			i++;
-		return;
-	}
 }
