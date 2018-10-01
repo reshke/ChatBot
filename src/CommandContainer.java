@@ -12,6 +12,9 @@ public class CommandContainer {
 			commandContainer.put(command.GetCommandName(), command);
 	}
 	
+	public CommandContainer() {
+	}
+	
 	public void AddCommand(ICommand command) {
 		commandContainer.put(command.GetCommandName(), command);
 	}
