@@ -17,7 +17,22 @@ public class CommandContainer {
 	}
 	
 	public ResultInformation ExecuteQuery(String query) {
-		throw new NotImplementedException();
+		String[] argumentsQuery = query.split(" ");
+		if (argumentsQuery.length == 0)
+			return new ResultInformation("No command", ResultState.Unknowm);
+		String nameCommand = argumentsQuery[0];
+		if (!commandContainer.containsKey(nameCommand))
+			return new ResultInformation("Unknown command! Read /help!", ResultState.Unknowm);
+		ICommand command = commandContainer.get(nameCommand);
+		try 
+		{
+			String result = command.ExecuteCommand(argumentsQuery);
+			return new ResultInformation(result, ResultState.Success);
+		}
+		catch (IllegalArgumentException exception)
+		{
+			return new ResultInformation(exception.getMessage(), ResultState.WrongArguments);
+		}
 	}
 	
 }
