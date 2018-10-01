@@ -16,6 +16,10 @@ public class CommandContainer {
 		commandContainer.put(command.GetCommandName(), command);
 	}
 	
+	public void Clear() {
+		commandContainer.clear();
+	}
+	
 	public ResultInformation ExecuteQuery(String query) {
 		String[] argumentsQuery = query.split(" ");
 		if (argumentsQuery.length == 0)
