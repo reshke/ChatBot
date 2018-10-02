@@ -17,10 +17,11 @@ public class Dialog {
 		return history.get(history.size() - 1);
 	}
 	
+	/*
 	public Message SendMessage(){
 		Message currentMessage = new Message();
 		return currentMessage;
-	}
+	}*/
 	
 	public Message StartDialog() {
 		return new Message(false, "Hi! I`m chat bot, lets play!");
