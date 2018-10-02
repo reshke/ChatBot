@@ -22,7 +22,7 @@ public class Game implements IGame {
 		dataString = (new StringGenerator()).GenerateRandomString(lenght);
 		dataStringLenght = lenght;
 		onesCount = new int[lenght + 1];
-		
+		calculatePrefixSums();
 	}
 	
 	/*
@@ -53,13 +53,13 @@ public class Game implements IGame {
 	@Override
 	public Boolean GuessAnswer(String query) {
 		// TODO Auto-generated method stub
-		return dataString == query;
+		return dataString.equals(query);
 	}
 
 	@Override
 	public int PostQuery(int leftBound, int rightBound) {
 		// TODO Auto-generated method stub
-		if (random.nextBoolean())
+		if (true)
 			return onesCount[rightBound] - onesCount[leftBound - 1];
 		else
 			return random.nextInt(rightBound - leftBound + 1);

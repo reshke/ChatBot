@@ -15,7 +15,7 @@ public class StringGenerator {
 	public String GenerateRandomString(int lenght){
 		StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < lenght; i++){
-			builder.append(random.nextBoolean());
+			builder.append(random.nextBoolean() ? '1' : '0');
 		}
 		
 		return builder.toString();
