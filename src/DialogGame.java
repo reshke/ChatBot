@@ -29,7 +29,7 @@ public class DialogGame implements IDialog {
 	private void UpdateContainer() {
 		containerGameCommands.Clear();
 		ICommand commands[] = { new CommandPostQuery("ask", (x, y) -> game.PostQuery(x, y)),
-				new CommandGuess("guess", (x) -> game.GuessAnswer(x))};
+				new CommandGuess("guess", (x) -> game.GuessAnswer(x)), new CommandEndGame("end", (x) -> game.EndGame())};
 		for (ICommand command: commands)
 			containerGameCommands.AddCommand(command);
 	}

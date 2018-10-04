@@ -36,7 +36,7 @@ public class CommandContainer {
 			String result = command.ExecuteCommand(argumentsQuery);
 			return new ResultInformation(result, ResultState.Success);
 		}
-		catch (IllegalArgumentException exception)
+		catch (IllegalArgumentException | UnsupportedOperationException exception)
 		{
 			return new ResultInformation(exception.getMessage(), ResultState.WrongArguments);
 		}

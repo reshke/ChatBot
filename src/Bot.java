@@ -15,9 +15,9 @@ public class Bot {
 			if (result.State == ResultState.Success)
 				writer.WriteLine(result.Result);
 			if (result.State == ResultState.Unknowm)
-				writer.WriteLine("i`m dont understand");
+				writer.WriteLine(" do not understand");
 			if (result.State == ResultState.WrongArguments)
-				writer.WriteLine("incorrect input");
+				writer.WriteLine(result.ErrorMessage);
 		
 			// Answer should work with bot dialog.
 		}

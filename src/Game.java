@@ -41,6 +41,9 @@ public class Game implements IGame {
 	@Override
 	public void EndGame() {
 		// TODO Auto-generated method stub
+		if (gameState == GameState.Over)
+			throw new UnsupportedOperationException("Game was already ended!");
+			
 		gameState = GameState.Over;
 	}
 
@@ -59,7 +62,12 @@ public class Game implements IGame {
 	@Override
 	public int PostQuery(int leftBound, int rightBound) {
 		// TODO Auto-generated method stub
-		if (true)
+		
+		if (rightBound < leftBound || leftBound < 1 || rightBound > dataString.length())
+			throw new IllegalArgumentException("Query borders should satisfy following conditionts:\n"
+					+ " 1 <= leftBorber <= rightBorder <= string length ");
+		
+		if (random.nextBoolean())
 			return onesCount[rightBound] - onesCount[leftBound - 1];
 		else
 			return random.nextInt(rightBound - leftBound + 1);

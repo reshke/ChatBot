@@ -11,7 +11,7 @@ public class ResultInformation {
 		}
 		else {
 			ErrorMessage = result;
-			Result = "";
+			Result = "incorrect input";
 		}
 		State = state;
 	}

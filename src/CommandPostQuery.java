@@ -29,6 +29,7 @@ public class CommandPostQuery implements ICommand {
 		{
 			throw new IllegalArgumentException("Arguments should be integer!");
 		}
+		
 		return Integer.toString(function.apply(left, right));
 	}
 	
