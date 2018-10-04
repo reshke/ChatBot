@@ -5,7 +5,7 @@ public class Bot {
 	private final Writer writer = new Writer();
 	
 	public void StartBot() {
-		writer.WriteLine("Welcome! I'm chat bot!");
+		writer.WriteLine("Welcome! I'm chat bot! try h or help to see help");
 		DialogManager dialogManager = new DialogManager();
 		dialogManager.StartGameDialog(0);
 		while (true) {

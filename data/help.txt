@@ -1,0 +1,4 @@
+Hi! I`m chatBot and i want to play with you!
+To select game type select --GameName
+To see games list type games --all
+To see more more informayion type -h or --help in game dialog

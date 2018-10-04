@@ -19,6 +19,11 @@ public class CommandContainer {
 		commandContainer.put(command.GetCommandName(), command);
 	}
 	
+	public void AddSetOfCommands(ICommand commands[]){
+		for (ICommand command : commands)
+			AddCommand(command);
+	}
+	
 	public void Clear() {
 		commandContainer.clear();
 	}

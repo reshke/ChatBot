@@ -22,16 +22,20 @@ public class DialogGame implements IDialog {
 	}
 
 	public DialogGame() {
-		containerCommonCommands.AddCommand(new CommandStart("start", 
-				x -> UpdateGame(x)));
+		ICommand commonCommands[] = {new CommandHelp("help"), new CommandStart("start", 
+				x -> UpdateGame(x))};
+		
+		containerCommonCommands.AddSetOfCommands(commonCommands);
 	}
+	
 	
 	private void UpdateContainer() {
 		containerGameCommands.Clear();
-		ICommand commands[] = { new CommandPostQuery("ask", (x, y) -> game.PostQuery(x, y)),
+		ICommand gameCommands[] = { new CommandPostQuery("ask", (x, y) -> game.PostQuery(x, y)),
 				new CommandGuess("guess", (x) -> game.GuessAnswer(x)), new CommandEndGame("end", (x) -> game.EndGame())};
-		for (ICommand command: commands)
-			containerGameCommands.AddCommand(command);
+		
+	 	
+		containerGameCommands.AddSetOfCommands(gameCommands);
 	}
 	
 	private void UpdateGame(int length) {
