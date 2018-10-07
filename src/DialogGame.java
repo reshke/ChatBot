@@ -22,8 +22,8 @@ public class DialogGame implements IDialog {
 	}
 
 	public DialogGame() {
-		ICommand commonCommands[] = {new CommandHelp("help"), new CommandStart("start", 
-				x -> UpdateGame(x))};
+		ICommand commonCommands[] = {new CommandHelp("help"),
+				new CommandStart("start", x -> UpdateGame(x))};
 		
 		containerCommonCommands.AddSetOfCommands(commonCommands);
 	}

@@ -6,8 +6,7 @@ public class DialogManager {
 	private Map<Integer, IDialog> dialogs = new HashMap<Integer, IDialog>();
 	
 	public void StartGameDialog(int userId){
-		DialogGame dialog = new DialogGame();
-		
+		CommonUserDialog dialog = new CommonUserDialog();
 		dialogs.put(userId, dialog);
 	}
 	

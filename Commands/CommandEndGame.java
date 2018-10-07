@@ -20,7 +20,7 @@ public class CommandEndGame implements ICommand {
 	public String ExecuteCommand(String[] args) {
 		// TODO Auto-generated method stub
 		if (args.length != 1)
-			throw new IllegalArgumentException("Count of arguments is not correcT");
+			throw new IllegalArgumentException("Count of arguments is not correct");
 		
 		try
 		{ 
