@@ -14,4 +14,5 @@ public interface IGame {
 	public void PauseGame();
 	public Boolean GuessAnswer(String query);
 	public int PostQuery(int leftBound, int rightBound);
+	public String GetHelp();
 }

@@ -1,9 +1,13 @@
 import java.awt.List;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.Random;
 
 
-public class Game implements IGame {
+public class StringGuessGame implements IGame {
 	public GameState gameState;// = GameState.NotStarted;
 	private final String dataString;
 	private final int dataStringLenght;
@@ -17,7 +21,7 @@ public class Game implements IGame {
 		}
 	}
 	
-	public Game(int lenght) {
+	public StringGuessGame(int lenght) {
 		gameState = GameState.NotStarted;
 		dataString = (new StringGenerator()).GenerateRandomString(lenght);
 		dataStringLenght = lenght;
@@ -72,6 +76,37 @@ public class Game implements IGame {
 		else
 			return random.nextInt(rightBound - leftBound + 1);
 		
+	}
+	
+
+	private File GetHelpFile(){
+		String path = new File(".").getAbsolutePath();
+		return new File(path + "\\data", "stringGuessHelp.txt");
+	}
+	
+	@Override
+	public String GetHelp() {
+		// TODO Auto-generated method stub
+		FileReader helpFile = null;
+		try {
+			helpFile = new FileReader(GetHelpFile());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		StringBuilder data = new StringBuilder();
+		int c;
+        try {
+			while((c=helpFile.read())!=-1){
+			    data.append((char)c);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+        
+        return data.toString();
 	}
 
 }

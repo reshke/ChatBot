@@ -1,0 +1,2 @@
+To send a request type on the keyboard "ask leftBorder rightBorder"
+To suggest a string type on the keyboard "guess ....(your string)"

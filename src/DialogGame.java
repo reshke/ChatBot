@@ -4,7 +4,7 @@ public class DialogGame implements IDialog {
 	private ResultInformation lastAnswer;
 	private CommandContainer containerGameCommands = new CommandContainer();
 	private CommandContainer containerCommonCommands = new CommandContainer();
-	private Game game;
+	private StringGuessGame game;
 	
 	
 	
@@ -32,14 +32,16 @@ public class DialogGame implements IDialog {
 	private void UpdateContainer() {
 		containerGameCommands.Clear();
 		ICommand gameCommands[] = { new CommandPostQuery("ask", (x, y) -> game.PostQuery(x, y)),
-				new CommandGuess("guess", (x) -> game.GuessAnswer(x)), new CommandEndGame("end", (x) -> game.EndGame())};
+				new CommandGuess("guess", (x) -> game.GuessAnswer(x)),
+				new CommandEndGame("end", (x) -> game.EndGame()),
+				new CommandHelpGame("gamehelp", (x) -> game.GetHelp())};
 		
 	 	
 		containerGameCommands.AddSetOfCommands(gameCommands);
 	}
 	
 	private void UpdateGame(int length) {
-		game = new Game(length);
+		game = new StringGuessGame(length);
 		UpdateContainer();
 	}
 }
