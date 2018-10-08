@@ -1,8 +1,6 @@
 package main.Commands;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import main.ICommand;
 import main.ResultInformation;
 import main.ResultState;

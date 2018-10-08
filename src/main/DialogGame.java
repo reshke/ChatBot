@@ -1,9 +1,7 @@
 package main;
 import main.Commands.CommandContainer;
 import main.Commands.CommandEndGame;
-import main.Commands.CommandGamesList;
 import main.Commands.CommandGuess;
-import main.Commands.CommandHelp;
 import main.Commands.CommandHelpGame;
 import main.Commands.CommandStart;
 import main.Games.StringGuessGame;

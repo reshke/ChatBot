@@ -1,9 +1,5 @@
 package main;
 
-@FunctionalInterface
-interface Function<T1, T2, T3> {
-	public T3 apply(T1 left, T2 right);
-}
 
 public class CommandPostQuery implements ICommand {
 
@@ -40,3 +36,7 @@ public class CommandPostQuery implements ICommand {
 	}
 }
 
+@FunctionalInterface
+interface Function<T1, T2, T3> {
+	public T3 apply(T1 left, T2 right);
+}
