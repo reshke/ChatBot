@@ -1,7 +1,7 @@
 package main;
 
 public enum ResultState {
-	Success,
-	Unknowm,
-	WrongArguments
+	SUCCESS,
+	UNKNOWN,
+	WRONG_ARGUMENTS
 }

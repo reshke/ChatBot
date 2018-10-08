@@ -15,25 +15,25 @@ public class CommandGamesList implements ICommand {
 		this.name = name;
 	}
 	
-	private File GetHelpFile(){
+	private File getHelpFile(){
 		String path = new File("").getAbsolutePath();
 		String fullPath = path + "\\src\\main\\data\\";
 		return new File(fullPath, "gamesList.txt");
 	}
 	
 	@Override
-	public String GetCommandName() {
+	public String getCommandName() {
 		// TODO Auto-generated method stub
 		return name;
 	}
 
 	@Override
-	public String ExecuteCommand(String[] args) {
+	public String executeCommand(String[] args) {
 		// TODO Auto-generated method stub
 		
 		FileReader gamesListFile = null;
 		try {
-			gamesListFile = new FileReader(GetHelpFile());
+			gamesListFile = new FileReader(getHelpFile());
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

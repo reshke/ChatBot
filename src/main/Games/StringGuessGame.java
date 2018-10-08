@@ -10,7 +10,7 @@ import main.RandomGenerator;
 
 
 public class StringGuessGame implements IGame {
-	public GameState gameState;// = GameState.NotStarted;
+	private GameState gameState;// = GameState.NotStarted;
 	private final String dataString;
 	private final int dataStringLenght;
 	private final int onesCount[];
@@ -22,86 +22,79 @@ public class StringGuessGame implements IGame {
 		}
 	}
 
+	private GameState getGameState() {
+		return gameState;
+	}
+	
 	public StringGuessGame(int lenght) {
-		gameState = GameState.NotStarted;
+		gameState = GameState.NOT_STARTED;
 		random = new RandomGenerator();
-		dataString = random.GenerateRandomString(lenght);
+		dataString = random.generateRandomString(lenght);
 		dataStringLenght = lenght;
 		onesCount = new int[lenght + 1];
 		calculatePrefixSums();
 	}
 	
 	
-	
 	@Override
-	public IGame StartGame() {
-		gameState = GameState.Running;
-		// TOD O Auto-generated method stub
+	public IGame startGame() {
+		gameState = GameState.RUNNING;
 		return null;
 	}
 
 	@Override
-	public void EndGame() {
-		// TODO Auto-generated method stub
-		if (gameState == GameState.Over)
+	public void endGame() {
+		if (gameState == GameState.OVER)
 			throw new UnsupportedOperationException("Game was already ended!");
-			
-		gameState = GameState.Over;
+		gameState = GameState.OVER;
 	}
 
 	@Override
-	public void PauseGame() {
-		// TODO Auto-generated method stub
-		gameState = GameState.Paused;
+	public void pauseGame() {
+		gameState = GameState.PAUSED;
 	}
 
 	@Override
-	public Boolean GuessAnswer(String query) {
-		// TODO Auto-generated method stub
+	public Boolean guessAnswer(String query) {
 		return dataString.equals(query);
 	}
 
 	@Override
-	public int PostQuery(int leftBound, int rightBound) {
-		// TODO Auto-generated method stub
-		
+	public int postQuery(int leftBound, int rightBound) {
 		if (rightBound < leftBound || leftBound < 1 || rightBound > dataString.length())
 			throw new IllegalArgumentException("Query borders should satisfy following conditionts:\n"
 					+ " 1 <= leftBorber <= rightBorder <= string length ");
 		
-		if (random.GenerateRandomBoolean())
+		if (random.generateRandomBoolean())
 			return onesCount[rightBound] - onesCount[leftBound - 1];
 		else
-			return random.GenerateRandomInt(rightBound - leftBound + 1);
+			return random.generateRandomInt(rightBound - leftBound + 1);
 		
 	}
 	
 
-	private static File GetHelpFile(){
+	private static File getHelpFile(){
 		String path = new File("").getAbsolutePath();
 		String fullPath = path + "\\src\\main\\data\\";
 		return new File(fullPath, "stringGuessHelp.txt");
 	}
 	
 	@Override
-	public String GetHelp() {
-		// TODO Auto-generated method stub
+	public String getHelp() {
 		FileReader helpFile = null;
 		try {
-			helpFile = new FileReader(GetHelpFile());
+			helpFile = new FileReader(getHelpFile());
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		StringBuilder data = new StringBuilder();
-		int c;
+		int charCode;
         try {
-			while((c=helpFile.read())!=-1){
-			    data.append((char)c);
+			while((charCode=helpFile.read())!=-1){
+			    data.append((char)charCode);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
         

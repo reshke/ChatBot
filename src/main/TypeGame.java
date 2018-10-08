@@ -1,5 +1,5 @@
 package main;
 
 public enum TypeGame {
-	GuessString
+	GUESS_STRING
 }

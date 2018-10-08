@@ -1,9 +1,8 @@
 package main;
 
 public class Message {
-	Boolean author;
-	
-	String data;
+	public final Boolean author;
+	public final String data;
 	
 	public Message(Boolean author,  String data) {
 		this.author = author;

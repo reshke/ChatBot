@@ -14,7 +14,7 @@ public class CommandSwitchGame implements ICommand {
 	static
 	{
 		stringConformity = new HashMap<String, TypeGame>();
-		stringConformity.put("guessGame", TypeGame.GuessString);
+		stringConformity.put("guessGame", TypeGame.GUESS_STRING);
 	}
 	
 	public CommandSwitchGame(String name, Consumer<TypeGame> function) {
@@ -23,12 +23,12 @@ public class CommandSwitchGame implements ICommand {
 	}
 	
 	@Override
-	public String GetCommandName() {
+	public String getCommandName() {
 		return name;
 	}
 
 	@Override
-	public String ExecuteCommand(String[] args) {
+	public String executeCommand(String[] args) {
 		if (args.length != 2)
 			throw new IllegalArgumentException("Count of arguments is not correct");
 		if (!stringConformity.containsKey(args[1]))

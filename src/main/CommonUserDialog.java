@@ -13,28 +13,28 @@ public class CommonUserDialog implements IDialog {
 	private ResultInformation previousAnswer;
 	
 	public CommonUserDialog() {
-		commandContainer.AddCommand(new CommandHelp("help"));
-		commandContainer.AddCommand(new CommandSwitchGame("switch", (x) -> SwitchGame(x)));
-		commandContainer.AddCommand(new CommandExitGame("exit", () -> ExitGame()));
-		commandContainer.AddCommand(new CommandGamesList("gamesList"));
+		commandContainer.addCommand(new CommandHelp("help"));
+		commandContainer.addCommand(new CommandSwitchGame("switch", (x) -> switchGame(x)));
+		commandContainer.addCommand(new CommandExitGame("exit", () -> exitGame()));
+		commandContainer.addCommand(new CommandGamesList("gamesList"));
 	}
 	
-	private void SwitchGame(TypeGame typeGame) {
+	private void switchGame(TypeGame typeGame) {
 		switch(typeGame) {
-		case GuessString: currentDialog = new DialogGame();
+		case GUESS_STRING: currentDialog = new DialogGame();
 						  break;
 		default: throw new IllegalArgumentException("Unknown game");
 		}
 	}
 	
 	private ResultInformation ExecuteQuery(String query) {
-		ResultInformation result = commandContainer.ExecuteQuery(query);
-		if (result.State != ResultState.Unknowm || currentDialog == null)
+		ResultInformation result = commandContainer.executeQuery(query);
+		if (result.state != ResultState.UNKNOWN || currentDialog == null)
 			return result;
-		return currentDialog.HandleQuery(query);
+		return currentDialog.handleQuery(query);
 	}
 	
-	private void ExitGame() {
+	private void exitGame() {
 		if (currentDialog == null)
 			throw new UnsupportedOperationException("Game is not chosen!");
 		currentDialog = null;
@@ -42,13 +42,13 @@ public class CommonUserDialog implements IDialog {
 	
 	
 	@Override
-	public ResultInformation HandleQuery(String query) {
+	public ResultInformation handleQuery(String query) {
 		previousAnswer = ExecuteQuery(query);
 		return previousAnswer;
 	}
 
 	@Override
-	public ResultInformation GetLastAnswer() {
+	public ResultInformation getLastAnswer() {
 		return previousAnswer;
 	}
 

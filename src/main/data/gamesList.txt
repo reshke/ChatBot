@@ -1,6 +1,6 @@
 
 realized games:
-String Guess Game: 
+String Guess Game(send 'switch guessGame' to start): 
 	to start this game type switch guessGame and then start (length)
 	The game is as follows:
 		the bot makes a line of zeros and units of length (length), 

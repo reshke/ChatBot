@@ -1,20 +1,20 @@
 package main;
 
 public class ResultInformation {
-	public final String Result;
-	public final String ErrorMessage;
-	public final ResultState State;
+	public final String result;
+	public final String errorMessage;
+	public final ResultState state;
 	public ResultInformation(String result, ResultState state)
 	{
-		if (state == ResultState.Success) {	
-			Result = result;
-			ErrorMessage = "";
+		if (state == ResultState.SUCCESS) {	
+			this.result = result;
+			errorMessage = "";
 		}
 		else {
-			ErrorMessage = result;
-			Result = "incorrect input";
+			errorMessage = result;
+			this.result = "incorrect input";
 		}
-		State = state;
+		this.state = state;
 	}
 	
 }

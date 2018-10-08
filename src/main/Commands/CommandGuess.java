@@ -16,12 +16,12 @@ public class CommandGuess implements ICommand {
 	
 	
 	@Override
-	public String GetCommandName() {
+	public String getCommandName() {
 		return name;
 	}
 
 	@Override
-	public String ExecuteCommand(String[] args) {
+	public String executeCommand(String[] args) {
 		if (args.length != 2)
 			throw new IllegalArgumentException("Count of arguments is not correct");
 		return function.apply(args[1])

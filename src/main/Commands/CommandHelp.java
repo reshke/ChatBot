@@ -14,27 +14,23 @@ public class CommandHelp implements ICommand {
 		this.name = name;
 	}
 	
-	private File GetHelpFile(){
+	private File getHelpFile(){
 		String path = new File("").getAbsolutePath();
 		String fullPath = path + "\\src\\main\\data\\";
 		return new File(fullPath, "help.txt");
 	}
 	
 	@Override
-	public String GetCommandName() {
-		// TODO Auto-generated method stub
+	public String getCommandName() {
 		return name;
 	}
 
 	@Override
-	public String ExecuteCommand(String[] args) {
-		// TODO Auto-generated method stub
-		
+	public String executeCommand(String[] args) {
 		FileReader helpFile = null;
 		try {
-			helpFile = new FileReader(GetHelpFile());
+			helpFile = new FileReader(getHelpFile());
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -45,7 +41,6 @@ public class CommandHelp implements ICommand {
 			    data.append((char)c);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
         

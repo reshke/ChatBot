@@ -6,52 +6,47 @@ import main.Commands.CommandHelpGame;
 import main.Commands.CommandStart;
 import main.Games.StringGuessGame;
 
-
-
-
 public class DialogGame implements IDialog {
 
 	private ResultInformation lastAnswer;
-	private CommandContainer containerGameCommands = new CommandContainer();
-	private CommandContainer containerCommonCommands = new CommandContainer();
+	private final CommandContainer containerGameCommands = new CommandContainer();
+	private final CommandContainer containerCommonCommands = new CommandContainer();
 	private StringGuessGame game;
 	
-	
 	@Override
-	public ResultInformation HandleQuery(String line) {
-		lastAnswer = containerCommonCommands.ExecuteQuery(line);
-		if (lastAnswer.State == ResultState.Unknowm)
-			lastAnswer = containerGameCommands.ExecuteQuery(line);
+	public ResultInformation handleQuery(String line) {
+		lastAnswer = containerCommonCommands.executeQuery(line);
+		if (lastAnswer.state == ResultState.UNKNOWN)
+			lastAnswer = containerGameCommands.executeQuery(line);
 		return lastAnswer;
 	}
 
 	@Override
-	public ResultInformation GetLastAnswer() {
+	public ResultInformation getLastAnswer() {
 		return lastAnswer;
 	}
 
 	public DialogGame() {
-		ICommand commonCommands[] = {new CommandHelpGame("gamehelp", (x) -> (new StringGuessGame(1).GetHelp())),
-				new CommandStart("start", x -> UpdateGame(x))};
+		ICommand commonCommands[] = {new CommandHelpGame("gamehelp", (x) -> (new StringGuessGame(1).getHelp())),
+				new CommandStart("start", x -> updateGame(x))};
 		
-		containerCommonCommands.AddSetOfCommands(commonCommands);
+		containerCommonCommands.addSetOfCommands(commonCommands);
 	}
 	
-	
-	private void UpdateContainer() {
-		containerGameCommands.Clear();
-		ICommand gameCommands[] = { new CommandPostQuery("ask", (x, y) -> game.PostQuery(x, y)),
-				new CommandGuess("guess", (x) -> game.GuessAnswer(x)),
-				new CommandEndGame("end", (x) -> game.EndGame()),
-				new CommandHelpGame("gamehelp", (x) -> game.GetHelp())};
+	private void updateContainer() {
+		containerGameCommands.clear();
+		ICommand gameCommands[] = { new CommandPostQuery("ask", (x, y) -> game.postQuery(x, y)),
+				new CommandGuess("guess", (x) -> game.guessAnswer(x)),
+				new CommandEndGame("end", (x) -> game.endGame()),
+				new CommandHelpGame("gamehelp", (x) -> game.getHelp())};
 		
 	 	
-		containerGameCommands.AddSetOfCommands(gameCommands);
+		containerGameCommands.addSetOfCommands(gameCommands);
 	}
 	
-	private void UpdateGame(int length) {
+	private void updateGame(int length) {
 		game = new StringGuessGame(length);
-		UpdateContainer();
+		updateContainer();
 	}
 }
 

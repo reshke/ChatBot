@@ -24,7 +24,7 @@ class StringGameTests extends TestCase {
 	 */
 	@AfterEach
 	void tearDownStringGuessGame() throws Exception {
-		game.EndGame();
+		game.endGame();
 	}
 
 	@Test

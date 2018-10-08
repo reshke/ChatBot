@@ -14,14 +14,14 @@ public class Bot {
 		dialogManager.StartGameDialog(0);
 		while (true) {
 			String query = reader.ReadQuery();
-			ResultInformation result = dialogManager.HandleQuery(0, query);
+			ResultInformation result = dialogManager.handleQuery(0, query);
 			
-			if (result.State == ResultState.Success)
-				writer.WriteLine(result.Result);
-			if (result.State == ResultState.Unknowm)
+			if (result.state == ResultState.SUCCESS)
+				writer.WriteLine(result.result);
+			if (result.state == ResultState.UNKNOWN)
 				writer.WriteLine(" do not understand");
-			if (result.State == ResultState.WrongArguments)
-				writer.WriteLine(result.ErrorMessage);
+			if (result.state == ResultState.WRONG_ARGUMENTS)
+				writer.WriteLine(result.errorMessage);
 		}
 	}
 }

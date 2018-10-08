@@ -1,6 +1,6 @@
 package main;
 
 public interface ICommand {
-	public String GetCommandName();
-	public String ExecuteCommand(String[] args);
+	public String getCommandName();
+	public String executeCommand(String[] args);
 }

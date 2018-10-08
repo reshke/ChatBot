@@ -12,41 +12,41 @@ public class CommandContainer {
 	
 	public CommandContainer(List<ICommand> commands) {
 		for (ICommand command: commands) 
-			commandContainer.put(command.GetCommandName(), command);
+			commandContainer.put(command.getCommandName(), command);
 	}
 	
 	public CommandContainer() {
 	}
 	
-	public void AddCommand(ICommand command) {
-		commandContainer.put(command.GetCommandName(), command);
+	public void addCommand(ICommand command) {
+		commandContainer.put(command.getCommandName(), command);
 	}
 	
-	public void AddSetOfCommands(ICommand commands[]){
+	public void addSetOfCommands(ICommand commands[]){
 		for (ICommand command : commands)
-			AddCommand(command);
+			addCommand(command);
 	}
 	
-	public void Clear() {
+	public void clear() {
 		commandContainer.clear();
 	}
 	
-	public ResultInformation ExecuteQuery(String query) {
+	public ResultInformation executeQuery(String query) {
 		String[] argumentsQuery = query.split(" ");
 		if (argumentsQuery.length == 0)
-			return new ResultInformation("No command", ResultState.Unknowm);
+			return new ResultInformation("No command", ResultState.UNKNOWN);
 		String nameCommand = argumentsQuery[0];
 		if (!commandContainer.containsKey(nameCommand))
-			return new ResultInformation("Unknown command! Read /help!", ResultState.Unknowm);
+			return new ResultInformation("Unknown command! Read /help!", ResultState.UNKNOWN);
 		ICommand command = commandContainer.get(nameCommand);
 		try 
 		{
-			String result = command.ExecuteCommand(argumentsQuery);
-			return new ResultInformation(result, ResultState.Success);
+			String result = command.executeCommand(argumentsQuery);
+			return new ResultInformation(result, ResultState.SUCCESS);
 		}
 		catch (IllegalArgumentException | UnsupportedOperationException exception)
 		{
-			return new ResultInformation(exception.getMessage(), ResultState.WrongArguments);
+			return new ResultInformation(exception.getMessage(), ResultState.WRONG_ARGUMENTS);
 		}
 	}
 	

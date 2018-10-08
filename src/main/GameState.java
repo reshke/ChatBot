@@ -1,8 +1,8 @@
 package main;
 
 public enum GameState {
-	Running,
-	Over,
-	Paused,
-	NotStarted
+	RUNNING,
+	OVER,
+	PAUSED,
+	NOT_STARTED
 }
