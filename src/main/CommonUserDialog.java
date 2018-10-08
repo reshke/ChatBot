@@ -1,10 +1,10 @@
-package main.Commands;
+package main;
 
-import main.DialogGame;
-import main.IDialog;
-import main.ResultInformation;
-import main.ResultState;
-import main.TypeGame;
+import main.Commands.CommandContainer;
+import main.Commands.CommandExitGame;
+import main.Commands.CommandGamesList;
+import main.Commands.CommandHelp;
+import main.Commands.CommandSwitchGame;
 import main.Games.StringGuessGame;
 
 public class CommonUserDialog implements IDialog {
@@ -16,6 +16,7 @@ public class CommonUserDialog implements IDialog {
 		commandContainer.AddCommand(new CommandHelp("help"));
 		commandContainer.AddCommand(new CommandSwitchGame("switch", (x) -> SwitchGame(x)));
 		commandContainer.AddCommand(new CommandExitGame("exit", () -> ExitGame()));
+		commandContainer.AddCommand(new CommandGamesList("gamesList"));
 	}
 	
 	private void SwitchGame(TypeGame typeGame) {

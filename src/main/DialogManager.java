@@ -2,8 +2,6 @@ package main;
 import java.util.HashMap;
 import java.util.Map;
 
-import main.Commands.CommonUserDialog;
-
 public class DialogManager {
 	
 	private Map<Integer, IDialog> dialogs = new HashMap<Integer, IDialog>();

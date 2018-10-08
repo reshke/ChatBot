@@ -1,12 +1,15 @@
 package main;
 
+import main.IO.Reader;
+import main.IO.Writer;
+
 public class Bot {
 
 	private final Reader reader = new Reader();
 	private final Writer writer = new Writer();
 	
 	public void StartBot() {
-		writer.WriteLine("Welcome! I'm chat bot! try h or help to see help");
+		writer.WriteLine("Welcome! I'm chat bot! help to see help");
 		DialogManager dialogManager = new DialogManager();
 		dialogManager.StartGameDialog(0);
 		while (true) {
@@ -19,8 +22,6 @@ public class Bot {
 				writer.WriteLine(" do not understand");
 			if (result.State == ResultState.WrongArguments)
 				writer.WriteLine(result.ErrorMessage);
-		
-			// Answer should work with bot dialog.
 		}
 	}
 }

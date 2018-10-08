@@ -1,6 +1,7 @@
 package main;
 import main.Commands.CommandContainer;
 import main.Commands.CommandEndGame;
+import main.Commands.CommandGamesList;
 import main.Commands.CommandGuess;
 import main.Commands.CommandHelp;
 import main.Commands.CommandHelpGame;
@@ -32,7 +33,7 @@ public class DialogGame implements IDialog {
 	}
 
 	public DialogGame() {
-		ICommand commonCommands[] = {new CommandHelp("help"), new CommandHelpGame("gamehelp", (x) -> (new StringGuessGame(1).GetHelp())),
+		ICommand commonCommands[] = {new CommandHelpGame("gamehelp", (x) -> (new StringGuessGame(1).GetHelp())),
 				new CommandStart("start", x -> UpdateGame(x))};
 		
 		containerCommonCommands.AddSetOfCommands(commonCommands);

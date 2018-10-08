@@ -1,0 +1,12 @@
+
+realized games:
+String Guess Game: 
+	to start this game type switch guessGame and then start (length)
+	The game is as follows:
+		the bot makes a line of zeros and units of length (length), 
+		after which you can ask the bot about the segment 
+		of this line with indices from a to b,
+		in response to which it will return either the number of ones on this segment 
+		or any number from the segment from 0 to a - b + 1.
+		Your task for the minimum number of moves to guess the string.
+	

@@ -1,5 +1,4 @@
 package main.Commands;
-import java.io.File;
 import java.util.function.Function;
 
 import main.ICommand;

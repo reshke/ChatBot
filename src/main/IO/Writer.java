@@ -1,4 +1,4 @@
-package main;
+package main.IO;
 
 public class Writer implements IWriter {
 
