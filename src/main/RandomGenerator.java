@@ -2,7 +2,7 @@ package main;
 import java.util.Random;
 
 
-public class RandomGenerator {
+public class RandomGenerator implements IRandomGenerator {
 	private final Random random = new Random();
 	
 	public String generateRandomString(int lenght){

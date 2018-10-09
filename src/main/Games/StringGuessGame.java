@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import main.GameState;
 import main.IGame;
+import main.IRandomGenerator;
 import main.RandomGenerator;
 
 
@@ -14,7 +15,7 @@ public class StringGuessGame implements IGame {
 	private final String dataString;
 	private final int dataStringLenght;
 	private final int onesCount[];
-	private final RandomGenerator random;
+	private final IRandomGenerator generator;
 	
 	private void calculatePrefixSums() {
 		for (int i = 0; i < dataStringLenght; i++){
@@ -26,15 +27,15 @@ public class StringGuessGame implements IGame {
 		return gameState;
 	}
 	
-	public StringGuessGame(int lenght) {
+	public StringGuessGame(int lenght, IRandomGenerator generator) {
 		if (lenght <= 0)
 			throw new IllegalArgumentException("Length of line should be positive number!");
 		if (lenght > 100000)
 			throw new IllegalArgumentException("Length of line is too big!");
 		
 		gameState = GameState.NOT_STARTED;
-		random = new RandomGenerator();
-		dataString = random.generateRandomString(lenght);
+		this.generator = generator;
+		dataString = generator.generateRandomString(lenght);
 		dataStringLenght = lenght;
 		onesCount = new int[lenght + 1];
 		calculatePrefixSums();
@@ -70,10 +71,10 @@ public class StringGuessGame implements IGame {
 			throw new IllegalArgumentException("Query borders should satisfy following conditionts:\n"
 					+ " 1 <= leftBorber <= rightBorder <= string length ");
 		
-		if (random.generateRandomBoolean())
+		if (generator.generateRandomBoolean())
 			return onesCount[rightBound] - onesCount[leftBound - 1];
 		else
-			return random.generateRandomInt(rightBound - leftBound + 1);
+			return generator.generateRandomInt(rightBound - leftBound + 1);
 		
 	}
 	

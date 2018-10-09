@@ -3,35 +3,72 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import main.GameState;
+import main.IRandomGenerator;
+import main.RandomGenerator;
 import main.Games.StringGuessGame;
 
+
+class MockRandomGenerator implements IRandomGenerator{
+	public Boolean randomBoolean;
+	public String randomString; 
+	public Integer randomInt;
+	
+	public MockRandomGenerator( Boolean randomBoolean) {
+		this.randomBoolean = randomBoolean;
+	}
+	public MockRandomGenerator(String randomString) {
+		this.randomString = randomString;
+	}
+	public MockRandomGenerator(Integer randomInt) {
+		this.randomInt = randomInt;
+	}
+
+	@Override
+	public String generateRandomString(int lenght) {
+		// TODO Auto-generated method stub
+		return randomString;
+	}
+
+	@Override
+	public Boolean generateRandomBoolean() {
+		// TODO Auto-generated method stub
+		return randomBoolean;
+	}
+
+	@Override
+	public Integer generateRandomInt(int bound) {
+		// TODO Auto-generated method stub
+		return randomInt;
+	}
+	
+}
 
 public class StringGameTests {
 
 	@Test
 	public void testWinningGameOneSymbol() {
-		StringGuessGame game = new StringGuessGame(1);
+		StringGuessGame game = new StringGuessGame(1, new MockRandomGenerator("0"));
 		
 		game.startGame();
-		Boolean firstStringResult = game.guessAnswer("0");
-		Boolean secondStringResult = game.guessAnswer("1");
+		Boolean firstAssert = game.guessAnswer("0");
+		Boolean secondAssert = game.guessAnswer("1");
 		
-		assertNotSame(firstStringResult, secondStringResult);
+		
+		assertTrue(firstAssert);
+		assertFalse(secondAssert);
 	}
 
 	@Test
 	public void testOneWinnerGameTwoSymbol() {
-		StringGuessGame game = new StringGuessGame(2);
-		Integer countWinnerWords = 0;
-		Integer expectedCountWords = 1;
-		String[] words = {"00", "01", "10", "11"};
+		StringGuessGame game = new StringGuessGame(2, new MockRandomGenerator("01"));
 		
 		game.startGame();
-		for (String word: words) {
-			countWinnerWords += game.guessAnswer(word) ? 1 : 0;
-		}
+		Boolean firstAssert = game.guessAnswer("01");
+		Boolean secondAssert = game.guessAnswer("10");
 		
-		assertSame(expectedCountWords, countWinnerWords);
+		
+		assertTrue(firstAssert);
+		assertFalse(secondAssert);
 	}
 	
 	@Test
