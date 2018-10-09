@@ -2,28 +2,29 @@ package main.Commands;
 import java.util.HashMap;
 import java.util.List;
 import main.ICommand;
+import main.ICommandContainer;
+import main.IResult;
 import main.ResultInformation;
 import main.ResultState;
 
 //import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class CommandContainer {
-	private final HashMap<String, ICommand> commandContainer = new HashMap<String, ICommand>();
+public class CommandContainer<TValue> implements ICommandContainer<TValue> {
+	private final HashMap<TValue, ICommand<TValue>> commandContainer = new HashMap<TValue, ICommand<TValue>>();
 	
-	public CommandContainer(List<ICommand> commands) {
-		for (ICommand command: commands) 
-			commandContainer.put(command.getCommandName(), command);
+	public CommandContainer(List<ICommand<TValue>> commands) {
+		for (ICommand<TValue> command: commands) 
+			commandContainer.put(command.getKey(), command);
 	}
 	
-	public CommandContainer() {
+	public CommandContainer() {}
+	
+	public void addCommand(ICommand<TValue> command) {
+		commandContainer.put(command.getKey(), command);
 	}
 	
-	public void addCommand(ICommand command) {
-		commandContainer.put(command.getCommandName(), command);
-	}
-	
-	public void addSetOfCommands(ICommand commands[]){
-		for (ICommand command : commands)
+	public void addSetOfCommands(ICommand<TValue> commands[]){
+		for (ICommand<TValue> command : commands)
 			addCommand(command);
 	}
 	
@@ -48,6 +49,13 @@ public class CommandContainer {
 		{
 			return new ResultInformation(exception.getMessage(), ResultState.WRONG_ARGUMENTS);
 		}
+	}
+	
+	
+
+	@Override
+	public IResult executeCommand(TValue value, String[] args) {
+		throw new NotImplementedException();
 	}
 	
 }

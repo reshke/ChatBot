@@ -28,7 +28,7 @@ public class StringGameTests {
 		
 		game.startGame();
 		for (String word: words) {
-			countWinnerWords = game.guessAnswer(word) ? 1 : 0;
+			countWinnerWords += game.guessAnswer(word) ? 1 : 0;
 		}
 		
 		assertSame(expectedCountWords, countWinnerWords);

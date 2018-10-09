@@ -6,9 +6,9 @@ import main.Commands.CommandGamesList;
 import main.Commands.CommandHelp;
 import main.Commands.CommandSwitchGame;
 
-public class CommonUserDialog implements IDialog {
-	private IDialog currentDialog;
-	private final CommandContainer commandContainer = new CommandContainer();
+public class CommonUserDialog implements IDialogCommon {
+	private IDialogGame currentGameDialog;
+	private final ICommandContainer<String> commandContainer = new CommandContainer<String>();
 	private ResultInformation previousAnswer;
 	
 	public CommonUserDialog() {
@@ -18,31 +18,32 @@ public class CommonUserDialog implements IDialog {
 		commandContainer.addCommand(new CommandGamesList("gamesList"));
 	}
 	
-	private void switchGame(TypeGame typeGame) {
+	
+	public void switchGame(TypeGame typeGame) {
 		switch(typeGame) {
-		case GUESS_STRING: currentDialog = new DialogGame();
+		case GUESS_STRING: currentGameDialog = new DialogGame();
 						  break;
 		default: throw new IllegalArgumentException("Unknown game");
 		}
 	}
 	
-	private ResultInformation ExecuteQuery(String query) {
+	private ResultInformation executeQuery(String query) {
 		ResultInformation result = commandContainer.executeQuery(query);
-		if (result.state != ResultState.UNKNOWN || currentDialog == null)
+		if (result.state != ResultState.UNKNOWN || currentGameDialog == null)
 			return result;
-		return currentDialog.handleQuery(query);
+		return currentGameDialog.handleQuery(query);
 	}
 	
 	private void exitGame() {
-		if (currentDialog == null)
+		if (currentGameDialog == null)
 			throw new UnsupportedOperationException("Game is not chosen!");
-		currentDialog = null;
+		currentGameDialog = null;
 	}
 	
 	
 	@Override
 	public ResultInformation handleQuery(String query) {
-		previousAnswer = ExecuteQuery(query);
+		previousAnswer = executeQuery(query);
 		return previousAnswer;
 	}
 

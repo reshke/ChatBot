@@ -2,11 +2,11 @@ package main;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DialogManager {
+public class DialogManager implements IDialogManager {
 	
-	private final Map<Integer, IDialog> dialogs = new HashMap<Integer, IDialog>();
+	private final Map<Integer, IDialogCommon> dialogs = new HashMap<Integer, IDialogCommon>();
 	
-	public void StartGameDialog(int userId){
+	public void StartDialog(int userId){
 		CommonUserDialog dialog = new CommonUserDialog();
 		dialogs.put(userId, dialog);
 	}

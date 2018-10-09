@@ -6,7 +6,7 @@ import main.Commands.CommandHelpGame;
 import main.Commands.CommandStart;
 import main.Games.StringGuessGame;
 
-public class DialogGame implements IDialog {
+public class DialogGame implements IDialogGame {
 
 	private ResultInformation lastAnswer;
 	private final CommandContainer containerGameCommands = new CommandContainer();
@@ -38,7 +38,7 @@ public class DialogGame implements IDialog {
 		ICommand gameCommands[] = { new CommandPostQuery("ask", (x, y) -> game.postQuery(x, y)),
 				new CommandGuess("guess", (x) -> game.guessAnswer(x)),
 				new CommandEndGame("end", (x) -> game.endGame()),
-				new CommandHelpGame("gamehelp", (x) -> game.getHelp())};
+				new CommandHelpGame("gamehelp", (x) -> getHelp())};
 		
 	 	
 		containerGameCommands.addSetOfCommands(gameCommands);
@@ -47,6 +47,24 @@ public class DialogGame implements IDialog {
 	private void updateGame(int length) {
 		game = new StringGuessGame(length);
 		updateContainer();
+	}
+
+	@Override
+	public String getHelp() {
+		// TODO Auto-generated method stub
+		return game.getHelp();
+	}
+
+	@Override
+	public ResultInformation startGame(String[] args) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResultInformation addRequest(String[] args) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
 
