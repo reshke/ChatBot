@@ -22,11 +22,16 @@ public class StringGuessGame implements IGame {
 		}
 	}
 
-	private GameState getGameState() {
+	public GameState getGameState() {
 		return gameState;
 	}
 	
 	public StringGuessGame(int lenght) {
+		if (lenght <= 0)
+			throw new IllegalArgumentException("Length of line should be positive number!");
+		if (lenght > 100000)
+			throw new IllegalArgumentException("Length of line is too big!");
+		
 		gameState = GameState.NOT_STARTED;
 		random = new RandomGenerator();
 		dataString = random.generateRandomString(lenght);

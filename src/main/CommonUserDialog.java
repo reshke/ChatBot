@@ -5,7 +5,6 @@ import main.Commands.CommandExitGame;
 import main.Commands.CommandGamesList;
 import main.Commands.CommandHelp;
 import main.Commands.CommandSwitchGame;
-import main.Games.StringGuessGame;
 
 public class CommonUserDialog implements IDialog {
 	private IDialog currentDialog;
