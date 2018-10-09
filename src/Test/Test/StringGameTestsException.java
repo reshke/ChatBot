@@ -1,11 +1,7 @@
 package Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
-
 import main.Games.StringGuessGame;
 
 
@@ -14,6 +10,7 @@ public class StringGameTestsException {
 	@Test
 	public void testZeroLengthLineException() {
 		try {
+			@SuppressWarnings("unused")
 			StringGuessGame game = new StringGuessGame(0);
 		}
 		catch(IllegalArgumentException e) {
@@ -25,6 +22,7 @@ public class StringGameTestsException {
 	@Test
 	public void testTooBigLineException() {
 		try {
+			@SuppressWarnings("unused")
 			StringGuessGame game = new StringGuessGame(100000000);
 		}
 		catch(IllegalArgumentException e) {
