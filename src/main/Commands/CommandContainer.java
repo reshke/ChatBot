@@ -7,8 +7,6 @@ import main.IResult;
 import main.ResultInformation;
 import main.ResultState;
 
-//import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public class CommandContainer<TValue> implements ICommandContainer<TValue> {
 	private final HashMap<TValue, ICommand<TValue>> commandContainer = new HashMap<TValue, ICommand<TValue>>();
 	
@@ -32,30 +30,21 @@ public class CommandContainer<TValue> implements ICommandContainer<TValue> {
 		commandContainer.clear();
 	}
 	
-	public ResultInformation executeQuery(String query) {
-		String[] argumentsQuery = query.split(" ");
-		if (argumentsQuery.length == 0)
-			return new ResultInformation("No command", ResultState.UNKNOWN);
-		String nameCommand = argumentsQuery[0];
-		if (!commandContainer.containsKey(nameCommand))
-			return new ResultInformation("Unknown command! Read /help!", ResultState.UNKNOWN);
-		ICommand command = commandContainer.get(nameCommand);
-		try 
-		{
-			String result = command.executeCommand(argumentsQuery);
-			return new ResultInformation(result, ResultState.SUCCESS);
-		}
-		catch (IllegalArgumentException | UnsupportedOperationException exception)
-		{
-			return new ResultInformation(exception.getMessage(), ResultState.WRONG_ARGUMENTS);
-		}
-	}
-	
-	
-
 	@Override
 	public IResult executeCommand(TValue value, String[] args) {
-		throw new NotImplementedException();
+		if (!commandContainer.containsKey(value))
+			return new ResultInformation("Unknown command! Read /help!", ResultState.UNKNOWN);
+		ICommand<TValue> command = commandContainer.get(value);
+		try {
+			String result = command.executeCommand(args);
+			return new ResultInformation(result, ResultState.SUCCESS);
+		}
+		catch (IllegalArgumentException exception) {
+			return new ResultInformation(exception.getMessage(), ResultState.WRONG_ARGUMENTS);
+		}
+		catch (UnsupportedOperationException exception) {
+			return new ResultInformation(exception.getMessage(), ResultState.WRONG_ARGUMENTS);
+		}
 	}
 	
 }

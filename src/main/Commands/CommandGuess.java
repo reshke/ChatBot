@@ -3,15 +3,16 @@ import java.util.function.Function;
 
 import main.ICommand;
 
-public class CommandGuess implements ICommand {
+public class CommandGuess<TKey> implements ICommand<TKey> {
 
 	private final String name;
 	private final Function<String, Boolean> function;
+	private final TKey key;
 	
-	
-	public CommandGuess(String name, Function<String, Boolean> function) {
+	public CommandGuess(TKey key, String name, Function<String, Boolean> function) {
 		this.name = name;
 		this.function = function;
+		this.key = key;
 	}
 	
 	
@@ -27,6 +28,12 @@ public class CommandGuess implements ICommand {
 		return function.apply(args[1])
 				? "You guessed right!"
 				: "You are wrong!";
+	}
+
+
+	@Override
+	public TKey getKey() {
+		return key;
 	}
 
 }

@@ -8,63 +8,56 @@ import main.Games.StringGuessGame;
 
 public class DialogGame implements IDialogGame {
 
-	private ResultInformation lastAnswer;
-	private final CommandContainer containerGameCommands = new CommandContainer();
-	private final CommandContainer containerCommonCommands = new CommandContainer();
-	private StringGuessGame game;
+	private IResult lastAnswer;
+	private final ICommandContainer<TypeAction> containerGameCommands = new CommandContainer<TypeAction>();
+	private final ICommandContainer<TypeAction> containerCommonCommands = new CommandContainer<TypeAction>();
+	private IGame game;
 	
-	@Override
-	public ResultInformation handleQuery(String line) {
-		lastAnswer = containerCommonCommands.executeQuery(line);
-		if (lastAnswer.state == ResultState.UNKNOWN)
-			lastAnswer = containerGameCommands.executeQuery(line);
-		return lastAnswer;
-	}
-
-	@Override
-	public ResultInformation getLastAnswer() {
-		return lastAnswer;
-	}
-
-	public DialogGame() {
-		ICommand commonCommands[] = {new CommandHelpGame("gamehelp", (x) -> (new StringGuessGame(1).getHelp())),
-				new CommandStart("start", x -> updateGame(x))};
-		
-		containerCommonCommands.addSetOfCommands(commonCommands);
+	
+	public DialogGame(IGame game) {
+		this.game = game;
 	}
 	
 	private void updateContainer() {
 		containerGameCommands.clear();
-		ICommand gameCommands[] = { new CommandPostQuery("ask", (x, y) -> game.postQuery(x, y)),
-				new CommandGuess("guess", (x) -> game.guessAnswer(x)),
-				new CommandEndGame("end", (x) -> game.endGame()),
-				new CommandHelpGame("gamehelp", (x) -> getHelp())};
-		
-	 	
-		containerGameCommands.addSetOfCommands(gameCommands);
+		ICommand gameCommands[] = { new CommandPostQuery<TypeAction>(TypeAction.ASK, "Ask", (x, y) -> game.postQuery(x, y)),
+				new CommandGuess<TypeAction>(TypeAction.ANSWER, "Guess", (x) -> game.guessAnswer(x)),
+				new CommandEndGame<TypeAction>(TypeAction.END, "End", (x) -> game.endGame())};
+		for (ICommand<TypeAction> command: gameCommands) {
+			containerCommonCommands.addCommand(command);
+		}
 	}
+
 	
-	private void updateGame(int length) {
-		game = new StringGuessGame(length);
-		updateContainer();
+
+	@Override
+	public IResult addRequest(String[] args) {
+		return containerGameCommands.executeCommand(TypeAction.ASK, args);
 	}
 
 	@Override
-	public String getHelp() {
-		// TODO Auto-generated method stub
-		return game.getHelp();
+	public IResult getLastAnswer(String[] args) {
+		return lastAnswer;
 	}
 
 	@Override
-	public ResultInformation startGame(String[] args) {
-		// TODO Auto-generated method stub
-		return null;
+	public IResult getHelp(String[] args) {
+		return containerCommonCommands.executeCommand(TypeAction.HELP, args);
 	}
 
 	@Override
-	public ResultInformation addRequest(String[] args) {
-		// TODO Auto-generated method stub
-		return null;
+	public IResult getState(String[] args) {
+		return containerGameCommands.executeCommand(TypeAction.STATE, args);
+	}
+
+	@Override
+	public IResult stopGame(String[] args) {
+		return containerCommonCommands.executeCommand(TypeAction.END, args);
+	}
+
+	@Override
+	public IResult sendAnswer(String[] args) {
+		return containerGameCommands.executeCommand(TypeAction.ANSWER, args);
 	}
 }
 

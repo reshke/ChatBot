@@ -3,13 +3,15 @@ import java.util.function.Function;
 
 import main.ICommand;
 
-public class CommandHelpGame implements ICommand {
+public class CommandHelpGame<TKey> implements ICommand<TKey> {
 	private final String name;
 	private final Function<String, String> function;
+	private final TKey key;
 	
-	public CommandHelpGame(String name, Function<String, String> function) {
+	public CommandHelpGame(TKey key, String name, Function<String, String> function) {
 		this.name = name;
 		this.function = function;
+		this.key = key;
 	}
 	
 	@Override
@@ -30,6 +32,11 @@ public class CommandHelpGame implements ICommand {
 		{
 			throw e;
 		}
+	}
+
+	@Override
+	public TKey getKey() {
+		return key;
 	}
 
 }

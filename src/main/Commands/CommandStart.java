@@ -3,15 +3,16 @@ import java.util.function.Consumer;
 
 import main.ICommand;
 
-public class CommandStart implements ICommand {
+public class CommandStart<TKey> implements ICommand<TKey> {
 
 	private final Consumer<Integer> function; 
 	private final String name;  
+	private final TKey key;
 	
-	
-	public CommandStart(String name, Consumer<Integer> function) {
+	public CommandStart(TKey key, String name, Consumer<Integer> function) {
 		this.function = function;
 		this.name = name;
+		this.key = key;
 	}
 	
 	@Override
@@ -35,6 +36,11 @@ public class CommandStart implements ICommand {
 		function.accept(length);
 		return "Game is started!";
 	
+	}
+
+	@Override
+	public TKey getKey() {
+		return key;
 	}
 	
 }

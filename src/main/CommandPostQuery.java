@@ -1,11 +1,11 @@
 package main;
 
 
-public class CommandPostQuery implements ICommand {
+public class CommandPostQuery<TKey> implements ICommand<TKey> {
 
 	private final String name;
-	private final Function<Integer, Integer, Integer> function;
-	
+	private final TwoArgsFunction<Integer, Integer, Integer> function;
+	private final TKey key;
 	
 	@Override
 	public String getCommandName() {
@@ -30,13 +30,19 @@ public class CommandPostQuery implements ICommand {
 		return Integer.toString(function.apply(left, right));
 	}
 	
-	public CommandPostQuery(String name, Function<Integer, Integer, Integer> executedFunction) {
+	public CommandPostQuery(TKey key, String name, TwoArgsFunction<Integer, Integer, Integer> executedFunction) {
 		function = executedFunction;
 		this.name = name;
+		this.key = key;
+	}
+
+	@Override
+	public TKey getKey() {
+		return key;
 	}
 }
 
 @FunctionalInterface
-interface Function<T1, T2, T3> {
+interface TwoArgsFunction<T1, T2, T3> {
 	public T3 apply(T1 left, T2 right);
 }

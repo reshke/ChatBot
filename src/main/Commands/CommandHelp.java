@@ -6,12 +6,14 @@ import java.io.IOException;
 
 import main.ICommand;
 
-public class CommandHelp implements ICommand {
+public class CommandHelp<TKey> implements ICommand<TKey> {
 	
 	private final String name;
+	private final TKey key;
 	
-	public CommandHelp(String name) {
+	public CommandHelp(TKey key, String name) {
 		this.name = name;
+		this.key = key;
 	}
 	
 	private File getHelpFile(){
@@ -45,6 +47,11 @@ public class CommandHelp implements ICommand {
 		} 
         
         return data.toString();
+	}
+
+	@Override
+	public TKey getKey() {
+		return key;
 	}
 
 }

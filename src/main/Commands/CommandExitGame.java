@@ -2,12 +2,15 @@ package main.Commands;
 
 import main.ICommand;
 
-public class CommandExitGame implements ICommand {
+public class CommandExitGame<TValue> implements ICommand<TValue> {
 	private final String name;
 	private final Procedure function;
-	public CommandExitGame(String name, Procedure function) {
+	private final TValue key;
+	
+	public CommandExitGame(TValue key, String name, Procedure function) {
 		this.name = name;
 		this.function = function;
+		this.key = key;
 	}
 	
 	@Override
@@ -23,9 +26,13 @@ public class CommandExitGame implements ICommand {
 		return "You exited game";
 	}
 	
+	@Override
+	public TValue getKey() {
+		return key;
+	}
+	
 	public interface Procedure {
 		void invoke();
 	}
-	
 }
 

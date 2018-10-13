@@ -6,8 +6,9 @@ import java.util.function.Consumer;
 import main.ICommand;
 import main.TypeGame;
 
-public class CommandSwitchGame implements ICommand {
+public class CommandSwitchGame<TKey> implements ICommand<TKey> {
 
+	private final TKey key;
 	private final String name;
 	private final Consumer<TypeGame> function;
 	private static final Map<String, TypeGame> stringConformity;
@@ -17,9 +18,10 @@ public class CommandSwitchGame implements ICommand {
 		stringConformity.put("guessGame", TypeGame.GUESS_STRING);
 	}
 	
-	public CommandSwitchGame(String name, Consumer<TypeGame> function) {
+	public CommandSwitchGame(TKey key, String name, Consumer<TypeGame> function) {
 		this.name = name;
 		this.function = function;
+		this.key = key;
 	}
 	
 	@Override
@@ -35,6 +37,11 @@ public class CommandSwitchGame implements ICommand {
 			throw new IllegalArgumentException("Unknown game name!");
 		function.accept(stringConformity.get(args[1]));
 		return "Game is changed!";
+	}
+
+	@Override
+	public TKey getKey() {
+		return key;
 	}
 
 }

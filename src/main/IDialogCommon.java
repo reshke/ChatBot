@@ -1,7 +1,7 @@
 package main;
 
 public interface IDialogCommon {
-	public ResultInformation handleQuery(String query);
-	public ResultInformation getLastAnswer();
+	public IResult handleQuery(String query);
+	public IResult getLastAnswer();
 	public void switchGame(TypeGame typeGame);
 }

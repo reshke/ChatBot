@@ -7,12 +7,14 @@ import java.io.IOException;
 
 import main.ICommand;
 
-public class CommandGamesList implements ICommand {
+public class CommandGamesList<TValue> implements ICommand<TValue> {
 
 	private final String name;
+	private final TValue key;
 	
-	public CommandGamesList(String name) {
+	public CommandGamesList(TValue key, String name) {
 		this.name = name;
+		this.key = key;
 	}
 	
 	private File getHelpFile(){
@@ -23,19 +25,15 @@ public class CommandGamesList implements ICommand {
 	
 	@Override
 	public String getCommandName() {
-		// TODO Auto-generated method stub
 		return name;
 	}
 
 	@Override
 	public String executeCommand(String[] args) {
-		// TODO Auto-generated method stub
-		
 		FileReader gamesListFile = null;
 		try {
 			gamesListFile = new FileReader(getHelpFile());
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -46,11 +44,15 @@ public class CommandGamesList implements ICommand {
 			    data.append((char)c);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
         
         return data.toString();
+	}
+
+	@Override
+	public TValue getKey() {
+		return key;
 	}
 
 }
