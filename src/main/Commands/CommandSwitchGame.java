@@ -16,6 +16,7 @@ public class CommandSwitchGame<TKey> implements ICommand<TKey> {
 	{
 		stringConformity = new HashMap<String, TypeGame>();
 		stringConformity.put("guessGame", TypeGame.GUESS_STRING);
+		stringConformity.put("numGame", TypeGame.NUM_GAME);
 	}
 	
 	public CommandSwitchGame(TKey key, String name, Consumer<TypeGame> function) {

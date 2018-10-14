@@ -7,4 +7,5 @@ public interface IDialogGame {
 	public IResult stopGame(String[] args);
 	public IResult addRequest(String[] args);
 	public IResult sendAnswer(String[] args);
+	public IResult startGame(String[] args);
 }

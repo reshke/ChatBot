@@ -7,9 +7,9 @@ public class Bot {
 
 	private final IReader reader;
 	private final IWriter writer;
-	private final DialogManager dialogManager;
+	private final IDialogManager dialogManager;
 	
-	public Bot(IReader reader, IWriter writer, DialogManager dialogManager) {
+	public Bot(IReader reader, IWriter writer, IDialogManager dialogManager) {
 		this.reader = reader;
 		this.writer = writer;
 		this.dialogManager = dialogManager;
@@ -24,13 +24,14 @@ public class Bot {
 	
 	public void ExecuteQuery(){
 		String query = reader.ReadQuery();
-		ResultInformation result = dialogManager.handleQuery(0, query);
+		IResult result = dialogManager.handleQuery(0, query);
+		ResultState state = result.getState();
 		
-		if (result.state == ResultState.SUCCESS)
-			writer.WriteLine(result.result);
-		if (result.state == ResultState.UNKNOWN)
+		if (state == ResultState.SUCCESS)
+			writer.WriteLine(result.getResult());
+		if (state == ResultState.UNKNOWN)
 			writer.WriteLine(" do not understand");
-		if (result.state == ResultState.WRONG_ARGUMENTS)
-			writer.WriteLine(result.errorMessage);
+		if (state == ResultState.WRONG_ARGUMENTS)
+			writer.WriteLine(result.getError());
 	}
 }

@@ -42,6 +42,7 @@ public class CommandPostQuery<TKey> implements ICommand<TKey> {
 	}
 }
 
+
 @FunctionalInterface
 interface TwoArgsFunction<T1, T2, T3> {
 	public T3 apply(T1 left, T2 right);

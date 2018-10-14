@@ -9,13 +9,17 @@ import main.Games.StringGuessGame;
 public class DialogGame implements IDialogGame {
 
 	private IResult lastAnswer;
-	private final ICommandContainer<TypeAction> containerGameCommands = new CommandContainer<TypeAction>();
-	private final ICommandContainer<TypeAction> containerCommonCommands = new CommandContainer<TypeAction>();
+	private ICommandContainer<TypeAction> containerGameCommands;
+	private ICommandContainer<TypeAction> containerCommonCommands;
 	private IGame game;
 	
 	
-	public DialogGame(IGame game) {
+	public DialogGame(IGame game, ICommandContainer<TypeAction> containerGameCommands, 
+			ICommandContainer<TypeAction> containerCommonCommands) {
 		this.game = game;
+		this.containerGameCommands = containerGameCommands;
+		this.containerCommonCommands = containerCommonCommands;
+		updateContainer();
 	}
 	
 	private void updateContainer() {
@@ -24,7 +28,7 @@ public class DialogGame implements IDialogGame {
 				new CommandGuess<TypeAction>(TypeAction.ANSWER, "Guess", (x) -> game.guessAnswer(x)),
 				new CommandEndGame<TypeAction>(TypeAction.END, "End", (x) -> game.endGame())};
 		for (ICommand<TypeAction> command: gameCommands) {
-			containerCommonCommands.addCommand(command);
+			containerGameCommands.addCommand(command);
 		}
 	}
 
@@ -58,6 +62,12 @@ public class DialogGame implements IDialogGame {
 	@Override
 	public IResult sendAnswer(String[] args) {
 		return containerGameCommands.executeCommand(TypeAction.ANSWER, args);
+	}
+
+	@Override
+	public IResult startGame(String[] args) {
+		// TODO Auto-generated method stub
+		return containerGameCommands.executeCommand(TypeAction.START, args);
 	}
 }
 

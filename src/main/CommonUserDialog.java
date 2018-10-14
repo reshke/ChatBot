@@ -5,6 +5,8 @@ import main.Commands.CommandExitGame;
 import main.Commands.CommandGamesList;
 import main.Commands.CommandHelp;
 import main.Commands.CommandSwitchGame;
+import main.Games.NumGame;
+import main.Games.StringGuessGame;
 
 public class CommonUserDialog implements IDialogCommon {
 	private IDialogGame currentGameDialog;
@@ -33,7 +35,17 @@ public class CommonUserDialog implements IDialogCommon {
 	
 	public void switchGame(TypeGame typeGame) {
 		switch(typeGame) {
-		case GUESS_STRING: currentGameDialog = new DialogGame();
+		case GUESS_STRING: currentGameDialog = 
+				new DialogGame(new StringGuessGame(10, new RandomGenerator()), 
+						new CommandContainer<TypeAction>(), 
+						new CommandContainer<TypeAction>());
+		updateSender();
+						  break;
+		case NUM_GAME: currentGameDialog = 
+				new DialogGame(new NumGame(new RandomGenerator()), 
+						new CommandContainer<TypeAction>(), 
+						new CommandContainer<TypeAction>());
+		updateSender();
 						  break;
 		default: throw new IllegalArgumentException("Unknown game");
 		}
