@@ -1,11 +1,6 @@
-package main.Commands;
+package main;
 import java.util.HashMap;
 import java.util.List;
-import main.ICommand;
-import main.ICommandContainer;
-import main.IResult;
-import main.ResultInformation;
-import main.ResultState;
 
 public class CommandContainer<TValue> implements ICommandContainer<TValue> {
 	private final HashMap<TValue, ICommand<TValue>> commandContainer = new HashMap<TValue, ICommand<TValue>>();

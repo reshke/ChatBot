@@ -3,6 +3,7 @@ package main.Games;
 import main.GameState;
 import main.IGame;
 import main.IRandomGenerator;
+import main.TypeGame;
 
 public class NumGame implements IGame {
 	private GameState gameState;// = GameState.NotStarted;
@@ -49,6 +50,12 @@ public class NumGame implements IGame {
 	public String getHelp() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public TypeGame getTypeGame() {
+		// TODO Auto-generated method stub
+		return TypeGame.NUM_GAME;
 	}
 
 }

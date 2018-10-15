@@ -1,5 +1,8 @@
 package main;
-import main.Commands.CommandContainer;
+import java.util.Dictionary;
+import java.util.function.Consumer;
+import java.util.function.Function;
+
 import main.Commands.CommandEndGame;
 import main.Commands.CommandGuess;
 import main.Commands.CommandHelpGame;
@@ -12,13 +15,15 @@ public class DialogGame implements IDialogGame {
 	private ICommandContainer<TypeAction> containerGameCommands;
 	private ICommandContainer<TypeAction> containerCommonCommands;
 	private IGame game;
-	
+	private IHelper helper;
 	
 	public DialogGame(IGame game, ICommandContainer<TypeAction> containerGameCommands, 
-			ICommandContainer<TypeAction> containerCommonCommands) {
+			ICommandContainer<TypeAction> containerCommonCommands,
+			IHelper helper) {
 		this.game = game;
 		this.containerGameCommands = containerGameCommands;
 		this.containerCommonCommands = containerCommonCommands;
+		this.helper = helper;
 		updateContainer();
 	}
 	
@@ -46,7 +51,14 @@ public class DialogGame implements IDialogGame {
 
 	@Override
 	public IResult getHelp(String[] args) {
-		return containerCommonCommands.executeCommand(TypeAction.HELP, args);
+		try {
+			TypeGame gameType = game.getTypeGame();
+			String helpMessage = helper.getHelp(gameType);
+			return new ResultInformation(helpMessage, ResultState.SUCCESS);
+		}
+		catch (UnsupportedOperationException | IllegalArgumentException exception) {
+			return new ResultInformation(exception.getMessage(), ResultState.WRONG_ARGUMENTS);
+		}
 	}
 
 	@Override

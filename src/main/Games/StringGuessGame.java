@@ -8,6 +8,7 @@ import main.GameState;
 import main.IGame;
 import main.IRandomGenerator;
 import main.RandomGenerator;
+import main.TypeGame;
 
 
 public class StringGuessGame implements IGame {
@@ -105,6 +106,12 @@ public class StringGuessGame implements IGame {
 		} 
         
         return data.toString();
+	}
+
+	@Override
+	public TypeGame getTypeGame() {
+		// TODO Auto-generated method stub
+		return TypeGame.GUESS_STRING;
 	}
 
 }

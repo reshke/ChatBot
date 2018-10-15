@@ -6,4 +6,5 @@ public interface IRandomGenerator {
 	public Boolean generateRandomBoolean();
 	
 	public Integer generateRandomInt(int bound);
+	
 }
