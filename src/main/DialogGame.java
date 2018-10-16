@@ -30,7 +30,7 @@ public class DialogGame implements IDialogGame {
 	private void updateContainer() {
 		containerGameCommands.clear();
 		ICommand gameCommands[] = { new CommandPostQuery<TypeAction>(TypeAction.ASK, "Ask", (x, y) -> game.postQuery(x, y)),
-				new CommandGuess<TypeAction>(TypeAction.ANSWER, "Guess", (x) -> game.guessAnswer(x)),
+				new CommandGuess<TypeAction>(TypeAction.ANSWER, "ask", (x) -> game.guessAnswer(x)),
 				new CommandEndGame<TypeAction>(TypeAction.END, "End", (x) -> game.endGame())};
 		for (ICommand<TypeAction> command: gameCommands) {
 			containerGameCommands.addCommand(command);

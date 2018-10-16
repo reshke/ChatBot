@@ -73,7 +73,7 @@ public class StringGameTests {
 	
 	@Test
 	public void testKeyWordIsInvariant() {
-		StringGuessGame game = new StringGuessGame(2);
+		StringGuessGame game = new StringGuessGame(2, new RandomGenerator());
 		String[] words = {"00", "01", "10", "11"};
 		String winnerWord = "";
 		Integer repetitionsCount = 100;
@@ -90,7 +90,7 @@ public class StringGameTests {
 	
 	@Test
 	public void testWrongAnswerIsAlwaysWrong() {
-		StringGuessGame game = new StringGuessGame(4);
+		StringGuessGame game = new StringGuessGame(4, new RandomGenerator());
 		String[] twoWords = {"0000", "0001"};
 		String wrongAnswer = "";
 		Integer repetitionsCount = 100;
@@ -109,7 +109,7 @@ public class StringGameTests {
 			
 	@Test
 	public void testAskAnswerOneSymbolIsCorrect() {
-		StringGuessGame game = new StringGuessGame(1);
+		StringGuessGame game = new StringGuessGame(1, new RandomGenerator());
 		Integer repetitionsCount = 100;
 		Integer leftBound = 0;
 		Integer rightBound = 1;
@@ -124,7 +124,7 @@ public class StringGameTests {
 	
 	@Test
 	public void testAskAnswerMuchSymbolsIsCorrect() {
-		StringGuessGame game = new StringGuessGame(100);
+		StringGuessGame game = new StringGuessGame(100, new RandomGenerator());
 		Integer repetitionsCount = 100;
 		Integer leftQueryBound = 1;
 		Integer rightQueryBound = 80;
@@ -141,7 +141,7 @@ public class StringGameTests {
 	public void testLimitAskIsCorrect() {
 		Integer leftQueryBound = 1;
 		Integer rightQueryBound = 100;
-		StringGuessGame game = new StringGuessGame(100);
+		StringGuessGame game = new StringGuessGame(100, new RandomGenerator());
 		Integer maximumOneDiaposon = rightQueryBound - leftQueryBound + 1;
 		
 		game.startGame();
@@ -153,7 +153,7 @@ public class StringGameTests {
 	@Test 
 	public void testAskingFromBigToSmallIsCorrect() {
 		Integer lengthLine = 100;
-		StringGuessGame game = new StringGuessGame(lengthLine);
+		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator());
 		
 		game.startGame();
 		for (Integer index = lengthLine; index >= 1; index--) {
@@ -166,7 +166,7 @@ public class StringGameTests {
 	@Test
 	public void testMovingLeftBound() {
 		Integer lengthLine = 100;
-		StringGuessGame game = new StringGuessGame(lengthLine);
+		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator());
 		
 		game.startGame();
 		for (Integer index = lengthLine; index >= 1; index--) {
@@ -179,7 +179,7 @@ public class StringGameTests {
 	@Test
 	public void testAskBothBoundsInside() {
 		Integer lengthLine = 100;
-		StringGuessGame game = new StringGuessGame(lengthLine);
+		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator());
 		Integer leftBound = 10;
 		Integer rightBound = 21;
 		Integer maximumOneDiaposon = rightBound - leftBound + 1;
@@ -193,7 +193,7 @@ public class StringGameTests {
 	@Test
 	public void testRunningState() {
 		Integer lengthLine = 10;
-		StringGuessGame game = new StringGuessGame(lengthLine);
+		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator());
 		GameState expectedState = GameState.RUNNING;
 		
 		game.startGame();
@@ -204,7 +204,7 @@ public class StringGameTests {
 	@Test
 	public void testNotStartedGame() {
 		Integer lengthLine = 10;
-		StringGuessGame game = new StringGuessGame(lengthLine);
+		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator());
 		GameState expectedState = GameState.NOT_STARTED;
 		
 		GameState state = game.getGameState();
@@ -215,7 +215,7 @@ public class StringGameTests {
 	@Test
 	public void testOverGame() {
 		Integer lengthLine = 10;
-		StringGuessGame game = new StringGuessGame(lengthLine);
+		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator());
 		GameState expectedState = GameState.OVER;
 		
 		game.startGame();
@@ -228,7 +228,7 @@ public class StringGameTests {
 	@Test
 	public void testPauseGame() {
 		Integer lengthLine = 10;
-		StringGuessGame game = new StringGuessGame(lengthLine);
+		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator());
 		GameState expectedState = GameState.PAUSED;
 		
 		game.startGame();

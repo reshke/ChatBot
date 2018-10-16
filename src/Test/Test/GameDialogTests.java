@@ -2,62 +2,78 @@ package Test;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+
+import main.CommandContainer;
 import main.DialogGame;
+import main.GamesHelper;
+import main.IDialogGame;
+import main.IResult;
+import main.RandomGenerator;
 import main.ResultInformation;
 import main.ResultState;
+import main.TypeAction;
+import main.Games.StringGuessGame;
+import main.IO.Reader;
 
 public class GameDialogTests {
 	@Test
 	public void testStartExecutesCorrect() {
-		DialogGame game = new DialogGame();
+		IDialogGame game = new DialogGame(new StringGuessGame(10, new RandomGenerator()), 
+				new CommandContainer<TypeAction>(), 
+				new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
 		ResultState expectedState = ResultState.SUCCESS;
+		IResult result = game.getHelp(new String[0]);
 		
-		ResultInformation result = game.handleQuery("start 10");
-		
-		assertEquals(expectedState, result.state);
+		assertEquals(expectedState, result.getState());
 	}
 	
 	@Test
 	public void testIncorrectArgumentsStart() {
-		DialogGame game = new DialogGame();
+		IDialogGame game = new DialogGame(new StringGuessGame(10, new RandomGenerator()), 
+				new CommandContainer<TypeAction>(), 
+				new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
 		ResultState expectedState = ResultState.WRONG_ARGUMENTS;
 		
-		ResultInformation result = game.handleQuery("start -1");
+		IResult result = game.sendAnswer(new String[]{"send", "sdjaklj" , "dasdjkl"});
 		
-		assertEquals(expectedState, result.state);
+		assertEquals(expectedState, result.getState());
 	}
 	
 	@Test
 	public void testCorrectAsks() {
-		DialogGame game = new DialogGame();
+		IDialogGame game = new DialogGame(new StringGuessGame(10, new RandomGenerator()), 
+				new CommandContainer<TypeAction>(), 
+				new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
 		ResultState expectedState = ResultState.SUCCESS;
-		game.handleQuery("start 10");
 		
-		ResultInformation result = game.handleQuery("ask 1 2");
+		IResult result = game.addRequest(new String[]{"ask", "1" , "3"});
 		
-		assertEquals(expectedState, result.state);
+		assertEquals(expectedState, result.getState());
 	}
 	
 	@Test
 	public void testIncorrectAsk() {
-		DialogGame game = new DialogGame();
+		IDialogGame game = new DialogGame(new StringGuessGame(10, new RandomGenerator()), 
+				new CommandContainer<TypeAction>(), 
+				new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
 		ResultState expectedState = ResultState.WRONG_ARGUMENTS;
-		game.handleQuery("start 10");
 		
-		ResultInformation result = game.handleQuery("ask 2 1");
+		IResult result = game.addRequest(new String[]{"ask", "2" , "1"});
 		
-		assertEquals(expectedState, result.state);
+		assertEquals(expectedState, result.getState());
 	}
 	
 	@Test
 	public void testStopStoppedGame() {
-		DialogGame game = new DialogGame();
-		ResultState expectedState = ResultState.WRONG_ARGUMENTS;
-		game.handleQuery("start 10");
-		game.handleQuery("end");
+		IDialogGame game = new DialogGame(new StringGuessGame(10, new RandomGenerator()), 
+				new CommandContainer<TypeAction>(), 
+				new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
 		
-		ResultInformation result = game.handleQuery("end");
+		ResultState expectedState = ResultState.UNKNOWN;
 		
-		assertEquals(expectedState, result.state);
+		IResult result = game.stopGame(new String[] {"end"});
+		
+		assertEquals(expectedState, result.getState());
 	}
+	
 }
