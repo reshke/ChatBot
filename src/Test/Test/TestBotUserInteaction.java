@@ -44,7 +44,7 @@ class TestBotUserInteaction {
 		
 		bot.StartBot();
 		bot.ExecuteQuery();
-		CommandHelp command = new CommandHelp("help");
+		ICommandHelp command = new CommandHelp("help");
 		
 		assertEquals(writer.lastQuery, command.executeCommand(null));
 	}

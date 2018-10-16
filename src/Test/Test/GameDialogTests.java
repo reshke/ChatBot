@@ -63,6 +63,7 @@ public class GameDialogTests {
 		assertEquals(expectedState, result.getState());
 	}
 	
+	
 	@Test
 	public void testStopStoppedGame() {
 		IDialogGame game = new DialogGame(new StringGuessGame(10, new RandomGenerator()), 
