@@ -46,11 +46,6 @@ public class NumGame implements IGame {
 		return 12;
 	}
 
-	@Override
-	public String getHelp() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public TypeGame getTypeGame() {

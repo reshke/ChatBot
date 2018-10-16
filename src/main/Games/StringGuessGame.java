@@ -86,27 +86,7 @@ public class StringGuessGame implements IGame {
 		return new File(fullPath, "stringGuessHelp.txt");
 	}
 	
-	@Override
-	public String getHelp() {
-		FileReader helpFile = null;
-		try {
-			helpFile = new FileReader(getHelpFile());
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		StringBuilder data = new StringBuilder();
-		int charCode;
-        try {
-			while((charCode=helpFile.read())!=-1){
-			    data.append((char)charCode);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
-        
-        return data.toString();
-	}
+
 
 	@Override
 	public TypeGame getTypeGame() {

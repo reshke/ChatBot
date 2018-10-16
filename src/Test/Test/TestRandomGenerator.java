@@ -42,4 +42,47 @@ public class TestRandomGenerator {
 		assertEquals(line.length(), 100);
 	}
 	
+	@Test
+	public void testBooleanCreatingNoException() {
+		IRandomGenerator generator = new RandomGenerator();
+		for (int index = 0; index < 1000000; index++) {
+			boolean bool = generator.generateRandomBoolean();
+		}
+	}
+	
+	@Test
+	public void testBooleanCreatingDifferent() {
+		IRandomGenerator generator = new RandomGenerator();
+		Integer trueBooleans = 0, falseBooleans = 0;
+		for (int index = 0; index < 1000000; index++) {
+			boolean bool = generator.generateRandomBoolean();
+			if (bool)
+				trueBooleans++;
+			else
+				falseBooleans++;
+		}
+		if (falseBooleans == 0 || trueBooleans == 0)
+			fail("Generator creates same bools");
+	}
+	
+	@Test
+	public void testCreatingDifferentIntegersWorks() {
+		IRandomGenerator generator = new RandomGenerator();
+		final int bound = 10000;
+		for (int i = 1; i < bound; i++) {
+			generator.generateRandomInt(i);
+		}
+	}
+	
+	@Test
+	public void testBounds() {
+		IRandomGenerator generator = new RandomGenerator();
+		final int bound = 10000;
+		final int repetitions = 1000;
+		for (int i = 0; i < repetitions; i++) {
+			Integer nextNumber = generator.generateRandomInt(bound);
+			if (nextNumber > bound || nextNumber < 0)
+				fail("Generated number in incorrect diaposon!");
+		}
+	}
 }
