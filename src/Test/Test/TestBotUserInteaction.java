@@ -2,8 +2,6 @@ package Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import main.Bot;
@@ -50,7 +48,7 @@ class TestBotUserInteaction {
 		
 		bot.StartBot();
 		bot.ExecuteQuery();
-		CommandHelp command = new CommandHelp("help", "help");
+		CommandHelp<String> command = new CommandHelp<String>("help", "help");
 		
 		assertEquals(writer.lastQuery, command.executeCommand(null));
 	}

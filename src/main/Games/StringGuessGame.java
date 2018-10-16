@@ -1,13 +1,8 @@
 package main.Games;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 
 import main.GameState;
 import main.IGame;
 import main.IRandomGenerator;
-import main.RandomGenerator;
 import main.TypeGame;
 
 
@@ -77,13 +72,6 @@ public class StringGuessGame implements IGame {
 		else
 			return generator.generateRandomInt(rightBound - leftBound + 1);
 		
-	}
-	
-
-	private static File getHelpFile(){
-		String path = new File("").getAbsolutePath();
-		String fullPath = path + "\\src\\main\\data\\";
-		return new File(fullPath, "stringGuessHelp.txt");
 	}
 	
 

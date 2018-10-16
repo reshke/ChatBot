@@ -1,13 +1,7 @@
 package main;
-import java.util.Dictionary;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 import main.Commands.CommandEndGame;
 import main.Commands.CommandGuess;
-import main.Commands.CommandHelpGame;
-import main.Commands.CommandStart;
-import main.Games.StringGuessGame;
 
 public class DialogGame implements IDialogGame {
 

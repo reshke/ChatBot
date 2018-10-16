@@ -9,7 +9,6 @@ import main.GamesHelper;
 import main.IDialogGame;
 import main.IResult;
 import main.RandomGenerator;
-import main.ResultInformation;
 import main.ResultState;
 import main.TypeAction;
 import main.Games.StringGuessGame;

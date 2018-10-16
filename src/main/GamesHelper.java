@@ -23,18 +23,19 @@ public class GamesHelper implements IHelper {
 	private final Map<TypeGame, Path<String, String>> biection;
 	private final IReader reader;
 	
+	private void updateBiection(String fileName, TypeGame gameType) {
+		Path<String, String> path = new Path<String, String>(new File("").getAbsolutePath() + "\\src\\main\\data\\",
+				fileName);
+		biection.put(gameType, path);
+	}
+	
 	public GamesHelper(IReader reader){
 		this.reader = reader;
 		biection = new HashMap<TypeGame, Path<String, String>>();
 		
-		Path<String, String> path = new Path<String, String>(new File("").getAbsolutePath() + "\\src\\main\\data\\",
-				"stringGuessHelp.txt");
-		biection.put(TypeGame.GUESS_STRING, path);
-		
-		Path<String, String> path2 = new Path<String, String>(new File("").getAbsolutePath() + "\\src\\main\\data\\",
-				"numGameHelp.txt");
-		
-		biection.put(TypeGame.NUM_GAME, path2);
+		updateBiection("stringGuessHelp.txt", TypeGame.GUESS_STRING);
+		updateBiection("numGameHelp.txt", TypeGame.NUM_GAME);
+	
 	}
 
 	@Override
