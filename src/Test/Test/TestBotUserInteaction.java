@@ -23,6 +23,12 @@ class MockReader implements IReader{
 		// TODO Auto-generated method stub
 		return data;
 	}
+
+	@Override
+	public String ReadFile(String fullPath, String fileName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
 
@@ -44,7 +50,7 @@ class TestBotUserInteaction {
 		
 		bot.StartBot();
 		bot.ExecuteQuery();
-		ICommandHelp command = new CommandHelp("help");
+		CommandHelp command = new CommandHelp("help", "help");
 		
 		assertEquals(writer.lastQuery, command.executeCommand(null));
 	}

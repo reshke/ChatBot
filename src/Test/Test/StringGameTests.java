@@ -73,16 +73,12 @@ public class StringGameTests {
 	
 	@Test
 	public void testKeyWordIsInvariant() {
-		StringGuessGame game = new StringGuessGame(2, new RandomGenerator());
+		StringGuessGame game = new StringGuessGame(2, new MockRandomGenerator("01"));
 		String[] words = {"00", "01", "10", "11"};
-		String winnerWord = "";
+		String winnerWord = "01";
 		Integer repetitionsCount = 100;
 		
 		game.startGame();
-		for (String word: words) {
-			if (game.guessAnswer(word))
-				winnerWord = word;
-		}
 		
 		for (Integer index = 0; index < repetitionsCount; index++)
 			assertTrue(game.guessAnswer(winnerWord));
@@ -90,17 +86,11 @@ public class StringGameTests {
 	
 	@Test
 	public void testWrongAnswerIsAlwaysWrong() {
-		StringGuessGame game = new StringGuessGame(4, new RandomGenerator());
-		String[] twoWords = {"0000", "0001"};
-		String wrongAnswer = "";
+		StringGuessGame game = new StringGuessGame(4, new MockRandomGenerator("0110"));
+		String wrongAnswer = "0000";
 		Integer repetitionsCount = 100;
 		
 		game.startGame();
-		for (String word: twoWords) {
-			if (!game.guessAnswer(word))
-				wrongAnswer = word;
-		}
-		
 		
 		for (Integer index = 0; index < repetitionsCount; index++) {
 			assertFalse(game.guessAnswer(wrongAnswer));
@@ -109,7 +99,7 @@ public class StringGameTests {
 			
 	@Test
 	public void testAskAnswerOneSymbolIsCorrect() {
-		StringGuessGame game = new StringGuessGame(1, new RandomGenerator());
+		StringGuessGame game = new StringGuessGame(1, new MockRandomGenerator("1"));
 		Integer repetitionsCount = 100;
 		Integer leftBound = 0;
 		Integer rightBound = 1;
