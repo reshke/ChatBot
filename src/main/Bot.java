@@ -19,12 +19,12 @@ public class Bot {
 	public void StartBot() {
 		writer.WriteLine("Welcome! I'm chat bot! help to see help");
 		
-		dialogManager.StartDialog(0);
+		dialogManager.startDialog(0L);
 	}
 	
 	public void ExecuteQuery(){
 		String query = reader.ReadQuery();
-		IResult result = dialogManager.handleQuery(0, query);
+		IResult result = dialogManager.handleQuery(0L, query);
 		ResultState state = result.getState();
 		
 		if (state == ResultState.SUCCESS)

@@ -1,5 +1,5 @@
 package main;
 public interface IDialogManager {
-	public void StartDialog(int userId);
-	public IResult handleQuery(int userId, String line);
+	public void startDialog(Long userId);
+	public IResult handleQuery(Long userId, String line);
 }

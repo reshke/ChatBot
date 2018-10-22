@@ -4,14 +4,14 @@ import java.util.Map;
 
 public class DialogManager implements IDialogManager {
 	
-	private final Map<Integer, IDialogCommon> dialogs = new HashMap<Integer, IDialogCommon>();
+	private final Map<Long, IDialogCommon> dialogs = new HashMap<Long, IDialogCommon>();
 	
-	public void StartDialog(int userId){
+	public void startDialog(Long userId){
 		CommonUserDialog dialog = new CommonUserDialog();
 		dialogs.put(userId, dialog);
 	}
 	
-	public IResult handleQuery(int userId, String line) {
+	public IResult handleQuery(Long userId, String line) {
 		return dialogs.get(userId).handleQuery(line);
 	}
 }
