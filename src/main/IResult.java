@@ -1,7 +1,7 @@
 package main;
 
-public interface IResult {
-	public String getResult();
+public interface IResult<T> {
+	public T getResult();
 	public String getError();
 	public ResultState getState();
 }

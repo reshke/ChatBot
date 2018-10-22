@@ -2,15 +2,19 @@ package main;
 import java.util.HashMap;
 import java.util.List;
 
+
 public class CommandContainer<TValue> implements ICommandContainer<TValue> {
 	private final HashMap<TValue, ICommand<TValue>> commandContainer = new HashMap<TValue, ICommand<TValue>>();
+	private final ICommandFinder<TValue> finder;
 	
-	public CommandContainer(List<ICommand<TValue>> commands) {
+	
+	public CommandContainer(List<ICommand<TValue>> commands, ICommandFinder<TValue> finder) {
 		for (ICommand<TValue> command: commands) 
 			commandContainer.put(command.getKey(), command);
+		this.finder = finder;
 	}
 	
-	public CommandContainer() {}
+	public CommandContainer(ICommandFinder<TValue> finder) {this.finder = finder;}
 	
 	public void addCommand(ICommand<TValue> command) {
 		commandContainer.put(command.getKey(), command);
@@ -27,9 +31,10 @@ public class CommandContainer<TValue> implements ICommandContainer<TValue> {
 	
 	@Override
 	public IResult executeCommand(TValue value, String[] args) {
-		if (!commandContainer.containsKey(value))
+		FindResult findResult = this.finder.getCommandByName(value, commandContainer);
+		if (findResult.getState() == ResultState.UNKNOWN)
 			return new ResultInformation("Unknown command! Read /help!", ResultState.UNKNOWN);
-		ICommand<TValue> command = commandContainer.get(value);
+		ICommand<TValue> command = findResult.getResult();
 		try {
 			String result = command.executeCommand(args);
 			return new ResultInformation(result, ResultState.SUCCESS);

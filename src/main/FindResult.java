@@ -1,11 +1,13 @@
 package main;
 
-public class ResultInformation implements IResult<String> {
-	private final String result;
+import main.Commands.CommandHelp;
+
+public class FindResult implements IResult<ICommand> {
+	private final ICommand result;
 	private final String errorMessage;
 	private final ResultState state;
 	
-	public String getResult() {
+	public ICommand getResult() {
 		return result;
 	}
 	
@@ -17,17 +19,17 @@ public class ResultInformation implements IResult<String> {
 		return state;
 	}
 	
-	public ResultInformation(String result, ResultState state)
+	public FindResult(ICommand result, ResultState state)
 	{
 		if (state == ResultState.SUCCESS) {	
 			this.result = result;
 			errorMessage = "";
 		}
 		else {
-			errorMessage = result;
-			this.result = "incorrect input";
+			errorMessage = result.getCommandName();
+			this.result = new CommandHelp<String>("help", "help");
 		}
 		this.state = state;
 	}
-	
+
 }

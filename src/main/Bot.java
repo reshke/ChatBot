@@ -24,7 +24,7 @@ public class Bot {
 	
 	public void ExecuteQuery(){
 		String query = reader.ReadQuery();
-		IResult result = dialogManager.handleQuery(0L, query);
+		IResult<String> result = dialogManager.handleQuery(0L, query);
 		ResultState state = result.getState();
 		
 		if (state == ResultState.SUCCESS)

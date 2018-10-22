@@ -10,11 +10,12 @@ import main.IO.Reader;
 
 public class CommonUserDialog implements IDialogCommon {
 	private IDialogGame currentGameDialog;
-	private final ICommandContainer<String> commandContainer = new CommandContainer<String>();
+	private final ICommandContainer<String> commandContainer;
 	private final ICommandSender<String> senderCommandContainer = new CommandSender<String>();
-	private IResult previousAnswer;
+	private IResult<String> previousAnswer;
 	
 	public CommonUserDialog() {
+		commandContainer = new CommandContainer<String>(new CommandFinder<String>());
 		commandContainer.addCommand(new CommandHelp<String>("help", "help"));
 		commandContainer.addCommand(new CommandSwitchGame<String>("switch", "switch", (x) -> switchGame(x)));
 		commandContainer.addCommand(new CommandExitGame<String>("exit", "exit", () -> exitGame()));
@@ -37,14 +38,14 @@ public class CommonUserDialog implements IDialogCommon {
 		switch(typeGame) {
 		case GUESS_STRING: currentGameDialog = 
 				new DialogGame(new StringGuessGame(10, new RandomGenerator()), 
-						new CommandContainer<TypeAction>(), 
-						new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
+						new CommandContainer<TypeAction>(new CommandFinder<TypeAction>()), 
+						new CommandContainer<TypeAction>(new CommandFinder<TypeAction>()), new GamesHelper(new Reader()));
 		updateSender();
 						  break;
 		case NUM_GAME: currentGameDialog = 
 				new DialogGame(new NumGame(new RandomGenerator()), 
-						new CommandContainer<TypeAction>(), 
-						new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
+						new CommandContainer<TypeAction>(new CommandFinder<TypeAction>()), 
+						new CommandContainer<TypeAction>(new CommandFinder<TypeAction>()), new GamesHelper(new Reader()));
 		updateSender();
 						  break;
 		default: throw new IllegalArgumentException("Unknown game");
