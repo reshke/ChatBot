@@ -1,11 +1,14 @@
 package main.Games;
 
+import java.util.Arrays;
+
 import main.GameState;
 import main.IGame;
+import main.IGameAskAnswerString;
 import main.IRandomGenerator;
 import main.TypeGame;
 
-public class NumGame implements IGame {
+public class NumGame implements IGameAskAnswerString {
 	private GameState gameState;// = GameState.NotStarted;
 	private final String dataString;
 	private final IRandomGenerator generator;
@@ -14,11 +17,11 @@ public class NumGame implements IGame {
 		
 		gameState = GameState.NOT_STARTED;
 		this.generator = generator;
-		dataString = generator.generateRandomString(4);
+		dataString = generator.generateRandomStringInt(4, true);
 	}
 	
 	@Override
-	public IGame startGame() {
+	public IGameAskAnswerString startGame() {
 		gameState = GameState.RUNNING;
 		return null;
 	}
@@ -28,6 +31,41 @@ public class NumGame implements IGame {
 		if (gameState == GameState.OVER)
 			throw new UnsupportedOperationException("Game was already ended!");
 		gameState = GameState.OVER;
+	}
+	
+	private Boolean isCorrectQuery(String query) {
+		if (query.length() != 4)
+			return false;
+		char[] symbolArray = query.toCharArray();
+		Arrays.sort(symbolArray);
+		char previousSymbol = '0' - 1;
+		for (char symbol: symbolArray) {
+			if (symbol < '0' || symbol > '9')
+				return false;
+			if (symbol == previousSymbol)
+				return false;
+			previousSymbol = symbol;
+		}
+		return true;
+	}
+	
+	private Integer countOrderedEqualsSymbols(String first, String second) {
+		Integer lengthCount = Math.min(first.length(), second.length());
+		Integer result = 0;
+		for (Integer index = 0; index < lengthCount; index ++) {
+			if (first.charAt(index) == second.charAt(index))
+				result++;
+		}
+		return result;
+	}
+	
+	private Integer countUnorderedEqualsSymbols(String first, String second) {
+		Integer result = 0;
+		for (Integer index = 0; index < first.length(); index++) {
+			if (second.contains(Character.toString(first.charAt(index))))
+				result++;
+		}
+		return result;
 	}
 
 	@Override
@@ -41,16 +79,18 @@ public class NumGame implements IGame {
 	}
 
 	@Override
-	public int postQuery(int leftBound, int rightBound) {
-		// TODO Auto-generated method stub
-		return 12;
-	}
-
-
-	@Override
 	public TypeGame getTypeGame() {
 		// TODO Auto-generated method stub
 		return TypeGame.NUM_GAME;
+	}
+
+	@Override
+	public String postQuery(String answer) {
+		if (!isCorrectQuery(answer))
+			throw new IllegalArgumentException("Query should be 4-digits string with different digits!");
+		Integer orderedDigits = countOrderedEqualsSymbols(dataString, answer);
+		Integer unorderedDigits = countUnorderedEqualsSymbols(dataString, answer);
+		return Integer.toString(orderedDigits) + " cows and " + Integer.toString(unorderedDigits - orderedDigits) + " bulls!";
 	}
 
 }

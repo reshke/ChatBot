@@ -8,11 +8,6 @@
 	<classpathentry excluding="Test/|test/|test/" kind="src" path="src"/>
 	<classpathentry kind="src" path="src/Test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="C:/Users/rockl/Downloads/telegrambots-4.1-jar-with-dependencies.jar"/>
-	<classpathentry kind="lib" path="C:/Users/rockl/Downloads/telegrambots-chat-session-bot-4.1-jar-with-dependencies.jar"/>
-	<classpathentry kind="lib" path="C:/Users/rockl/Downloads/telegrambotsextensions-4.1-jar-with-dependencies.jar"/>
-	<classpathentry kind="lib" path="C:/Users/rockl/Downloads/telegrambots-abilities-4.1-jar-with-dependencies.jar"/>
-	<classpathentry kind="lib" path="C:/Users/rockl/Downloads/telegrambots-meta-4.1-jar-with-dependencies.jar"/>
-	<classpathentry kind="lib" path="C:/Users/rockl/Downloads/telegrambots-spring-boot-starter-4.1-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="library/telegrambots-4.1-jar-with-dependencies.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

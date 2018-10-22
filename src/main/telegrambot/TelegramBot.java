@@ -47,11 +47,13 @@ public class TelegramBot extends TelegramLongPollingBot {
 	public void onUpdateReceived(Update e) {
 		Message msg = e.getMessage();
 		String txt = msg.getText();
+		System.out.println("Input: " + txt);
 		if (txt.equals("/start")) {
 			sendMsg(msg, "Hello, world! This is simple bot!");
 			dialog.startDialog(msg.getChatId());
 		}
 		else {
+			
 			IResult<String> result = dialog.handleQuery(msg.getChatId(), txt);
 			ResultState state = result.getState();
 			String answer = "";
