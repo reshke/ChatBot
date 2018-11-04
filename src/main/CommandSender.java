@@ -1,12 +1,15 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.glassfish.grizzly.utils.Pair;
+
 public class CommandSender<TKey> implements ICommandSender<TKey> {
 
-	private final Map<TKey, Function<String[], IResult>> functions = new HashMap<TKey, Function<String[], IResult>>();
+	private final FuzzyDictionary<TKey, Function<String[], IResult>> functions = new LevenshteinDictionary<TKey, Function<String[], IResult>>();
 	
 	
 	@Override
@@ -14,11 +17,27 @@ public class CommandSender<TKey> implements ICommandSender<TKey> {
 		functions.put(key, function);
 	}
 
+	private IResult handleNotExistingCommand(TKey value)
+	{
+		ArrayList<Pair<TKey, Function<String[], IResult>>> list = functions.get(value, 3);
+		if (list.size() == 0)
+			return new ResultInformation("Unknown command! Read help!", 
+					ResultState.UNKNOWN);
+		StringBuilder builder = new StringBuilder();
+		for (Pair<TKey, Function<String[], IResult>> item: list)
+		{
+			builder.append(" " + item.getFirst().toString());
+		}
+		return new ResultInformation("Unknown command! Maybe you mean: " + builder.toString(), 
+				ResultState.POSSIBLE_MISTAKE);
+	}
+	
 	@Override
-	public IResult executeCommand(TKey key, String[] args) {
-		if (!functions.containsKey(key))
-			return new ResultInformation("Unknown command", ResultState.UNKNOWN);
-		return functions.get(key).apply(args);
+	public IResult executeCommand(TKey value, String[] args) {
+		ArrayList<Pair<TKey, Function<String[], IResult>>> list = functions.get(value, 1);
+		if (list.size() == 0)
+			return handleNotExistingCommand(value);
+		return list.get(0).getSecond().apply(args);
 	}
 
 	@Override

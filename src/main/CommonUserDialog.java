@@ -15,7 +15,7 @@ public class CommonUserDialog implements IDialogCommon {
 	private IResult<String> previousAnswer;
 	
 	public CommonUserDialog() {
-		commandContainer = new CommandContainer<String>(new CommandFinder<String>());
+		commandContainer = new CommandContainer<String>();
 		commandContainer.addCommand(new CommandHelp<String>("help", "help"));
 		commandContainer.addCommand(new CommandSwitchGame<String>("switch", "switch", (x) -> switchGame(x)));
 		commandContainer.addCommand(new CommandExitGame<String>("exit", "exit", () -> exitGame()));
@@ -31,21 +31,21 @@ public class CommonUserDialog implements IDialogCommon {
 		senderCommandContainer.addCommandSender("state", x -> currentGameDialog.getState(x));
 		senderCommandContainer.addCommandSender("result", x -> currentGameDialog.sendAnswer(x));
 		senderCommandContainer.addCommandSender("end", x -> currentGameDialog.stopGame(x));
-		
+		senderCommandContainer.addCommandSender("hint",x -> currentGameDialog.getHint(x));
 	}
 	
 	public void switchGame(TypeGame typeGame) {
 		switch(typeGame) {
 		case GUESS_STRING: currentGameDialog = 
 				new DialogGame(new StringGuessGame(10, new RandomGenerator()), 
-						new CommandContainer<TypeAction>(new CommandFinder<TypeAction>()), 
-						new CommandContainer<TypeAction>(new CommandFinder<TypeAction>()), new GamesHelper(new Reader()));
+						new CommandContainer<TypeAction>(), 
+						new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
 		updateSender();
 						  break;
 		case NUM_GAME: currentGameDialog = 
 				new DialogGame(new NumGame(new RandomGenerator()), 
-						new CommandContainer<TypeAction>(new CommandFinder<TypeAction>()), 
-						new CommandContainer<TypeAction>(new CommandFinder<TypeAction>()), new GamesHelper(new Reader()));
+						new CommandContainer<TypeAction>(), 
+						new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
 		updateSender();
 						  break;
 		default: throw new IllegalArgumentException("Unknown game");
@@ -55,9 +55,17 @@ public class CommonUserDialog implements IDialogCommon {
 	private IResult executeQuery(String query) {
 		String[] arguments = query.split(" ");
 		IResult result = commandContainer.executeCommand(arguments[0], arguments);
-		if (result.getState() != ResultState.UNKNOWN || currentGameDialog == null)
+		if (currentGameDialog == null)
 			return result;
-		return senderCommandContainer.executeCommand(arguments[0], arguments);
+		if (result.getState() == ResultState.UNKNOWN)
+			return senderCommandContainer.executeCommand(arguments[0], arguments);
+		else if (result.getState() == ResultState.POSSIBLE_MISTAKE)
+		{
+			IResult senderResult = senderCommandContainer.executeCommand(arguments[0], arguments);
+			if (senderResult.getState() == ResultState.SUCCESS)
+				return senderResult;
+		}
+		return result;
 	}
 	
 	private void exitGame() {

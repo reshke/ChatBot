@@ -82,4 +82,11 @@ public class StringGuessGame implements IGame {
 		return TypeGame.GUESS_STRING;
 	}
 
+	@Override
+	public String getHint(int position) {
+		if (position < 1 || position > 10)
+			throw new IllegalArgumentException("You can ask digit only in range from 1 to " + Integer.toString(dataStringLenght));
+		return dataString.substring(position - 1, position);
+	}
+
 }

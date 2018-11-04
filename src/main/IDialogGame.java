@@ -8,4 +8,5 @@ public interface IDialogGame {
 	public IResult addRequest(String[] args);
 	public IResult sendAnswer(String[] args);
 	public IResult startGame(String[] args);
+	public IResult getHint(String[] args);
 }

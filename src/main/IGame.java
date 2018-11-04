@@ -10,4 +10,5 @@ public interface IGame {
 	public Boolean guessAnswer(String query);
 	public int postQuery(int leftBound, int rightBound);
 	public TypeGame getTypeGame();
+	public String getHint(int position);
 	}

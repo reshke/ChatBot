@@ -7,5 +7,5 @@ public interface IGameAskAnswerString {
 	public Boolean guessAnswer(String answer);
 	public String postQuery(String answer);
 	public TypeGame getTypeGame();
-
+	public String getHint(int position);
 }

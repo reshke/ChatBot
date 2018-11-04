@@ -1,7 +1,9 @@
 package main;
 
+import main.Commands.CommandAskStringAndGetString;
 import main.Commands.CommandEndGame;
 import main.Commands.CommandGuess;
+import main.Commands.CommandHint;
 
 public class DialogGame implements IDialogGame {
 
@@ -14,18 +16,39 @@ public class DialogGame implements IDialogGame {
 	public DialogGame(IGame game, ICommandContainer<TypeAction> containerGameCommands, 
 			ICommandContainer<TypeAction> containerCommonCommands,
 			IHelper helper) {
-		this.game = game;
 		this.containerGameCommands = containerGameCommands;
 		this.containerCommonCommands = containerCommonCommands;
 		this.helper = helper;
-		updateContainer();
+		updateContainer(game);
 	}
 	
-	private void updateContainer() {
+	public DialogGame(IGameAskAnswerString game,
+			ICommandContainer<TypeAction> containerGameCommands, 
+			ICommandContainer<TypeAction> containerCommonCommands,
+			IHelper helper) {
+		this.containerGameCommands = containerGameCommands;
+		this.containerCommonCommands = containerCommonCommands;
+		this.helper = helper;
+		updateContainer(game);
+	}
+	
+	private void updateContainer(IGameAskAnswerString game) {
+		containerGameCommands.clear();
+		ICommand gameCommands[] = { new CommandAskStringAndGetString<TypeAction>(TypeAction.ASK, "Ask", (x) -> game.postQuery(x)),
+				new CommandGuess<TypeAction>(TypeAction.ANSWER, "ask", (x) -> game.guessAnswer(x)),
+				new CommandEndGame<TypeAction>(TypeAction.END, "End", (x) -> game.endGame()),
+				new CommandHint<TypeAction>(TypeAction.HINT, "Hint", (x) -> game.getHint(x))};
+		for (ICommand<TypeAction> command: gameCommands) {
+			containerGameCommands.addCommand(command);
+		}
+	}
+	
+	private void updateContainer(IGame game) {
 		containerGameCommands.clear();
 		ICommand gameCommands[] = { new CommandPostQuery<TypeAction>(TypeAction.ASK, "Ask", (x, y) -> game.postQuery(x, y)),
 				new CommandGuess<TypeAction>(TypeAction.ANSWER, "ask", (x) -> game.guessAnswer(x)),
-				new CommandEndGame<TypeAction>(TypeAction.END, "End", (x) -> game.endGame())};
+				new CommandEndGame<TypeAction>(TypeAction.END, "End", (x) -> game.endGame()),
+				new CommandHint<TypeAction>(TypeAction.HINT, "Hint", (x) -> game.getHint(x))};
 		for (ICommand<TypeAction> command: gameCommands) {
 			containerGameCommands.addCommand(command);
 		}
@@ -72,8 +95,12 @@ public class DialogGame implements IDialogGame {
 
 	@Override
 	public IResult startGame(String[] args) {
-		// TODO Auto-generated method stub
 		return containerGameCommands.executeCommand(TypeAction.START, args);
+	}
+	
+	@Override
+	public IResult getHint(String[] args) {
+		return containerGameCommands.executeCommand(TypeAction.HINT, args);
 	}
 }
 

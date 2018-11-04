@@ -14,10 +14,11 @@ public class NumGame implements IGameAskAnswerString {
 	private final IRandomGenerator generator;
 	
 	public NumGame(IRandomGenerator generator) {
-		
 		gameState = GameState.NOT_STARTED;
 		this.generator = generator;
 		dataString = generator.generateRandomStringInt(4, true);
+		if (!isCorrectQuery(dataString))
+			throw new IllegalArgumentException("Conveived string should be 4-digits string with different digits");
 	}
 	
 	@Override
@@ -80,7 +81,6 @@ public class NumGame implements IGameAskAnswerString {
 
 	@Override
 	public TypeGame getTypeGame() {
-		// TODO Auto-generated method stub
 		return TypeGame.NUM_GAME;
 	}
 
@@ -91,6 +91,13 @@ public class NumGame implements IGameAskAnswerString {
 		Integer orderedDigits = countOrderedEqualsSymbols(dataString, answer);
 		Integer unorderedDigits = countUnorderedEqualsSymbols(dataString, answer);
 		return Integer.toString(orderedDigits) + " cows and " + Integer.toString(unorderedDigits - orderedDigits) + " bulls!";
+	}
+	
+	@Override
+	public String getHint(int position){
+		if (position < 1 || position > 4)
+			throw new IllegalArgumentException("You can ask digit only in range from 1 to 4");
+		return dataString.substring(position - 1, position);
 	}
 
 }

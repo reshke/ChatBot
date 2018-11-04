@@ -1,20 +1,22 @@
 package main;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.glassfish.grizzly.utils.Pair;
+
 
 public class CommandContainer<TValue> implements ICommandContainer<TValue> {
-	private final HashMap<TValue, ICommand<TValue>> commandContainer = new HashMap<TValue, ICommand<TValue>>();
-	private final ICommandFinder<TValue> finder;
+	private final FuzzyDictionary<TValue, ICommand<TValue>> commandContainer = new LevenshteinDictionary<TValue, ICommand<TValue>>();
 	
 	
-	public CommandContainer(List<ICommand<TValue>> commands, ICommandFinder<TValue> finder) {
+	public CommandContainer(List<ICommand<TValue>> commands) {
 		for (ICommand<TValue> command: commands) 
 			commandContainer.put(command.getKey(), command);
-		this.finder = finder;
 	}
 	
-	public CommandContainer(ICommandFinder<TValue> finder) {this.finder = finder;}
+	public CommandContainer() {}
 	
 	public void addCommand(ICommand<TValue> command) {
 		commandContainer.put(command.getKey(), command);
@@ -29,12 +31,28 @@ public class CommandContainer<TValue> implements ICommandContainer<TValue> {
 		commandContainer.clear();
 	}
 	
+	
+	private IResult handleNotExistingCommand(TValue value)
+	{
+		ArrayList<Pair<TValue, ICommand<TValue>>> list = commandContainer.get(value, 3);
+		if (list.size() == 0)
+			return new ResultInformation("Unknown command! Read help!", 
+					ResultState.UNKNOWN);
+		StringBuilder builder = new StringBuilder();
+		for (Pair<TValue, ICommand<TValue>> item: list)
+		{
+			builder.append(" " + item.getFirst().toString());
+		}
+		return new ResultInformation("Unknown command! Maybe you mean: " + builder.toString(), 
+				ResultState.POSSIBLE_MISTAKE);
+	}
+	
 	@Override
 	public IResult executeCommand(TValue value, String[] args) {
-		FindResult findResult = this.finder.getCommandByName(value, commandContainer);
-		if (findResult.getState() == ResultState.UNKNOWN)
-			return new ResultInformation("Unknown command! Read /help!", ResultState.UNKNOWN);
-		ICommand<TValue> command = findResult.getResult();
+		ArrayList<Pair<TValue, ICommand<TValue>>> list = commandContainer.get(value, 1);
+		if (list.size() == 0)
+			return handleNotExistingCommand(value);
+		ICommand<TValue> command = list.get(0).getSecond();
 		try {
 			String result = command.executeCommand(args);
 			return new ResultInformation(result, ResultState.SUCCESS);

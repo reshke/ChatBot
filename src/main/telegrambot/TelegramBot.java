@@ -59,9 +59,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 			String answer = "";
 			if (state == ResultState.SUCCESS)
 				answer = result.getResult();
-			if (state == ResultState.UNKNOWN)
-				answer = " do not understand";
-			if (state == ResultState.WRONG_ARGUMENTS)
+			else
 				answer = result.getError();
 			sendMsg(msg, answer);
 		}

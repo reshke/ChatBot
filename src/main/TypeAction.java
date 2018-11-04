@@ -7,5 +7,6 @@ public enum TypeAction {
 	ANSWER,
 	HELP,
 	NEW,
-	STATE
+	STATE,
+	HINT
 }

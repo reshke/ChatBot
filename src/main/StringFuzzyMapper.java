@@ -1,13 +1,23 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Set;
+
 public class StringFuzzyMapper {
-	public boolean fuzzyMapStrings(String value, String anotherValue) {
-		int number_of_mistakes = Math.abs(value.length() - anotherValue.length());
-		
-		for (int i = 0; i < Math.min(value.length(), anotherValue.length()); i++){
-			if (value.charAt(i) != anotherValue.charAt(i))
-				number_of_mistakes += 1;
+	
+	private Boolean areTheyClose(String firstLine, String secondLine, int distance)
+	{
+		return true;
+	}
+
+	public ArrayList<String> getCloseItems(String key, Set<String> keySet, int distance) {
+		ArrayList<String> approachKeys = new ArrayList<String>();
+		for (String item: keySet)
+		{
+			if (areTheyClose(key, item, distance))
+				approachKeys.add(item);
 		}
-		return number_of_mistakes < 2;
+		return approachKeys;
 	}
 }
