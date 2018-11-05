@@ -11,22 +11,21 @@ import main.TypeGame;
 public class NumGame implements IGameAskAnswerString {
 	private GameState gameState;// = GameState.NotStarted;
 	private final String dataString;
-	private final IRandomGenerator generator;
+//	private final IRandomGenerator generator;
 	
 	public NumGame(IRandomGenerator generator) {
 		gameState = GameState.NOT_STARTED;
-		this.generator = generator;
 		dataString = generator.generateRandomStringInt(4, true);
 		if (!isCorrectQuery(dataString))
 			throw new IllegalArgumentException("Conveived string should be 4-digits string with different digits");
 	}
 	
 	@Override
-	public IGameAskAnswerString startGame() {
+	public IGame startGame() {
 		gameState = GameState.RUNNING;
 		return null;
 	}
-
+	
 	@Override
 	public void endGame() {
 		if (gameState == GameState.OVER)
@@ -74,7 +73,6 @@ public class NumGame implements IGameAskAnswerString {
 		gameState = GameState.PAUSED;
 	}
 
-	@Override
 	public Boolean guessAnswer(String query) {
 		return dataString.equals(query);
 	}
@@ -84,7 +82,6 @@ public class NumGame implements IGameAskAnswerString {
 		return TypeGame.NUM_GAME;
 	}
 
-	@Override
 	public String postQuery(String answer) {
 		if (!isCorrectQuery(answer))
 			throw new IllegalArgumentException("Query should be 4-digits string with different digits!");

@@ -13,12 +13,13 @@ public class DialogGame implements IDialogGame {
 	private IGame game;
 	private IHelper helper;
 	
-	public DialogGame(IGame game, ICommandContainer<TypeAction> containerGameCommands, 
+	public DialogGame(ICowsAndBullsGame game, ICommandContainer<TypeAction> containerGameCommands, 
 			ICommandContainer<TypeAction> containerCommonCommands,
 			IHelper helper) {
 		this.containerGameCommands = containerGameCommands;
 		this.containerCommonCommands = containerCommonCommands;
 		this.helper = helper;
+		this.game = game;
 		updateContainer(game);
 	}
 	
@@ -29,6 +30,7 @@ public class DialogGame implements IDialogGame {
 		this.containerGameCommands = containerGameCommands;
 		this.containerCommonCommands = containerCommonCommands;
 		this.helper = helper;
+		this.game = game;
 		updateContainer(game);
 	}
 	
@@ -43,7 +45,7 @@ public class DialogGame implements IDialogGame {
 		}
 	}
 	
-	private void updateContainer(IGame game) {
+	private void updateContainer(ICowsAndBullsGame game) {
 		containerGameCommands.clear();
 		ICommand gameCommands[] = { new CommandPostQuery<TypeAction>(TypeAction.ASK, "Ask", (x, y) -> game.postQuery(x, y)),
 				new CommandGuess<TypeAction>(TypeAction.ANSWER, "ask", (x) -> game.guessAnswer(x)),

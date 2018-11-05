@@ -1,12 +1,13 @@
 package main.Games;
 
 import main.GameState;
+import main.ICowsAndBullsGame;
 import main.IGame;
 import main.IRandomGenerator;
 import main.TypeGame;
 
 
-public class StringGuessGame implements IGame {
+public class StringGuessGame implements ICowsAndBullsGame {
 	private GameState gameState;// = GameState.NotStarted;
 	private final String dataString;
 	private final int dataStringLenght;
@@ -55,7 +56,7 @@ public class StringGuessGame implements IGame {
 	public void pauseGame() {
 		gameState = GameState.PAUSED;
 	}
-
+	
 	@Override
 	public Boolean guessAnswer(String query) {
 		return dataString.equals(query);
@@ -74,7 +75,6 @@ public class StringGuessGame implements IGame {
 		
 	}
 	
-
 
 	@Override
 	public TypeGame getTypeGame() {

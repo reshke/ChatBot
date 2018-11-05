@@ -1,11 +1,6 @@
 package main;
 
-public interface IGameAskAnswerString {
-	public IGameAskAnswerString startGame();
-	public void endGame();
-	public void pauseGame();
+public interface IGameAskAnswerString extends IGame{
 	public Boolean guessAnswer(String answer);
 	public String postQuery(String answer);
-	public TypeGame getTypeGame();
-	public String getHint(int position);
 }
