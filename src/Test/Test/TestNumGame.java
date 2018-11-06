@@ -9,14 +9,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import main.IGame;
-import main.IGameAskAnswerString;
+import main.IAskAnswerStringGame;
 import main.IRandomGenerator;
 import main.RandomGenerator;
 import main.TypeGame;
 import main.Games.NumGame;
 
 public class TestNumGame {
-	IGameAskAnswerString game;
+	IAskAnswerStringGame game;
 	
 	@Before
 	public void setUp() {

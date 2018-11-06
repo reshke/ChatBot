@@ -9,5 +9,4 @@ public interface IGame
 	public void endGame();
 	public void pauseGame();
 	public TypeGame getTypeGame();
-	public String getHint(int position);
 }

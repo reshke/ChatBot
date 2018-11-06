@@ -4,11 +4,11 @@ import java.util.Arrays;
 
 import main.GameState;
 import main.IGame;
-import main.IGameAskAnswerString;
+import main.IAskAnswerStringGame;
 import main.IRandomGenerator;
 import main.TypeGame;
 
-public class NumGame implements IGameAskAnswerString {
+public class NumGame implements IAskAnswerStringGame {
 	private GameState gameState;// = GameState.NotStarted;
 	private final String dataString;
 //	private final IRandomGenerator generator;
@@ -81,7 +81,8 @@ public class NumGame implements IGameAskAnswerString {
 	public TypeGame getTypeGame() {
 		return TypeGame.NUM_GAME;
 	}
-
+	
+	@Override
 	public String postQuery(String answer) {
 		if (!isCorrectQuery(answer))
 			throw new IllegalArgumentException("Query should be 4-digits string with different digits!");

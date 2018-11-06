@@ -13,7 +13,7 @@ public class DialogGame implements IDialogGame {
 	private IGame game;
 	private IHelper helper;
 	
-	public DialogGame(ICowsAndBullsGame game, ICommandContainer<TypeAction> containerGameCommands, 
+	public DialogGame(IGuessStringGame game, ICommandContainer<TypeAction> containerGameCommands, 
 			ICommandContainer<TypeAction> containerCommonCommands,
 			IHelper helper) {
 		this.containerGameCommands = containerGameCommands;
@@ -23,7 +23,7 @@ public class DialogGame implements IDialogGame {
 		updateContainer(game);
 	}
 	
-	public DialogGame(IGameAskAnswerString game,
+	public DialogGame(IAskAnswerStringGame game,
 			ICommandContainer<TypeAction> containerGameCommands, 
 			ICommandContainer<TypeAction> containerCommonCommands,
 			IHelper helper) {
@@ -34,7 +34,31 @@ public class DialogGame implements IDialogGame {
 		updateContainer(game);
 	}
 	
-	private void updateContainer(IGameAskAnswerString game) {
+	public DialogGame(ICHGKGame game, 
+			ICommandContainer<TypeAction> containerGameCommands, 
+			ICommandContainer<TypeAction> containerCommonCommands,
+			IHelper helper)
+	{
+		this.containerGameCommands = containerGameCommands;
+		this.containerCommonCommands = containerCommonCommands;
+		this.helper = helper;
+		this.game = game;
+		updateContainer(game);
+	}
+	
+	private void updateContainer(ICHGKGame game)
+	{
+		containerGameCommands.clear();
+		ICommand gameCommands[] = { new CommandGuess<TypeAction>(TypeAction.ANSWER, "ask", (x) -> game.guessAnswer(x)),
+				new CommandEndGame<TypeAction>(TypeAction.END, "End", (x) -> game.endGame()),
+				new CommandHint<TypeAction>(TypeAction.HINT, "Hint", (x) -> game.getHint())};
+		for (ICommand<TypeAction> command: gameCommands) {
+			containerGameCommands.addCommand(command);
+		}
+	}
+	
+	private void updateContainer(IAskAnswerStringGame game) 
+	{
 		containerGameCommands.clear();
 		ICommand gameCommands[] = { new CommandAskStringAndGetString<TypeAction>(TypeAction.ASK, "Ask", (x) -> game.postQuery(x)),
 				new CommandGuess<TypeAction>(TypeAction.ANSWER, "ask", (x) -> game.guessAnswer(x)),
@@ -45,7 +69,7 @@ public class DialogGame implements IDialogGame {
 		}
 	}
 	
-	private void updateContainer(ICowsAndBullsGame game) {
+	private void updateContainer(IGuessStringGame game) {
 		containerGameCommands.clear();
 		ICommand gameCommands[] = { new CommandPostQuery<TypeAction>(TypeAction.ASK, "Ask", (x, y) -> game.postQuery(x, y)),
 				new CommandGuess<TypeAction>(TypeAction.ANSWER, "ask", (x) -> game.guessAnswer(x)),

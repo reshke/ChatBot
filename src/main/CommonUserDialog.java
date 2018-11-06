@@ -4,7 +4,9 @@ import main.Commands.CommandExitGame;
 import main.Commands.CommandGamesList;
 import main.Commands.CommandHelp;
 import main.Commands.CommandSwitchGame;
+import main.Games.CHGK_Game;
 import main.Games.NumGame;
+import main.Games.PseudoBase;
 import main.Games.StringGuessGame;
 import main.IO.Reader;
 
@@ -40,14 +42,21 @@ public class CommonUserDialog implements IDialogCommon {
 				new DialogGame(new StringGuessGame(10, new RandomGenerator()), 
 						new CommandContainer<TypeAction>(), 
 						new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
-		updateSender();
-						  break;
+				updateSender();
+				break;
 		case NUM_GAME: currentGameDialog = 
 				new DialogGame(new NumGame(new RandomGenerator()), 
 						new CommandContainer<TypeAction>(), 
 						new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
-		updateSender();
-						  break;
+				updateSender();
+				break;
+						  
+		case CHGK_Game: new DialogGame(new CHGK_Game(new PseudoBase()), 
+				new CommandContainer<TypeAction>(), 
+				new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
+				updateSender();
+				break;
+				
 		default: throw new IllegalArgumentException("Unknown game");
 		}
 	}

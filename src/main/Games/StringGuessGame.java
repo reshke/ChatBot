@@ -1,13 +1,13 @@
 package main.Games;
 
 import main.GameState;
-import main.ICowsAndBullsGame;
+import main.IGuessStringGame;
 import main.IGame;
 import main.IRandomGenerator;
 import main.TypeGame;
 
 
-public class StringGuessGame implements ICowsAndBullsGame {
+public class StringGuessGame implements IGuessStringGame {
 	private GameState gameState;// = GameState.NotStarted;
 	private final String dataString;
 	private final int dataStringLenght;
