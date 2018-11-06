@@ -51,7 +51,7 @@ public class CommonUserDialog implements IDialogCommon {
 				updateSender();
 				break;
 						  
-		case CHGK_Game: new DialogGame(new CHGK_Game(new PseudoBase()), 
+		case CHGK_Game: currentGameDialog = new DialogGame(new CHGK_Game(new PseudoBase()), 
 				new CommandContainer<TypeAction>(), 
 				new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
 				updateSender();
