@@ -51,9 +51,10 @@ public class CHGK_Game implements ICHGKGame {
 	}
 
 	@Override
-	public String getHint() {
+	public String getHint(int val) {
 		// TODO Auto-generated method stub
 		IResult<Question> result = questionBase.getCurrentQuestion();
+		System.out.println("was");
 		if (result.getState() == ResultState.SUCCESS)
 			return result.getResult().getQuestionAnswer();
 		else

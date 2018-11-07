@@ -55,12 +55,17 @@ public class TelegramBot extends TelegramLongPollingBot {
 		else {
 			
 			IResult<String> result = dialog.handleQuery(msg.getChatId(), txt);
+			
 			ResultState state = result.getState();
 			String answer = "";
 			if (state == ResultState.SUCCESS)
+			{
 				answer = result.getResult();
+			}
 			else
+			{
 				answer = result.getError();
+			}
 			sendMsg(msg, answer);
 		}
 	}

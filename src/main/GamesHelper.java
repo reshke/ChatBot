@@ -35,6 +35,7 @@ public class GamesHelper implements IHelper {
 		
 		updateBiection("stringGuessHelp.txt", TypeGame.GUESS_STRING);
 		updateBiection("numGameHelp.txt", TypeGame.NUM_GAME);
+		updateBiection("chgkHelp.txt", TypeGame.CHGK_Game);
 	
 	}
 

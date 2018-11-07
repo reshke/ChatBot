@@ -22,13 +22,13 @@ public class PseudoBase implements IQuestionContainer {
 		@Override
 		public String getError() {
 			// TODO Auto-generated method stub
-			return null;
+			return "some error";
 		}
 
 		@Override
 		public ResultState getState() {
 			// TODO Auto-generated method stub
-			return null;
+			return ResultState.SUCCESS;
 		}
 		
 	}

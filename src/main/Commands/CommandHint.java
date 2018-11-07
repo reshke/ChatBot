@@ -27,10 +27,17 @@ public class CommandHint<TKey> implements ICommand<TKey> {
 
 	@Override
 	public String executeCommand(String[] args) {
-		if (args.length != 2)
+		if (args.length > 2)
 			throw new IllegalArgumentException("Incorrect count of arguments");
-		Integer questionIndex = Integer.parseInt(args[1]);
-		return function.apply(questionIndex);
+		if (args.length == 1)
+		{
+			return function.apply(0);
+		}
+		else
+		{
+			Integer questionIndex = Integer.parseInt(args[1]);
+			return function.apply(questionIndex);
+		}
 	}
 	
 }
