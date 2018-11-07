@@ -49,7 +49,7 @@ public class DialogGame implements IDialogGame {
 	private void updateContainer(ICHGKGame game)
 	{
 		containerGameCommands.clear();
-		ICommand gameCommands[] = { new CommandGuess<TypeAction>(TypeAction.ANSWER, "Ask", (x) -> game.guessAnswer(x)),
+		ICommand gameCommands[] = { new CommandGuess<TypeAction>(TypeAction.ASK, "ask", (x) -> game.guessAnswer(x)),
 				new CommandEndGame<TypeAction>(TypeAction.END, "End", (x) -> game.endGame()),
 				new CommandHint<TypeAction>(TypeAction.HINT, "Hint", (x) -> game.getHint(x))};
 		for (ICommand<TypeAction> command: gameCommands) {

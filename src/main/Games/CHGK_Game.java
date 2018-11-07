@@ -45,7 +45,7 @@ public class CHGK_Game implements ICHGKGame {
 		// TODO Auto-generated method stub
 		IResult<Question> result = questionBase.getCurrentQuestion();
 		if (result.getState() == ResultState.SUCCESS)
-			return result.getResult().getQuestionAnswer() == query;
+			return result.getResult().getQuestionAnswer().equals(query);
 		else
 			return false;
 	}
@@ -54,7 +54,6 @@ public class CHGK_Game implements ICHGKGame {
 	public String getHint(int val) {
 		// TODO Auto-generated method stub
 		IResult<Question> result = questionBase.getCurrentQuestion();
-		System.out.println("was");
 		if (result.getState() == ResultState.SUCCESS)
 			return result.getResult().getQuestionAnswer();
 		else
