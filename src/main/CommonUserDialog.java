@@ -71,7 +71,7 @@ public class CommonUserDialog implements IDialogCommon {
 		else if (result.getState() == ResultState.POSSIBLE_MISTAKE)
 		{
 			IResult senderResult = senderCommandContainer.executeCommand(arguments[0], arguments);
-			if (senderResult.getState() == ResultState.SUCCESS)
+			if (senderResult.getState() != ResultState.UNKNOWN)
 				return senderResult;
 		}
 		return result;

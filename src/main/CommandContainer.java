@@ -38,12 +38,12 @@ public class CommandContainer<TValue> implements ICommandContainer<TValue> {
 		if (list.size() == 0)
 			return (IResult) new Result("Unknown command! Read help!", 
 					ResultState.UNKNOWN);
-		StringBuilder builder = new StringBuilder();
+		StringBuilder messageWithTips = new StringBuilder();
 		for (Pair<TValue, ICommand<TValue>> item: list)
 		{
-			builder.append(" " + item.getFirst().toString());
+			messageWithTips.append(" " + item.getFirst().toString());
 		}
-		return new Result("Unknown command! Maybe you mean: " + builder.toString(), 
+		return new Result("Unknown command! Maybe you mean: " + messageWithTips.toString(), 
 				ResultState.POSSIBLE_MISTAKE);
 	}
 	
