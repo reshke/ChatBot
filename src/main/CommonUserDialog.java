@@ -14,7 +14,7 @@ public class CommonUserDialog implements IDialogCommon {
 	private IDialogGame currentGameDialog;
 	private final ICommandContainer<String> commandContainer;
 	private final ICommandSender<String> senderCommandContainer = new CommandSender<String>();
-	private IResult<String> previousAnswer;
+	private IResult previousAnswer;
 	
 	public CommonUserDialog() {
 		commandContainer = new CommandContainer<String>();

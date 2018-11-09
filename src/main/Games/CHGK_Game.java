@@ -61,7 +61,7 @@ public class CHGK_Game implements ICHGKGame {
 	}
 
 	@Override
-	public IResult GetNextQuestion() {
+	public IResult getNextQuestion() {
 		// TODO Auto-generated method stub
 		return  questionBase.getNextQuestion();
 	}

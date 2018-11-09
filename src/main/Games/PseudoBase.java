@@ -15,19 +15,16 @@ public class PseudoBase implements IQuestionContainer {
 
 		@Override
 		public Question getResult() {
-			// TODO Auto-generated method stub
 			return question;
 		}
 
 		@Override
 		public String getError() {
-			// TODO Auto-generated method stub
 			return "some error";
 		}
 
 		@Override
 		public ResultState getState() {
-			// TODO Auto-generated method stub
 			return ResultState.SUCCESS;
 		}
 		
@@ -37,13 +34,11 @@ public class PseudoBase implements IQuestionContainer {
 
 	@Override
 	public IResult<Question> getCurrentQuestion() {
-		// TODO Auto-generated method stub
 		return new QuestionResult<Question>(this.question);
 	}
 
 	@Override
 	public IResult<Question> getNextQuestion() {
-		// TODO Auto-generated method stub
 		return this.getCurrentQuestion();
 	}
 	

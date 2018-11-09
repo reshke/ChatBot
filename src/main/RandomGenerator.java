@@ -7,13 +7,13 @@ import org.glassfish.grizzly.utils.ArrayUtils;
 public class RandomGenerator implements IRandomGenerator {
 	private final Random random = new Random();
 	
-	public String generateRandomString(int lenght){
-		StringBuilder builder = new StringBuilder();
-		for (int i = 0; i < lenght; i++){
-			builder.append(random.nextBoolean() ? '1' : '0');
+	public String generateRandomString(int lengthString){
+		StringBuilder genereatedString = new StringBuilder();
+		for (int i = 0; i < lengthString; i++){
+			genereatedString.append(random.nextBoolean() ? '1' : '0');
 		}
 		
-		return builder.toString();
+		return genereatedString.toString();
 	}
 	
 	public Boolean generateRandomBoolean(){
@@ -24,31 +24,37 @@ public class RandomGenerator implements IRandomGenerator {
 		return random.nextInt(bound);
 	}
 	
-	public String GenerateRandomSequence(int lenght){
-		StringBuilder builder = new StringBuilder();
-		for (int i = 0; i < lenght; i++){
-			builder.append(random.nextInt(10));
+	public String generateRandomSequence(int lenghtSequence){
+		StringBuilder sequence = new StringBuilder();
+		for (int i = 0; i < lenghtSequence; i++){
+			sequence.append(random.nextInt(10));
 		}
-		
-		return builder.toString();
+		return sequence.toString();
 	}
 
 	@Override
-	public String generateRandomStringInt(int length, Boolean differentDigits) {
+	public String generateRandomInteger(int integerDigits, Boolean differentDigits) {
+		raiseIfArgumentForCreatingRandomIntegerAreIncorrect(integerDigits, differentDigits);
+		String createdInteger = "";
+		StringBuilder freeDigits = new StringBuilder("0123456789");
+		for (Integer index = 0; index < integerDigits; index++)
+			createdInteger += getNextFreeDigit(freeDigits);
+		return createdInteger;
+	}
+	
+	private void raiseIfArgumentForCreatingRandomIntegerAreIncorrect(Integer integerDigits, Boolean differentDigits) {
 		if (!differentDigits)
-			return null;
-		else {
-			if (length > 10 || length < 0)
-				throw new IllegalArgumentException("Length should be in diaposon from 1 to 10");
-			String result = "";
-			String digits = "0123456789";
-			StringBuilder build = new StringBuilder(digits);
-			for (Integer index = 0; index < length; index++) {
-				int indexChar = generateRandomInt(build.length());
-				result += build.charAt(indexChar);
-				build.deleteCharAt(indexChar);
-			}
-			return result;
-		}
+			throw new UnsupportedOperationException("Generator can't create a number with not different digits!");
+		if (integerDigits > 10 || integerDigits < 0)
+			throw new IllegalArgumentException("Length should be in diaposon from 1 to 10");
+		
+	}
+	
+	private char getNextFreeDigit(StringBuilder freeDigits)
+	{
+		int indexDigit = generateRandomInt(freeDigits.length());
+		char digit = freeDigits.charAt(indexDigit);
+		freeDigits.deleteCharAt(indexDigit);
+		return digit;
 	}
 }

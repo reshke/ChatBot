@@ -34,7 +34,7 @@ public class MockRandomGenerator implements IRandomGenerator{
 		return randomInt;
 	}
 	@Override
-	public String generateRandomStringInt(int length, Boolean differentDigits) {
+	public String generateRandomInteger(int length, Boolean differentDigits) {
 		return randomString;
 	}
 	

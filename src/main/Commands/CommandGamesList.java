@@ -17,6 +17,8 @@ public class CommandGamesList<TValue> implements ICommand<TValue> {
 		this.key = key;
 	}
 	
+	// Почему считывание файла внутри команды, которая просто должна выполнить переданную функцию?
+	
 	private File getHelpFile(){
 		String path = new File("").getAbsolutePath();
 		String fullPath = path + "\\src\\main\\data\\";

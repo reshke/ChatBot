@@ -15,7 +15,7 @@ public class NumGame implements IAskAnswerStringGame {
 	
 	public NumGame(IRandomGenerator generator) {
 		gameState = GameState.NOT_STARTED;
-		dataString = generator.generateRandomStringInt(4, true);
+		dataString = generator.generateRandomInteger(4, true);
 		if (!isCorrectQuery(dataString))
 			throw new IllegalArgumentException("Conveived string should be 4-digits string with different digits");
 	}
@@ -51,21 +51,21 @@ public class NumGame implements IAskAnswerStringGame {
 	
 	private Integer countOrderedEqualsSymbols(String first, String second) {
 		Integer lengthCount = Math.min(first.length(), second.length());
-		Integer result = 0;
+		Integer equalsDigits = 0;
 		for (Integer index = 0; index < lengthCount; index ++) {
 			if (first.charAt(index) == second.charAt(index))
-				result++;
+				equalsDigits++;
 		}
-		return result;
+		return equalsDigits;
 	}
 	
 	private Integer countUnorderedEqualsSymbols(String first, String second) {
-		Integer result = 0;
+		Integer equalDigits = 0;
 		for (Integer index = 0; index < first.length(); index++) {
 			if (second.contains(Character.toString(first.charAt(index))))
-				result++;
+				equalDigits++;
 		}
-		return result;
+		return equalDigits;
 	}
 
 	@Override

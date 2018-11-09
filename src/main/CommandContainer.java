@@ -24,7 +24,7 @@ public class CommandContainer<TValue> implements ICommandContainer<TValue> {
 	
 	public void addSetOfCommands(ICommand<TValue> commands[]){
 		for (ICommand<TValue> command : commands)
-			addCommand(command);
+			commandContainer.put(command.getKey(), command);
 	}
 	
 	public void clear() {
@@ -36,33 +36,37 @@ public class CommandContainer<TValue> implements ICommandContainer<TValue> {
 	{
 		ArrayList<Pair<TValue, ICommand<TValue>>> list = commandContainer.get(value, 3);
 		if (list.size() == 0)
-			return new ResultInformation("Unknown command! Read help!", 
+			return (IResult) new Result("Unknown command! Read help!", 
 					ResultState.UNKNOWN);
 		StringBuilder builder = new StringBuilder();
 		for (Pair<TValue, ICommand<TValue>> item: list)
 		{
 			builder.append(" " + item.getFirst().toString());
 		}
-		return new ResultInformation("Unknown command! Maybe you mean: " + builder.toString(), 
+		return new Result("Unknown command! Maybe you mean: " + builder.toString(), 
 				ResultState.POSSIBLE_MISTAKE);
+	}
+	
+	private IResult executeCommand(ICommand command, String[] args) {
+		try {
+			String result = command.executeCommand(args);
+			return new Result(result, ResultState.SUCCESS);
+		}
+		catch (IllegalArgumentException exception) {
+			return new Result(exception.getMessage(), ResultState.WRONG_ARGUMENTS);
+		}
+		catch (UnsupportedOperationException exception) {
+			return new Result(exception.getMessage(), ResultState.UNSUPPORTED_OPERATION);
+		}
 	}
 	
 	@Override
 	public IResult executeCommand(TValue value, String[] args) {
-		ArrayList<Pair<TValue, ICommand<TValue>>> list = commandContainer.get(value, 1);
-		if (list.size() == 0)
+		ArrayList<Pair<TValue, ICommand<TValue>>> commands = commandContainer.get(value, 1);
+		if (commands.size() == 0)
 			return handleNotExistingCommand(value);
-		ICommand<TValue> command = list.get(0).getSecond();
-		try {
-			String result = command.executeCommand(args);
-			return new ResultInformation(result, ResultState.SUCCESS);
-		}
-		catch (IllegalArgumentException exception) {
-			return new ResultInformation(exception.getMessage(), ResultState.WRONG_ARGUMENTS);
-		}
-		catch (UnsupportedOperationException exception) {
-			return new ResultInformation(exception.getMessage(), ResultState.WRONG_ARGUMENTS);
-		}
+		ICommand<TValue> command = commands.get(0).getSecond();
+		return executeCommand(command, args);
 	}
 	
 }

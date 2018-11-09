@@ -1,6 +1,6 @@
 package main;
 
-public class ResultInformation implements IResult<String> {
+public class Result implements IResult {
 	private final String result;
 	private final String errorMessage;
 	private final ResultState state;
@@ -17,17 +17,16 @@ public class ResultInformation implements IResult<String> {
 		return state;
 	}
 	
-	public ResultInformation(String result, ResultState state)
+	public Result(String resultInformation, ResultState resultState)
 	{
-		if (state == ResultState.SUCCESS) {	
-			this.result = result;
-			errorMessage = "";
+		if (resultState == ResultState.SUCCESS) {	
+			this.result = resultInformation;
+			errorMessage = null;
 		}
 		else {
-			errorMessage = result;
-			this.result = "incorrect input";
+			errorMessage = resultInformation;
+			this.result = null;
 		}
-		this.state = state;
+		this.state = resultState;
 	}
-	
 }

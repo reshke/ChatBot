@@ -16,22 +16,20 @@ public class Bot {
 	}
 	
 	
-	public void StartBot() {
+	public void startBot() {
 		writer.WriteLine("Welcome! I'm chat bot! help to see help");
 		
 		dialogManager.startDialog(0L);
 	}
 	
-	public void ExecuteQuery(){
+	public void executeQuery(){
 		String query = reader.ReadQuery();
 		IResult<String> result = dialogManager.handleQuery(0L, query);
 		ResultState state = result.getState();
 		
 		if (state == ResultState.SUCCESS)
 			writer.WriteLine(result.getResult());
-		if (state == ResultState.UNKNOWN)
-			writer.WriteLine(" do not understand");
-		if (state == ResultState.WRONG_ARGUMENTS)
+		else
 			writer.WriteLine(result.getError());
 	}
 }

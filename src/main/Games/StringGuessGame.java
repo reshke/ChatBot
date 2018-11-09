@@ -10,13 +10,13 @@ import main.TypeGame;
 public class StringGuessGame implements IGuessStringGame {
 	private GameState gameState;// = GameState.NotStarted;
 	private final String dataString;
-	private final int dataStringLenght;
-	private final int onesCount[];
+	private final int dataStringLength;
+	private final int guessedNumber[];
 	private final IRandomGenerator generator;
 	
-	private void calculatePrefixSums() {
-		for (int i = 0; i < dataStringLenght; i++){
-			onesCount[i + 1] = onesCount[i] + (dataString.charAt(i) == '1' ? 1 : 0);
+	private void calculateGuessedNumber() {
+		for (int i = 0; i < dataStringLength; i++){
+			guessedNumber[i + 1] = guessedNumber[i] + (dataString.charAt(i) == '1' ? 1 : 0);
 		}
 	}
 
@@ -24,20 +24,23 @@ public class StringGuessGame implements IGuessStringGame {
 		return gameState;
 	}
 	
-	public StringGuessGame(int lenght, IRandomGenerator generator) {
-		if (lenght <= 0)
+	private void raiseIfLengthIsIncorrect(int length)
+	{
+		if (length <= 0)
 			throw new IllegalArgumentException("Length of line should be positive number!");
-		if (lenght > 100000)
+		if (length > 1000)
 			throw new IllegalArgumentException("Length of line is too big!");
-		
-		gameState = GameState.NOT_STARTED;
-		this.generator = generator;
-		dataString = generator.generateRandomString(lenght);
-		dataStringLenght = lenght;
-		onesCount = new int[lenght + 1];
-		calculatePrefixSums();
 	}
 	
+	public StringGuessGame(int length, IRandomGenerator generator) {
+		raiseIfLengthIsIncorrect(length);
+		gameState = GameState.NOT_STARTED;
+		this.generator = generator;
+		dataString = generator.generateRandomString(length);
+		dataStringLength = length;
+		guessedNumber = new int[length + 1];
+		calculateGuessedNumber();
+	}
 	
 	@Override
 	public IGame startGame() {
@@ -69,7 +72,7 @@ public class StringGuessGame implements IGuessStringGame {
 					+ " 1 <= leftBorber <= rightBorder <= string length ");
 		
 		if (generator.generateRandomBoolean())
-			return onesCount[rightBound] - onesCount[leftBound - 1];
+			return guessedNumber[rightBound] - guessedNumber[leftBound - 1];
 		else
 			return generator.generateRandomInt(rightBound - leftBound + 1);
 		
@@ -78,14 +81,13 @@ public class StringGuessGame implements IGuessStringGame {
 
 	@Override
 	public TypeGame getTypeGame() {
-		// TODO Auto-generated method stub
 		return TypeGame.GUESS_STRING;
 	}
 
 	@Override
 	public String getHint(int position) {
 		if (position < 1 || position > 10)
-			throw new IllegalArgumentException("You can ask digit only in range from 1 to " + Integer.toString(dataStringLenght));
+			throw new IllegalArgumentException("You can ask digit only in range from 1 to " + Integer.toString(dataStringLength));
 		return dataString.substring(position - 1, position);
 	}
 

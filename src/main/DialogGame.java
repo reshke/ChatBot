@@ -16,10 +16,7 @@ public class DialogGame implements IDialogGame {
 	public DialogGame(IGuessStringGame game, ICommandContainer<TypeAction> containerGameCommands, 
 			ICommandContainer<TypeAction> containerCommonCommands,
 			IHelper helper) {
-		this.containerGameCommands = containerGameCommands;
-		this.containerCommonCommands = containerCommonCommands;
-		this.helper = helper;
-		this.game = game;
+		createBaseForGame(containerGameCommands, containerCommonCommands, helper, game);
 		updateContainer(game);
 	}
 	
@@ -27,10 +24,7 @@ public class DialogGame implements IDialogGame {
 			ICommandContainer<TypeAction> containerGameCommands, 
 			ICommandContainer<TypeAction> containerCommonCommands,
 			IHelper helper) {
-		this.containerGameCommands = containerGameCommands;
-		this.containerCommonCommands = containerCommonCommands;
-		this.helper = helper;
-		this.game = game;
+		createBaseForGame(containerGameCommands, containerCommonCommands, helper, game);
 		updateContainer(game);
 	}
 	
@@ -39,11 +33,18 @@ public class DialogGame implements IDialogGame {
 			ICommandContainer<TypeAction> containerCommonCommands,
 			IHelper helper)
 	{
+		createBaseForGame(containerGameCommands, containerCommonCommands, helper, game);
+		updateContainer(game);
+	}
+	
+	private void createBaseForGame(ICommandContainer<TypeAction> containerGameCommands, 
+			ICommandContainer<TypeAction> containerCommonCommands,
+			IHelper helper,
+			IGame game) {
 		this.containerGameCommands = containerGameCommands;
 		this.containerCommonCommands = containerCommonCommands;
 		this.helper = helper;
 		this.game = game;
-		updateContainer(game);
 	}
 	
 	private void updateContainer(ICHGKGame game)
@@ -97,10 +98,10 @@ public class DialogGame implements IDialogGame {
 		try {
 			TypeGame gameType = game.getTypeGame();
 			String helpMessage = helper.getHelp(gameType);
-			return new ResultInformation(helpMessage, ResultState.SUCCESS);
+			return new Result(helpMessage, ResultState.SUCCESS);
 		}
 		catch (UnsupportedOperationException | IllegalArgumentException exception) {
-			return new ResultInformation(exception.getMessage(), ResultState.WRONG_ARGUMENTS);
+			return new Result(exception.getMessage(), ResultState.WRONG_ARGUMENTS);
 		}
 	}
 

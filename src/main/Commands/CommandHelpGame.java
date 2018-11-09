@@ -23,15 +23,8 @@ public class CommandHelpGame<TKey> implements ICommand<TKey> {
 	public String executeCommand(String[] args) {
 		if (args.length != 1)
 			throw new IllegalArgumentException("Count of arguments is not correct");
+		return function.apply("");
 		
-		try
-		{ 
-			return function.apply("");
-		}
-		catch (UnsupportedOperationException e)
-		{
-			throw e;
-		}
 	}
 
 	@Override

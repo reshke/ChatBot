@@ -21,14 +21,14 @@ public class CommandSender<TKey> implements ICommandSender<TKey> {
 	{
 		ArrayList<Pair<TKey, Function<String[], IResult>>> list = functions.get(value, 3);
 		if (list.size() == 0)
-			return new ResultInformation("Unknown command! Read help!", 
+			return new Result("Unknown command! Read help!", 
 					ResultState.UNKNOWN);
 		StringBuilder builder = new StringBuilder();
 		for (Pair<TKey, Function<String[], IResult>> item: list)
 		{
 			builder.append(" " + item.getFirst().toString());
 		}
-		return new ResultInformation("Unknown command! Maybe you mean: " + builder.toString(), 
+		return new Result("Unknown command! Maybe you mean: " + builder.toString(), 
 				ResultState.POSSIBLE_MISTAKE);
 	}
 	
