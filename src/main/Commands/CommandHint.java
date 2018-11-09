@@ -27,7 +27,7 @@ public class CommandHint<TKey> implements ICommand<TKey> {
 
 	@Override
 	public String executeCommand(String[] args) {
-		if (args.length != 1)
+		if (args.length > 1)
 			throw new IllegalArgumentException("Incorrect count of arguments");
 		if (args.length == 1)
 		{
