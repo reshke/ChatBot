@@ -78,17 +78,23 @@ public class StringGuessGame implements IGuessStringGame {
 		
 	}
 	
-
 	@Override
 	public TypeGame getTypeGame() {
 		return TypeGame.GUESS_STRING;
 	}
 
-	@Override
-	public String getHint(int position) {
+	private String getHint(int position){
 		if (position < 1 || position > 10)
-			throw new IllegalArgumentException("You can ask digit only in range from 1 to " + Integer.toString(dataStringLength));
+			return "You can ask digit only in range from 1 to 10";
 		return dataString.substring(position - 1, position);
 	}
+	
+	@Override
+	public String getHint(String [] args){
+		if (args.length != 2)
+			return "Incorrect count of arguments";
 
+		Integer questionIndex = Integer.parseInt(args[1]);
+		return getHint(questionIndex);
+	}
 }

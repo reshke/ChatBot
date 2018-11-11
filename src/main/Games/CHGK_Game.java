@@ -50,14 +50,20 @@ public class CHGK_Game implements ICHGKGame {
 			return false;
 	}
 
-	@Override
-	public String getHint(int val) {
+	public String getHint() {
 		// TODO Auto-generated method stub
 		IResult<Question> result = questionBase.getCurrentQuestion();
 		if (result.getState() == ResultState.SUCCESS)
 			return result.getResult().getQuestionAnswer();
 		else
 			return result.getError();
+	}
+	
+	@Override
+	public String getHint(String[] args) {
+		if (args.length != 1)
+			return "Incorrect count of arguments";
+		return getHint();
 	}
 
 	@Override

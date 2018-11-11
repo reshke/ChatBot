@@ -7,9 +7,9 @@ import main.ICommand;
 public class CommandHint<TKey> implements ICommand<TKey> {
 	private final String name;
 	private final TKey key;
-	private final Function<Integer, String> function;
+	private final Function<String[], String> function;
 	
-	public CommandHint(TKey key, String name, Function<Integer, String> function) {
+	public CommandHint(TKey key, String name, Function<String[], String> function) {
 		this.name = name;
 		this.key = key;
 		this.function = function;
@@ -27,15 +27,7 @@ public class CommandHint<TKey> implements ICommand<TKey> {
 
 	@Override
 	public String executeCommand(String[] args) {
-		if (args.length > 1)
-			throw new IllegalArgumentException("Incorrect count of arguments");
-		if (args.length == 1)
-		{
-			return function.apply(0);
-		}
-		Integer questionIndex = Integer.parseInt(args[1]);
-		return function.apply(questionIndex);
-		
+		return function.apply(args);
 	}
 	
 }

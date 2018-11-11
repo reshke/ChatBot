@@ -25,17 +25,17 @@ public class TestNumGame {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void getHint_ThrowsArgumentException_WhenGetsZeroIndex() {
-		game.getHint(0);
+		game.getHint(new String[]{"hint", "0"});
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void getHint_ThrowsArgumentException_WhenGetsNegativeIndex() {
-		game.getHint(-1);
+		game.getHint(new String[]{"hint", "-1"});
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void getHint_ThrowsArgumentException_WhenGetIndexMoreThanFour() {
-		game.getHint(5);
+		game.getHint(new String[]{"hint", "5"});
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -88,7 +88,7 @@ public class TestNumGame {
 		String result = "";
 		
 		for (int i = 1; i <= 4; i++) {
-			result += game.getHint(i);
+			result += game.getHint(new String[]{"hint", "" + i});
 		}
 		
 		assertTrue(game.guessAnswer(result));
