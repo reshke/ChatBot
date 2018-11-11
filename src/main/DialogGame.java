@@ -2,6 +2,7 @@ package main;
 
 import main.Commands.CommandAskStringAndGetString;
 import main.Commands.CommandEndGame;
+import main.Commands.CommandGetString;
 import main.Commands.CommandGuess;
 import main.Commands.CommandHint;
 
@@ -50,9 +51,10 @@ public class DialogGame implements IDialogGame {
 	private void updateContainer(ICHGKGame game)
 	{
 		containerGameCommands.clear();
-		ICommand gameCommands[] = { new CommandGuess<TypeAction>(TypeAction.ASK, "ask", (x) -> game.guessAnswer(x)),
+		ICommand gameCommands[] = { new CommandGetString<TypeAction>(TypeAction.ASK, "ask", (x) -> game.getQuestionWording()),
+				new CommandGuess<TypeAction>(TypeAction.ANSWER, "result", (x) -> game.postQuery(x)),
 				new CommandEndGame<TypeAction>(TypeAction.END, "End", (x) -> game.endGame()),
-				new CommandHint<TypeAction>(TypeAction.HINT, "Hint", (x) -> game.getHint(x))};
+				new CommandHint<TypeAction>(TypeAction.HINT, "Hint", (x) -> game.getHint(x)) };
 		for (ICommand<TypeAction> command: gameCommands) {
 			containerGameCommands.addCommand(command);
 		}
@@ -81,17 +83,16 @@ public class DialogGame implements IDialogGame {
 		}
 	}
 
+	@Override
+	public IResult getLastAnswer(String[] args) {
+		return lastAnswer;
+	}
 	
-
 	@Override
 	public IResult addRequest(String[] args) {
 		return containerGameCommands.executeCommand(TypeAction.ASK, args);
 	}
 
-	@Override
-	public IResult getLastAnswer(String[] args) {
-		return lastAnswer;
-	}
 
 	@Override
 	public IResult getHelp(String[] args) {

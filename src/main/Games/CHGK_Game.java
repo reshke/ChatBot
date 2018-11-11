@@ -11,8 +11,7 @@ public class CHGK_Game implements ICHGKGame {
 	private GameState gameState;
 	private final IQuestionContainer questionBase;
 	
-	public CHGK_Game(IQuestionContainer questionBase) 
-	{
+	public CHGK_Game(IQuestionContainer questionBase) {
 		this.questionBase = questionBase;
 	}
 	
@@ -40,16 +39,6 @@ public class CHGK_Game implements ICHGKGame {
 		return TypeGame.CHGK_Game;
 	}
 
-	@Override
-	public Boolean guessAnswer(String query) {
-		// TODO Auto-generated method stub
-		IResult<Question> result = questionBase.getCurrentQuestion();
-		if (result.getState() == ResultState.SUCCESS)
-			return result.getResult().getQuestionAnswer().equals(query);
-		else
-			return false;
-	}
-
 	public String getHint() {
 		// TODO Auto-generated method stub
 		IResult<Question> result = questionBase.getCurrentQuestion();
@@ -73,13 +62,18 @@ public class CHGK_Game implements ICHGKGame {
 	}
 
 	@Override
-	public String postQuery(String query) {
+	public Boolean postQuery(String query) {
 		// TODO Auto-generated method stub
 		IResult<Question> result = questionBase.getCurrentQuestion();
-		if (result.getState() == ResultState.SUCCESS)
-			return result.getResult().getQuestionAnswer() == query ? "Correct " : "Incorrect";
-		else
-			return result.getError();
+//		if (result.getState() == ResultState.SUCCESS)
+		return result.getResult().getQuestionAnswer().equals(query);
+//		else
+//			throw new Exception(result.getError());
 	}
 
+	@Override
+	public String getQuestionWording() {
+		// TODO Auto-generated method stub
+		return this.questionBase.getCurrentQuestion().getResult().getQuestionWording();
+	}
 }
