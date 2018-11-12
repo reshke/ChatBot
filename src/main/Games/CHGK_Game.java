@@ -55,20 +55,18 @@ public class CHGK_Game implements ICHGKGame {
 		return getHint();
 	}
 
-	@Override
-	public IResult getNextQuestion() {
-		// TODO Auto-generated method stub
-		return  questionBase.getNextQuestion();
-	}
 
 	@Override
 	public Boolean postQuery(String query) {
 		// TODO Auto-generated method stub
 		IResult<Question> result = questionBase.getCurrentQuestion();
-//		if (result.getState() == ResultState.SUCCESS)
-		return result.getResult().getQuestionAnswer().equals(query);
-//		else
-//			throw new Exception(result.getError());
+		if (result.getResult().getQuestionAnswer().equals(query)) {
+			this.questionBase.switchQuestion();
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override
