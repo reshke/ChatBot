@@ -93,7 +93,6 @@ public class DialogGame implements IDialogGame {
 		return containerGameCommands.executeCommand(TypeAction.ASK, args);
 	}
 
-
 	@Override
 	public IResult getHelp(String[] args) {
 		try {

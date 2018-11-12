@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import main.CommonUserDialog;
+import main.ResultState;
 import main.TypeGame;
 
 
@@ -41,8 +42,19 @@ public class TestCommonUserDialog {
 	}
 	
 	@Test
-	public void testFuzzyCommandSeqarcthWorksWell(){
+	public void testFuzzyCommandSearcthWorksWell(){
 		dialog.switchGame(TypeGame.CHGK_Game);
 		assertTrue(dialog.handleQuery("hing").getResult().equals("5"));
+	}
+	
+	@Test
+	public void testFuzzyCommanFindsPossibleTypedCommands(){
+		dialog.switchGame(TypeGame.CHGK_Game);
+		assertTrue(dialog.handleQuery("higg").getState() == ResultState.POSSIBLE_MISTAKE);
+	}
+	@Test
+	public void testFuzzyCommandDoNotFindVeryBadTypedCommand(){
+		dialog.switchGame(TypeGame.CHGK_Game);
+		assertTrue(dialog.handleQuery("higgg").getState() == ResultState.UNKNOWN);
 	}
 }
