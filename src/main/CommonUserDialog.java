@@ -77,7 +77,7 @@ public class CommonUserDialog implements IDialogCommon {
 		return result;
 	}
 	
-	private void exitGame() {
+	public void exitGame() {
 		if (currentGameDialog == null)
 			throw new UnsupportedOperationException("Game is not chosen!");
 		currentGameDialog = null;

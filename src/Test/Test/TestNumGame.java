@@ -23,19 +23,19 @@ public class TestNumGame {
 		game = new NumGame(new RandomGenerator());
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void getHint_ThrowsArgumentException_WhenGetsZeroIndex() {
-		game.getHint(new String[]{"hint", "0"});
+	@Test
+	public void getHint_ReturnsHelpString_WhenGetsZeroIndex() {
+		assertTrue(game.getHint(new String[]{"hint", "0"}).equals("You can ask digit only in range from 1 to 4"));
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void getHint_ThrowsArgumentException_WhenGetsNegativeIndex() {
-		game.getHint(new String[]{"hint", "-1"});
+	@Test
+	public void getHint_ReturnsHelpString_WhenGetsNegativeIndex() {
+		assertTrue(game.getHint(new String[]{"hint", "-1"}).equals("You can ask digit only in range from 1 to 4"));
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void getHint_ThrowsArgumentException_WhenGetIndexMoreThanFour() {
-		game.getHint(new String[]{"hint", "5"});
+	@Test
+	public void getHint_ReturnsHelpString_WhenGetIndexMoreThanFour() {
+		assertTrue(game.getHint(new String[]{"hint", "5"}).equals("You can ask digit only in range from 1 to 4"));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -179,7 +179,6 @@ public class TestNumGame {
 	{
 		IRandomGenerator generator = new MockRandomGenerator("1233");
 		NumGame numGame = new NumGame(generator);
-		
 	}
 	
 	@Test
