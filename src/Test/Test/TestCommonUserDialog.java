@@ -39,4 +39,10 @@ public class TestCommonUserDialog {
 		dialog.switchGame(TypeGame.GUESS_STRING);
 		dialog.switchGame(TypeGame.GUESS_STRING);
 	}
+	
+	@Test
+	public void testFuzzyCommandSeqarcthWorksWell(){
+		dialog.switchGame(TypeGame.CHGK_Game);
+		assertTrue(dialog.handleQuery("hing").getResult().equals("5"));
+	}
 }
