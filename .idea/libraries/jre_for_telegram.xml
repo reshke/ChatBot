@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="jre_for_telegram">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/jre_for_telegram/telegrambots-abilities-4.1-jar-with-dependencies.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jre_for_telegram/telegrambots-4.1-jar-with-dependencies.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jre_for_telegram/telegrambots-meta-4.1-jar-with-dependencies.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jre_for_telegram/telegrambotsextensions-4.1-jar-with-dependencies.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jre_for_telegram/telegrambots-chat-session-bot-4.1-jar-with-dependencies.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jre_for_telegram/telegrambots-spring-boot-starter-4.1-jar-with-dependencies.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
