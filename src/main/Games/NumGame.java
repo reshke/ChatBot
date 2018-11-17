@@ -10,7 +10,6 @@ import main.IRandomGenerator;
 import main.TypeGame;
 
 public class NumGame extends Game implements IAskAnswerStringGame{
-	private GameState gameState;// = GameState.NotStarted;
 	private final String dataString;
 //	private final IRandomGenerator generator;
 	

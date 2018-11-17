@@ -1,9 +1,5 @@
 package Test;
 
-
-
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,9 +7,7 @@ import main.CommandContainer;
 import main.DialogGame;
 import main.GamesHelper;
 import main.RandomGenerator;
-import main.ResultState;
 import main.TypeAction;
-import main.TypeGame;
 import main.Games.StringGuessGame;
 import main.IO.Reader;
 

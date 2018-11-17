@@ -1,14 +1,13 @@
 package main.Games;
 
+import main.Game;
 import main.GameState;
 import main.IGuessStringGame;
 import main.IGame;
 import main.IRandomGenerator;
 import main.TypeGame;
 
-
-public class StringGuessGame implements IGuessStringGame {
-	private GameState gameState;// = GameState.NotStarted;
+public class StringGuessGame extends Game implements IGuessStringGame {
 	private final String dataString;
 	private final int dataStringLength;
 	private final int guessedNumber[];
@@ -41,25 +40,7 @@ public class StringGuessGame implements IGuessStringGame {
 		guessedNumber = new int[length + 1];
 		calculateGuessedNumber();
 	}
-	
-	@Override
-	public IGame startGame() {
-		gameState = GameState.RUNNING;
-		return null;
-	}
 
-	@Override
-	public void endGame() {
-		if (gameState == GameState.OVER)
-			throw new UnsupportedOperationException("Game was already ended!");
-		gameState = GameState.OVER;
-	}
-
-	@Override
-	public void pauseGame() {
-		gameState = GameState.PAUSED;
-	}
-	
 	@Override
 	public Boolean guessAnswer(String query) {
 		return dataString.equals(query);

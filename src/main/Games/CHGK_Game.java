@@ -1,14 +1,12 @@
 package main.Games;
 
-import main.GameState;
+import main.Game;
 import main.ICHGKGame;
-import main.IGame;
 import main.IResult;
 import main.ResultState;
 import main.TypeGame;
 
-public class CHGK_Game implements ICHGKGame {
-	private GameState gameState;
+public class CHGK_Game extends Game implements ICHGKGame {
 	private final IQuestionContainer questionBase;
 	
 	public CHGK_Game(IQuestionContainer questionBase) {
@@ -16,36 +14,13 @@ public class CHGK_Game implements ICHGKGame {
 	}
 	
 	@Override
-	public IGame startGame() {
-		gameState = GameState.RUNNING;
-		return null;
-	}
-	
-	@Override
-	public void endGame() {
-		if (gameState == GameState.OVER)
-			throw new UnsupportedOperationException("Game was already ended!");
-		gameState = GameState.OVER;
-	}
-
-	@Override
-	public void pauseGame() {
-		gameState = GameState.PAUSED;
-	}
-
-	@Override
 	public TypeGame getTypeGame() {
-		// TODO Auto-generated method stub
 		return TypeGame.CHGK_Game;
 	}
 
 	public String getHint() {
-		// TODO Auto-generated method stub
 		IResult<Question> result = questionBase.getCurrentQuestion();
-		if (result.getState() == ResultState.SUCCESS)
-			return result.getResult().getQuestionAnswer();
-		else
-			return result.getError();
+		return result.getState() == ResultState.SUCCESS ? result.getResult().getQuestionAnswer() : result.getError();
 	}
 	
 	@Override
@@ -58,7 +33,6 @@ public class CHGK_Game implements ICHGKGame {
 
 	@Override
 	public Boolean postQuery(String query) {
-		// TODO Auto-generated method stub
 		IResult<Question> result = questionBase.getCurrentQuestion();
 		if (result.getResult().getQuestionAnswer().equals(query)) {
 			this.questionBase.switchQuestion();
@@ -71,7 +45,6 @@ public class CHGK_Game implements ICHGKGame {
 
 	@Override
 	public String getQuestionWording() {
-		// TODO Auto-generated method stub
 		return this.questionBase.getCurrentQuestion().getResult().getQuestionWording();
 	}
 }

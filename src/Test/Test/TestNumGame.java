@@ -80,7 +80,7 @@ public class TestNumGame {
 	
 	@Test(expected = NullPointerException.class)
 	public void creationNumGame_ThrowsNullPointerException_WhenGetsANullInsteadOfAIRandomGenerator() {
-		NumGame game = new NumGame(null);
+		new NumGame(null);
 	}
 	
 	@Test
@@ -178,7 +178,7 @@ public class TestNumGame {
 	public void creationNumGame_ShouldFail_WhenGetsInCorrectNumber()
 	{
 		IRandomGenerator generator = new MockRandomGenerator("1233");
-		NumGame numGame = new NumGame(generator);
+		new NumGame(generator);
 	}
 	
 	@Test

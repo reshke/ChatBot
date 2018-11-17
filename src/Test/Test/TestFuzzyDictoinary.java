@@ -136,7 +136,7 @@ public class TestFuzzyDictoinary {
 			intDictionary.put(index, index);
 		
 		for (int index = 0; index < 100000; index++) {
-			List<Pair<Integer, Integer>> items = intDictionary.get(index % 100, 0);
+			intDictionary.get(index % 100, 0);
 		}
 	}
 	

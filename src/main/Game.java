@@ -1,7 +1,7 @@
 package main;
 
 public abstract class Game implements IGame {
-	private GameState gameState;// = GameState.NotStarted;
+	protected GameState gameState;// = GameState.NotStarted;
 	
 	@Override
 	public IGame startGame() {
@@ -18,9 +18,6 @@ public abstract class Game implements IGame {
 
 	@Override
 	public void pauseGame() {
-		// TODO Auto-generated method stub
-
 		gameState = GameState.PAUSED;
-
 	}
 }
