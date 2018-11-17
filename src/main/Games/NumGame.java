@@ -2,13 +2,14 @@ package main.Games;
 
 import java.util.Arrays;
 
+import main.Game;
 import main.GameState;
 import main.IGame;
 import main.IAskAnswerStringGame;
 import main.IRandomGenerator;
 import main.TypeGame;
 
-public class NumGame implements IAskAnswerStringGame {
+public class NumGame extends Game implements IAskAnswerStringGame{
 	private GameState gameState;// = GameState.NotStarted;
 	private final String dataString;
 //	private final IRandomGenerator generator;

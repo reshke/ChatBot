@@ -183,7 +183,7 @@ public class TestNumGame {
 	
 	@Test
 	public void getTypeGame_ShouldReturnNumTypeGame() {
-		assertEquals(game.getTypeGame(), TypeGame.NUM_GAME);
+		assertEquals(((IGame) game).getTypeGame(), TypeGame.NUM_GAME);
 	}
 	
 }

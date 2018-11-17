@@ -25,7 +25,7 @@ public class DialogGame implements IDialogGame {
 			ICommandContainer<TypeAction> containerGameCommands, 
 			ICommandContainer<TypeAction> containerCommonCommands,
 			IHelper helper) {
-		createBaseForGame(containerGameCommands, containerCommonCommands, helper, game);
+		createBaseForGame(containerGameCommands, containerCommonCommands, helper, (IGame) game);
 		updateContainer(game);
 	}
 	
@@ -65,7 +65,7 @@ public class DialogGame implements IDialogGame {
 		containerGameCommands.clear();
 		ICommand gameCommands[] = { new CommandAskStringAndGetString<TypeAction>(TypeAction.ASK, "Ask", (x) -> game.postQuery(x)),
 				new CommandGuess<TypeAction>(TypeAction.ANSWER, "ask", (x) -> game.guessAnswer(x)),
-				new CommandEndGame<TypeAction>(TypeAction.END, "End", (x) -> game.endGame()),
+				new CommandEndGame<TypeAction>(TypeAction.END, "End", (x) -> ((IGame) game).endGame()),
 				new CommandHint<TypeAction>(TypeAction.HINT, "Hint", (x) -> game.getHint(x))};
 		for (ICommand<TypeAction> command: gameCommands) {
 			containerGameCommands.addCommand(command);
