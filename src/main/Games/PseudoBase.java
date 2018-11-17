@@ -1,7 +1,6 @@
 package main.Games;
 
 import main.IResult;
-import main.ResultState;
 
 public class PseudoBase implements IQuestionContainer {
 	

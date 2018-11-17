@@ -1,8 +1,6 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 
 import org.glassfish.grizzly.utils.Pair;
@@ -10,7 +8,6 @@ import org.glassfish.grizzly.utils.Pair;
 public class CommandSender<TKey> implements ICommandSender<TKey> {
 
 	private final FuzzyDictionary<TKey, Function<String[], IResult>> functions = new LevenshteinDictionary<TKey, Function<String[], IResult>>();
-	
 	
 	@Override
 	public void addCommandSender(TKey key, Function<String[], IResult> function) {

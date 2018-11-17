@@ -83,7 +83,6 @@ public class CommonUserDialog implements IDialogCommon {
 		currentGameDialog = null;
 	}
 	
-	
 	@Override
 	public IResult handleQuery(String query) {
 		previousAnswer = executeQuery(query);
@@ -94,5 +93,4 @@ public class CommonUserDialog implements IDialogCommon {
 	public IResult getLastAnswer() {
 		return previousAnswer;
 	}
-
 }

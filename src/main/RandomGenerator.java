@@ -1,9 +1,6 @@
 package main;
 import java.util.Random;
 
-import org.glassfish.grizzly.utils.ArrayUtils;
-
-
 public class RandomGenerator implements IRandomGenerator {
 	private final Random random = new Random();
 	
