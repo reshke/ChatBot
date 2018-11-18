@@ -1,0 +1,4 @@
+Hi! I`m chatBot and I want to play with you!
+To select game type switch "game name"  
+To see game list type gamesList
+To see more more information type gamehelp in game dialog
