@@ -1,11 +1,8 @@
-package Finders;
+package main.finders;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by 1232 on 18.11.2018.
- */
 public enum EqualState {
     notEqual(1),
     almostEqual(2),

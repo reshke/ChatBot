@@ -1,4 +1,4 @@
-package Finders;
+package main.finders;
 
 /**
  * Created by 1232 on 18.11.2018.

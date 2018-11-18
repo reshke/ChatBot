@@ -1,4 +1,4 @@
-package Finders;
+package main.finders;
 
 
 public class DictionaryItem<Value> {    public final String key;

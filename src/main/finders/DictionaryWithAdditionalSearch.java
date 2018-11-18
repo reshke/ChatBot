@@ -1,4 +1,4 @@
-package Finders;
+package main.finders;
 
 public interface DictionaryWithAdditionalSearch<Value> {
     public void put(String key, Value value);
