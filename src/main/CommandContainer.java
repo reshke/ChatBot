@@ -10,7 +10,6 @@ import org.glassfish.grizzly.utils.Pair;
 public class CommandContainer<TValue> implements ICommandContainer<TValue> {
 	private final FuzzyDictionary<TValue, ICommand<TValue>> commandContainer = new LevenshteinDictionary<TValue, ICommand<TValue>>();
 	
-	
 	public CommandContainer(List<ICommand<TValue>> commands) {
 		for (ICommand<TValue> command: commands) 
 			commandContainer.put(command.getKey(), command);
@@ -30,7 +29,6 @@ public class CommandContainer<TValue> implements ICommandContainer<TValue> {
 	public void clear() {
 		commandContainer.clear();
 	}
-	
 	
 	private IResult handleNotExistingCommand(TValue value)
 	{

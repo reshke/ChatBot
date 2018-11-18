@@ -24,38 +24,36 @@ public class CommonUserDialog implements IDialogCommon {
 		commandContainer.addCommand(new CommandGamesList<String>("gamesList", "gamesList"));
 	}
 	
-	private void updateSender() {
-		senderCommandContainer.clear();
-		senderCommandContainer.addCommandSender("start",x -> currentGameDialog.startGame(x));
-		senderCommandContainer.addCommandSender("gamehelp", x -> currentGameDialog.getHelp(x));
-		senderCommandContainer.addCommandSender("last", x-> currentGameDialog.getLastAnswer(x));
-		senderCommandContainer.addCommandSender("ask", x -> currentGameDialog.addRequest(x));
-		senderCommandContainer.addCommandSender("state", x -> currentGameDialog.getState(x));
-		senderCommandContainer.addCommandSender("result", x -> currentGameDialog.sendAnswer(x));
-		senderCommandContainer.addCommandSender("end", x -> currentGameDialog.stopGame(x));
-		senderCommandContainer.addCommandSender("hint",x -> currentGameDialog.getHint(x));
-	}
-	
+//	private void updateSender() {
+//		senderCommandContainer.clear();
+//		senderCommandContainer.addCommandSender("start",x -> currentGameDialog.startGame(x));
+//		senderCommandContainer.addCommandSender("gamehelp", x -> currentGameDialog.getHelp(x));
+//		senderCommandContainer.addCommandSender("last", x-> currentGameDialog.getLastAnswer(x));
+//		senderCommandContainer.addCommandSender("ask", x -> currentGameDialog.addRequest(x));
+//		senderCommandContainer.addCommandSender("state", x -> currentGameDialog.getState(x));
+//		senderCommandContainer.addCommandSender("result", x -> currentGameDialog.sendAnswer(x));
+//		senderCommandContainer.addCommandSender("end", x -> currentGameDialog.stopGame(x));
+//		senderCommandContainer.addCommandSender("hint",x -> currentGameDialog.getHint(x));
+//	}
+//	
 	public void switchGame(TypeGame typeGame) {
 		switch(typeGame) {
 		case GUESS_STRING: currentGameDialog = 
-				new DialogGame(new StringGuessGame(10, new RandomGenerator()), 
-						new CommandContainer<TypeAction>(), 
-						new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
-				updateSender();
+				new StringGuessGameDialog(new StringGuessGame(10, new RandomGenerator()), new GamesHelper(new Reader()));
+//				updateSender();
 				break;
-		case NUM_GAME: currentGameDialog = 
-				new DialogGame(new NumGame(new RandomGenerator()), 
-						new CommandContainer<TypeAction>(), 
-						new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
-				updateSender();
-				break;
-						  
-		case CHGK_Game: currentGameDialog = new DialogGame(new CHGK_Game(new PseudoBase()), 
-				new CommandContainer<TypeAction>(), 
-				new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
-				updateSender();
-				break;
+//		case NUM_GAME: currentGameDialog = 
+//				new DialogGame(new NumGame(new RandomGenerator()), 
+//						new CommandContainer<TypeAction>(), 
+//						new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
+//				updateSender();
+//				break;
+//						  
+//		case CHGK_Game: currentGameDialog = new DialogGame(new CHGK_Game(new PseudoBase()), 
+//				new CommandContainer<TypeAction>(), 
+//				new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
+//				updateSender();
+//				break;
 				
 		default: throw new IllegalArgumentException("Unknown game");
 		}
@@ -67,10 +65,10 @@ public class CommonUserDialog implements IDialogCommon {
 		if (currentGameDialog == null)
 			return result;
 		if (result.getState() == ResultState.UNKNOWN)
-			return senderCommandContainer.executeCommand(arguments[0], arguments);
+			return currentGameDialog.postQuery(arguments);  //senderCommandContainer.executeCommand(arguments[0], arguments);
 		else if (result.getState() == ResultState.POSSIBLE_MISTAKE)
 		{
-			IResult senderResult = senderCommandContainer.executeCommand(arguments[0], arguments);
+			IResult senderResult = currentGameDialog.postQuery(arguments);
 			if (senderResult.getState() != ResultState.UNKNOWN)
 				return senderResult;
 		}
