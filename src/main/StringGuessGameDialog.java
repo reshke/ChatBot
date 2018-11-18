@@ -7,14 +7,9 @@ import main.Commands.CommandGuess;
 import main.Commands.CommandHint;
 
 public class StringGuessGameDialog extends GameDailog {
-
-	private IResult lastAnswer;
-	private IGuessStringGame game;
-	private IHelper helper;
 	
 	public StringGuessGameDialog(IGuessStringGame game, IHelper helper) {
 		createBaseForGame(helper, game);
-		updateContainer();
 	}
 //	
 //	public DialogGame(IAskAnswerStringGame game,
@@ -37,6 +32,14 @@ public class StringGuessGameDialog extends GameDailog {
 	private void createBaseForGame(IHelper helper, IGuessStringGame game) {
 		this.helper = helper;
 		this.game = game;
+
+		ICommand gameCommands[] = { new CommandPostQuery<String>("ask", "ask", (x, y) -> game.postQuery(x, y)),
+				new CommandGuess<String>("result", "result", (x) -> game.guessAnswer(x)),
+				new CommandEndGame<String>("end", "end", (x) -> game.endGame()),
+				new CommandHint<String>("hint", "hint", (x) -> game.getHint(x))};
+		for (ICommand<String> command: gameCommands) {
+			this.gameCommandContainer.addCommand(command);
+		}
 	}
 	
 //	private void updateContainer(ICHGKGame game)
@@ -63,25 +66,6 @@ public class StringGuessGameDialog extends GameDailog {
 //		}
 //	}
 //	
-	private void updateContainer() {
-		ICommand gameCommands[] = { new CommandPostQuery<String>("ask", "ask", (x, y) -> game.postQuery(x, y)),
-				new CommandGuess<String>("result", "result", (x) -> game.guessAnswer(x)),
-				new CommandEndGame<String>("end", "end", (x) -> game.endGame()),
-				new CommandHint<String>("hint", "hint", (x) -> game.getHint(x))};
-		for (ICommand<String> command: gameCommands) {
-			this.gameCommandContainer.addCommand(command);
-		}
-	}
 
-	public IResult getHelp(String[] args) {
-		try {
-			TypeGame gameType = game.getTypeGame();
-			String helpMessage = helper.getHelp(gameType);
-			return new Result(helpMessage, ResultState.SUCCESS);
-		}
-		catch (UnsupportedOperationException | IllegalArgumentException exception) {
-			return new Result(exception.getMessage(), ResultState.WRONG_ARGUMENTS);
-		}
-	}
 }
 
