@@ -55,6 +55,6 @@ public class TestCommonUserDialog {
 	@Test
 	public void testFuzzyCommandDoNotFindVeryBadTypedCommand(){
 		dialog.switchGame(TypeGame.CHGK_Game);
-		assertTrue(dialog.handleQuery("higgg").getState() == ResultState.UNKNOWN);
+		assertTrue(dialog.handleQuery("higggggggggg").getState() == ResultState.UNKNOWN);
 	}
 }

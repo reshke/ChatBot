@@ -12,11 +12,11 @@ import main.IO.Reader;
 
 public class CommonUserDialog implements IDialogCommon {
 	private IDialogGame currentGameDialog;
-	private final ICommandContainer<String> commandContainer;
+	private final ICommandContainer commandContainer;
 	private IResult<String> previousAnswer;
 	
 	public CommonUserDialog() {
-		commandContainer = new CommandContainer<String>();
+		commandContainer = new CommandContainer();
 		commandContainer.addCommand(new CommandHelp<String>("help", "help"));
 		commandContainer.addCommand(new CommandSwitchGame<String>("switch", "switch", (x) -> switchGame(x)));
 		commandContainer.addCommand(new CommandExitGame<String>("exit", "exit", () -> exitGame()));

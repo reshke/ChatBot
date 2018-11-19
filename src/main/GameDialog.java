@@ -4,7 +4,7 @@ import main.Commands.CommandEndGame;
 import main.Commands.CommandHelpGame;
 
 public abstract class GameDialog implements IDialogGame {
-	protected final ICommandContainer<String> gameCommandContainer = new CommandContainer<String>();
+	protected final ICommandContainer gameCommandContainer = new CommandContainer();
 
 //	protected IResult lastAnswer;
 	protected IHelper helper;
