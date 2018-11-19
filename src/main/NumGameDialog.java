@@ -5,7 +5,7 @@ import main.Commands.CommandEndGame;
 import main.Commands.CommandGuess;
 import main.Commands.CommandHint;
 
-public class NumGameDialog extends GameDailog {
+public class NumGameDialog extends GameDialog {
 
 	@SuppressWarnings("unchecked")
 	public NumGameDialog(IAskAnswerStringGame  game, IHelper helper) {
@@ -14,6 +14,5 @@ public class NumGameDialog extends GameDailog {
 				new CommandGuess<String>("result", "result", (x) -> game.guessAnswer(x)),
 				new CommandEndGame<String>("end", "end", (x) -> ((IGame) game).endGame()),
 				new CommandHint<String>("hint", "hint", (x) -> game.getHint(x))});
-	}
-	
+	}	
 }

@@ -5,7 +5,7 @@ import main.Commands.CommandGetString;
 import main.Commands.CommandGuess;
 import main.Commands.CommandHint;
 
-public class CGHKGameDialog extends GameDailog {
+public class CGHKGameDialog extends GameDialog {
 	
 	@SuppressWarnings("unchecked")
 	public CGHKGameDialog(ICHGKGame game, IHelper helper) {

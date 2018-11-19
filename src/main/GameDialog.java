@@ -2,14 +2,14 @@ package main;
 
 import main.Commands.CommandHelpGame;
 
-public abstract class GameDailog implements IDialogGame {
+public abstract class GameDialog implements IDialogGame {
 	protected final ICommandContainer<String> gameCommandContainer = new CommandContainer<String>();
 
 	protected IResult lastAnswer;
 	protected IHelper helper;
 	protected IGame game;
 	
-	public GameDailog() {
+	public GameDialog() {
 		this.gameCommandContainer.addCommand(new CommandHelpGame<String>("gamehelp", "gamehelp", (x) -> this.getHelp(x)));
 	}
 	

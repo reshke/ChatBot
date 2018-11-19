@@ -13,7 +13,7 @@ import main.IO.Reader;
 public class CommonUserDialog implements IDialogCommon {
 	private IDialogGame currentGameDialog;
 	private final ICommandContainer<String> commandContainer;
-	private final ICommandSender<String> senderCommandContainer = new CommandSender<String>();
+	private final CommandContainer<String> senderCommandContainer = new CommandContainer<String>();
 	private IResult previousAnswer;
 	
 	public CommonUserDialog() {
@@ -24,18 +24,6 @@ public class CommonUserDialog implements IDialogCommon {
 		commandContainer.addCommand(new CommandGamesList<String>("gamesList", "gamesList"));
 	}
 	
-//	private void updateSender() {
-//		senderCommandContainer.clear();
-//		senderCommandContainer.addCommandSender("start",x -> currentGameDialog.startGame(x));
-//		senderCommandContainer.addCommandSender("gamehelp", x -> currentGameDialog.getHelp(x));
-//		senderCommandContainer.addCommandSender("last", x-> currentGameDialog.getLastAnswer(x));
-//		senderCommandContainer.addCommandSender("ask", x -> currentGameDialog.addRequest(x));
-//		senderCommandContainer.addCommandSender("state", x -> currentGameDialog.getState(x));
-//		senderCommandContainer.addCommandSender("result", x -> currentGameDialog.sendAnswer(x));
-//		senderCommandContainer.addCommandSender("end", x -> currentGameDialog.stopGame(x));
-//		senderCommandContainer.addCommandSender("hint",x -> currentGameDialog.getHint(x));
-//	}
-//	
 	public void switchGame(TypeGame typeGame) {
 		switch(typeGame) {
 		case GUESS_STRING: currentGameDialog = 

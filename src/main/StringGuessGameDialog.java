@@ -4,7 +4,7 @@ import main.Commands.CommandEndGame;
 import main.Commands.CommandGuess;
 import main.Commands.CommandHint;
 
-public class StringGuessGameDialog extends GameDailog {
+public class StringGuessGameDialog extends GameDialog {
 	
 	@SuppressWarnings("unchecked")
 	public StringGuessGameDialog(IGuessStringGame game, IHelper helper) {
