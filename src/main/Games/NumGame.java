@@ -3,34 +3,17 @@ package main.Games;
 import java.util.Arrays;
 
 import main.Game;
-import main.GameState;
-import main.IGame;
 import main.IAskAnswerStringGame;
 import main.IRandomGenerator;
 import main.TypeGame;
 
 public class NumGame extends Game implements IAskAnswerStringGame{
 	private final String dataString;
-//	private final IRandomGenerator generator;
 	
 	public NumGame(IRandomGenerator generator) {
-		gameState = GameState.NOT_STARTED;
 		dataString = generator.generateRandomInteger(4, true);
 		if (!isCorrectQuery(dataString))
 			throw new IllegalArgumentException("Conveived string should be 4-digits string with different digits");
-	}
-	
-	@Override
-	public IGame startGame() {
-		gameState = GameState.RUNNING;
-		return null;
-	}
-	
-	@Override
-	public void endGame() {
-		if (gameState == GameState.OVER)
-			throw new UnsupportedOperationException("Game was already ended!");
-		gameState = GameState.OVER;
 	}
 	
 	private Boolean isCorrectQuery(String query) {
@@ -68,20 +51,10 @@ public class NumGame extends Game implements IAskAnswerStringGame{
 		return equalDigits;
 	}
 
-	@Override
-	public void pauseGame() {
-		gameState = GameState.PAUSED;
-	}
-
 	public Boolean guessAnswer(String query) {
 		return dataString.equals(query);
 	}
 
-	@Override
-	public TypeGame getTypeGame() {
-		return TypeGame.NUM_GAME;
-	}
-	
 	@Override
 	public String postQuery(String answer) {
 		if (!isCorrectQuery(answer))
@@ -104,6 +77,11 @@ public class NumGame extends Game implements IAskAnswerStringGame{
 
 		Integer questionIndex = Integer.parseInt(args[1]);
 		return getHint(questionIndex);
+	}
+
+	@Override
+	public TypeGame getTypeGame() {
+		return TypeGame.NUM_GAME;
 	}
 
 }

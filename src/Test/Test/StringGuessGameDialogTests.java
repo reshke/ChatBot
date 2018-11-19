@@ -12,7 +12,7 @@ import main.StringGuessGameDialog;
 import main.Games.StringGuessGame;
 import main.IO.Reader;
 
-public class GameDialogTests {
+public class StringGuessGameDialogTests {
 	@Test
 	public void testStartExecutesCorrect() {
 		GameDialog game = new StringGuessGameDialog(new StringGuessGame(10, new RandomGenerator()), new GamesHelper(new Reader()));

@@ -13,8 +13,7 @@ import main.IO.Reader;
 public class CommonUserDialog implements IDialogCommon {
 	private IDialogGame currentGameDialog;
 	private final ICommandContainer<String> commandContainer;
-	private final CommandContainer<String> senderCommandContainer = new CommandContainer<String>();
-	private IResult previousAnswer;
+	private IResult<String> previousAnswer;
 	
 	public CommonUserDialog() {
 		commandContainer = new CommandContainer<String>();
@@ -41,16 +40,16 @@ public class CommonUserDialog implements IDialogCommon {
 		}
 	}
 	
-	private IResult executeQuery(String query) {
+	private IResult<String> executeQuery(String query) {
 		String[] arguments = query.split(" ");
-		IResult result = commandContainer.executeCommand(arguments[0], arguments);
+		IResult<String> result = commandContainer.executeCommand(arguments[0], arguments);
 		if (currentGameDialog == null)
 			return result;
 		if (result.getState() == ResultState.UNKNOWN)
 			return currentGameDialog.postQuery(arguments);  //senderCommandContainer.executeCommand(arguments[0], arguments);
 		else if (result.getState() == ResultState.POSSIBLE_MISTAKE)
 		{
-			IResult senderResult = currentGameDialog.postQuery(arguments);
+			IResult<String> senderResult = currentGameDialog.postQuery(arguments);
 			if (senderResult.getState() != ResultState.UNKNOWN)
 				return senderResult;
 		}
@@ -64,13 +63,13 @@ public class CommonUserDialog implements IDialogCommon {
 	}
 	
 	@Override
-	public IResult handleQuery(String query) {
+	public IResult<String> handleQuery(String query) {
 		previousAnswer = executeQuery(query);
 		return previousAnswer;
 	}
 
 	@Override
-	public IResult getLastAnswer() {
+	public IResult<String> getLastAnswer() {
 		return previousAnswer;
 	}
 }

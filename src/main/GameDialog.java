@@ -2,12 +2,11 @@ package main;
 
 import main.Commands.CommandEndGame;
 import main.Commands.CommandHelpGame;
-import main.Commands.CommandHint;
 
 public abstract class GameDialog implements IDialogGame {
 	protected final ICommandContainer<String> gameCommandContainer = new CommandContainer<String>();
 
-	protected IResult lastAnswer;
+//	protected IResult lastAnswer;
 	protected IHelper helper;
 	protected IGame game;
 	

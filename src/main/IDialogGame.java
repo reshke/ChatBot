@@ -1,5 +1,5 @@
 package main;
 
 public interface IDialogGame {
-	public IResult postQuery(String[] args);
+	public IResult<String> postQuery(String[] args);
 }
