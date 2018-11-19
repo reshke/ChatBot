@@ -3,7 +3,6 @@ package main.Games;
 import main.Game;
 import main.GameState;
 import main.IGuessStringGame;
-import main.IGame;
 import main.IRandomGenerator;
 import main.TypeGame;
 
@@ -65,7 +64,7 @@ public class StringGuessGame extends Game implements IGuessStringGame {
 	}
 
 	private String getHint(int position){
-		if (position < 1 || position > 10)
+		if (position < 1 || position > dataString.length())
 			return "You can ask digit only in range from 1 to 10";
 		return dataString.substring(position - 1, position);
 	}

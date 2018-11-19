@@ -12,7 +12,6 @@ public class NumGameDialog extends GameDialog {
 		createBaseForGame(helper, game, new ICommand[] 
 				{ new CommandAskStringAndGetString<String>("guess", "guess", (x) -> game.postQuery(x)),
 				new CommandGuess<String>("result", "result", (x) -> game.guessAnswer(x)),
-				new CommandEndGame<String>("end", "end", (x) -> ((IGame) game).endGame()),
 				new CommandHint<String>("hint", "hint", (x) -> game.getHint(x))});
 	}	
 }

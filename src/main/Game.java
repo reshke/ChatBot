@@ -1,7 +1,7 @@
 package main;
 
 public abstract class Game implements IGame {
-	protected GameState gameState;// = GameState.NotStarted;
+	protected GameState gameState = GameState.NOT_STARTED;
 	
 	@Override
 	public IGame startGame() {

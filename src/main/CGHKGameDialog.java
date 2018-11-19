@@ -12,7 +12,6 @@ public class CGHKGameDialog extends GameDialog {
 		createBaseForGame(helper, game, new ICommand[] 
 			{ new CommandGetString<String>("ask", "ask", (x) -> game.getQuestionWording()),
 			new CommandGuess<String>("result", "result", (x) -> game.postQuery(x)),
-			new CommandEndGame<String>("end", "end", (x) -> game.endGame()),
 			new CommandHint<String>("hint", "hint", (x) -> game.getHint(x))});
-		}	
+	}
 }

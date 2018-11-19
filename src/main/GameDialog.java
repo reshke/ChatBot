@@ -1,6 +1,8 @@
 package main;
 
+import main.Commands.CommandEndGame;
 import main.Commands.CommandHelpGame;
+import main.Commands.CommandHint;
 
 public abstract class GameDialog implements IDialogGame {
 	protected final ICommandContainer<String> gameCommandContainer = new CommandContainer<String>();
@@ -11,6 +13,7 @@ public abstract class GameDialog implements IDialogGame {
 	
 	public GameDialog() {
 		this.gameCommandContainer.addCommand(new CommandHelpGame<String>("gamehelp", "gamehelp", (x) -> this.getHelp(x)));
+		this.gameCommandContainer.addCommand(new CommandEndGame<String>("end", "end", (x) -> game.endGame()));
 	}
 	
 	@SuppressWarnings("unchecked")
