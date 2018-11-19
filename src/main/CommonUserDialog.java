@@ -40,20 +40,14 @@ public class CommonUserDialog implements IDialogCommon {
 		switch(typeGame) {
 		case GUESS_STRING: currentGameDialog = 
 				new StringGuessGameDialog(new StringGuessGame(10, new RandomGenerator()), new GamesHelper(new Reader()));
-//				updateSender();
 				break;
-//		case NUM_GAME: currentGameDialog = 
-//				new DialogGame(new NumGame(new RandomGenerator()), 
-//						new CommandContainer<TypeAction>(), 
-//						new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
-//				updateSender();
-//				break;
-//						  
-//		case CHGK_Game: currentGameDialog = new DialogGame(new CHGK_Game(new PseudoBase()), 
-//				new CommandContainer<TypeAction>(), 
-//				new CommandContainer<TypeAction>(), new GamesHelper(new Reader()));
-//				updateSender();
-//				break;
+		case NUM_GAME: 
+			currentGameDialog = new NumGameDialog(new NumGame(new RandomGenerator()), new GamesHelper(new Reader()));
+			break;
+						  
+		case CHGK_Game: 
+			currentGameDialog = new CGHKGameDialog(new CHGK_Game(new PseudoBase()), new GamesHelper(new Reader()));
+			break;
 				
 		default: throw new IllegalArgumentException("Unknown game");
 		}

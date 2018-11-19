@@ -1,6 +1,5 @@
 package main;
 
-import main.Commands.CommandHelp;
 import main.Commands.CommandHelpGame;
 
 public abstract class GameDailog implements IDialogGame {
@@ -14,9 +13,19 @@ public abstract class GameDailog implements IDialogGame {
 		this.gameCommandContainer.addCommand(new CommandHelpGame<String>("gamehelp", "gamehelp", (x) -> this.getHelp(x)));
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	public IResult postQuery(String[] args) {
+	public IResult<String> postQuery(String[] args) {
 		return gameCommandContainer.executeCommand(args[0], args);
+	}
+	
+	protected void createBaseForGame(IHelper helper, IGame game, ICommand<String> gameCommands[]) {
+		this.helper = helper;
+		this.game = game;
+
+		for (ICommand<String> command: gameCommands) {
+			this.gameCommandContainer.addCommand(command);
+		}
 	}
 	
 	public String getHelp(String args) {
