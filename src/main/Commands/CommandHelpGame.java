@@ -2,13 +2,15 @@ package main.Commands;
 import java.util.function.Function;
 
 import main.ICommand;
+import main.IResult;
+import main.ResultState;
 
 public class CommandHelpGame<TKey> implements ICommand<TKey> {
 	private final String name;
-	private final Function<String, String> function;
+	private final Function<String, IResult<String>> function;
 	private final TKey key;
 	
-	public CommandHelpGame(TKey key, String name, Function<String, String> function) {
+	public CommandHelpGame(TKey key, String name, Function<String, IResult<String>> function) {
 		this.name = name;
 		this.function = function;
 		this.key = key;
@@ -23,8 +25,8 @@ public class CommandHelpGame<TKey> implements ICommand<TKey> {
 	public String executeCommand(String[] args) {
 		if (args.length != 1)
 			throw new IllegalArgumentException("Count of arguments is not correct");
-		return function.apply("");
-		
+		IResult<String> result = function.apply("");
+		return result.getState() != ResultState.SUCCESS ? result.getError() : result.getResult();
 	}
 
 	@Override

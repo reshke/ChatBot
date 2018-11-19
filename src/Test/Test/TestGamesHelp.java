@@ -31,6 +31,6 @@ public class TestGamesHelp {
 		
 		assertTrue(helper.getHelp(TypeGame.CHGK_Game).equals("to find out the condition, type ask\r\n" + 
 				"to try answer the answer, type result \"your answer\"\r\n" + 
-				"note, that answer in one single word"));
+				"note, that answer is one single word"));
 	}
 }

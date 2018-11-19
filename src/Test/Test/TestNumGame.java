@@ -151,9 +151,6 @@ public class TestNumGame {
 	public void guessAnswer_GetsAnswerToSecondGame_ShouldReturnFalse_WhenFirstGameAndSecondGameContainsDifferentNumbers() {
 		IRandomGenerator generator = new MockRandomGenerator("1234");
 		NumGame numGame = new NumGame(generator);
-		IRandomGenerator secondGenerator = new MockRandomGenerator("5678");
-		NumGame secondGame = new NumGame(secondGenerator);
-		
 		assertFalse(numGame.guessAnswer("5678"));
 	}
 	

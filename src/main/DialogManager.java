@@ -11,7 +11,7 @@ public class DialogManager implements IDialogManager {
 		dialogs.put(userId, dialog);
 	}
 	
-	public IResult handleQuery(Long userId, String line) {
+	public IResult<String> handleQuery(Long userId, String line) {
 		return dialogs.get(userId).handleQuery(line);
 	}
 }
