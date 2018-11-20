@@ -36,21 +36,14 @@ public class LevenshteinDifference implements FinderLinesDifference {
                                          int x,
                                          int y,
                                          int[][] levenshteinData) {
-        Boolean xIsPositive = x > 0;
-        Boolean yIsPositive = y > 0;
-        if (xIsPositive) {
-            int distance = 1000000;
-            if (yIsPositive) {
-                distance = levenshteinData[x - 1][y - 1];
-                if (secondString.charAt(y - 1) == firstString.charAt(x - 1)) {
-                    return Math.min(distance, levenshteinData[x - 1][y] + 1);
-                }
-                ++distance;
-            }
-            return Math.min(distance, levenshteinData[x - 1][y] + 1);
-        } else {
-            return yIsPositive ? (levenshteinData[x][y - 1] + 1) : 0;
+        if (x == 0) {
+        	return y > 0 ? levenshteinData[x][y - 1] + 1 : 0;
         }
+        if (y == 0)
+        	return levenshteinData[x - 1][y] + 1;
+        int deltaDistance = firstString.charAt(x - 1) == secondString.charAt(y - 1) ? 0 : 1;
+        return Math.min(Math.min(levenshteinData[x - 1][y], levenshteinData[x][y - 1]) + 1, 
+        		levenshteinData[x - 1][y - 1] + deltaDistance);
     }
 
     private void raiseIfArgumentsAreIncorrect(String firstString, String secondString) {

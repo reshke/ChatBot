@@ -7,7 +7,6 @@ import java.util.List;
  * Created by 1232 on 18.11.2018.
  */
 
-// Класс. реализующий поиск похожих строк, используя расстояние между строками
 
 public class FinderSimilarDistanceWords implements FinderSimilarLines {
     private final List<FinderLinesDifference> finders;
@@ -18,6 +17,9 @@ public class FinderSimilarDistanceWords implements FinderSimilarLines {
                                       int maxEqualDistance,
                                       int maxAlmostEqualDistance)
     {
+    	raiseIfDistancesAreIncorrect(maxEqualDistance, maxAlmostEqualDistance);
+    	raiseIfFinderIsIncorrect(finder);
+        
         finders = new ArrayList<FinderLinesDifference>();
         finders.add(finder);
         this.maxEqualDistance = maxEqualDistance;
@@ -28,20 +30,10 @@ public class FinderSimilarDistanceWords implements FinderSimilarLines {
                                       int maxEqualDistance,
                                       int maxAlmostEqualDistance)
     {
-        this.finders = finders;
+    	raiseIfDistancesAreIncorrect(maxEqualDistance, maxAlmostEqualDistance);
+    	this.finders = finders;
         this.maxEqualDistance = maxEqualDistance;
         this.maxAlmostEqualDistance = maxAlmostEqualDistance;
-    }
-
-    private EqualState getEqualRationInOneFinder(FinderLinesDifference finder,
-                                                 String firstItem,
-                                                 String secondItem) {
-        int linesDifference = finder.getDifference(firstItem, secondItem);
-        return linesDifference <= maxEqualDistance
-                ? EqualState.equal
-                : linesDifference <= maxAlmostEqualDistance
-                ? EqualState.almostEqual
-                : EqualState.equal;
     }
 
     @Override
@@ -55,6 +47,28 @@ public class FinderSimilarDistanceWords implements FinderSimilarLines {
         }
         return currentState;
     }
-
-
+    
+    private EqualState getEqualRationInOneFinder(FinderLinesDifference finder,
+            String firstItem,
+            String secondItem) {
+    	int linesDifference = finder.getDifference(firstItem, secondItem);
+    	return linesDifference <= maxEqualDistance
+    			? EqualState.equal
+    			: linesDifference <= maxAlmostEqualDistance
+    				? EqualState.almostEqual
+    				: EqualState.notEqual;
+    }
+    
+    private void raiseIfDistancesAreIncorrect(int maxEqualDistance, int maxAlmostEqualDistance) {
+    	if (maxEqualDistance < 0)
+    		throw new IllegalArgumentException("Distance can not be negative number");
+    	if (maxEqualDistance > maxAlmostEqualDistance)
+    		throw new IllegalArgumentException("Max equal distance can not be less, than maxAlmostEqualDistance");
+    }
+    
+    private void raiseIfFinderIsIncorrect(FinderLinesDifference finder) {
+    	if (finder == null)
+    		throw new NullPointerException("Finder can not be null");
+    	
+    }
 }

@@ -5,63 +5,72 @@ import java.util.List;
 
 import org.glassfish.grizzly.utils.Pair;
 
+import main.finders.DictionaryItem;
+import main.finders.DictionaryItems;
+import main.finders.DictionaryWithAdditionalSearch;
+import main.finders.DictionaryWithSimilarLinesDifference;
+import main.finders.FinderSimilarDistanceWords;
+import main.finders.FinderSimilarLines;
+import main.finders.LevenshteinDifference;
 
-public class CommandContainer<TValue> implements ICommandContainer<TValue> {
-	private final FuzzyDictionary<TValue, ICommand<TValue>> commandContainer = new LevenshteinDictionary<TValue, ICommand<TValue>>();
+
+public class CommandContainer implements ICommandContainer {
+	private final DictionaryWithAdditionalSearch<ICommand<String>> dictionary;
 	
-	public CommandContainer(List<ICommand<TValue>> commands) {
-		for (ICommand<TValue> command: commands) 
-			commandContainer.put(command.getKey(), command);
+	public CommandContainer(List<ICommand<String>> commands) {
+		FinderSimilarLines finderSimilarLines = new FinderSimilarDistanceWords(new LevenshteinDifference(), 1, 3);
+		dictionary = new DictionaryWithSimilarLinesDifference<ICommand<String>>(finderSimilarLines);
+		for (ICommand<String> command: commands) 
+			dictionary.put(command.getKey().toString(), command);
 	}
 	
-	public CommandContainer() {}
-	
-	public void addCommand(ICommand<TValue> command) {
-		commandContainer.put(command.getKey(), command);
+	public CommandContainer() {
+		FinderSimilarLines finderSimilarLines = new FinderSimilarDistanceWords(new LevenshteinDifference(), 1, 3);
+		dictionary = new DictionaryWithSimilarLinesDifference<ICommand<String>>(finderSimilarLines);
 	}
 	
-	public void addSetOfCommands(ICommand<TValue> commands[]){
-		for (ICommand<TValue> command : commands)
-			commandContainer.put(command.getKey(), command);
+	public void addCommand(ICommand<String> command) {
+		dictionary.put(command.getKey(), command);
+	}
+	
+	public void addSetOfCommands(ICommand<String> commands[]){
+		for (ICommand<String> command : commands)
+			dictionary.put(command.getKey().toString(), command);
 	}
 	
 	public void clear() {
-		commandContainer.clear();
+		dictionary.clear();
 	}
 	
-	private IResult<TValue> handleNotExistingCommand(TValue value)
+	private IResult handleNotExistingCommand(List<DictionaryItem<ICommand<String>>> possibleCommands)
 	{
-		ArrayList<Pair<TValue, ICommand<TValue>>> list = commandContainer.get(value, 3);
-		if (list.size() == 0)
-			return new Result<TValue>("Unknown command! Read help!", ResultState.UNKNOWN);
 		StringBuilder messageWithTips = new StringBuilder();
-		for (Pair<TValue, ICommand<TValue>> item: list)
-		{
-			messageWithTips.append(" " + item.getFirst().toString());
-		}
-		return new Result<TValue>("Unknown command! Maybe you mean: " + messageWithTips.toString(), ResultState.POSSIBLE_MISTAKE);
+		for(DictionaryItem<ICommand<String>> command: possibleCommands)
+			messageWithTips.append(command.key.toString());
+		return new Result("Unknown command! Maybe you mean: " + messageWithTips.toString(), ResultState.POSSIBLE_MISTAKE);
 	}
 	
-	private IResult<TValue> executeCommand(ICommand<TValue> command, String[] args) {
+	private IResult executeCommand(ICommand<String> command, String[] args) {
 		try {
 			String result = command.executeCommand(args);
-			return new Result<TValue>(result, ResultState.SUCCESS);
+			return new Result(result, ResultState.SUCCESS);
 		}
 		catch (IllegalArgumentException exception) {
-			return new Result<TValue>(exception.getMessage(), ResultState.WRONG_ARGUMENTS);
+			return new Result(exception.getMessage(), ResultState.WRONG_ARGUMENTS);
 		}
 		catch (UnsupportedOperationException exception) {
-			return new Result<TValue>(exception.getMessage(), ResultState.UNSUPPORTED_OPERATION);
+			return new Result(exception.getMessage(), ResultState.UNSUPPORTED_OPERATION);
 		}
 	}
 	
 	@Override
-	public IResult<TValue> executeCommand(TValue value, String[] args) {
-		ArrayList<Pair<TValue, ICommand<TValue>>> commands = commandContainer.get(value, 1);
-		if (commands.size() == 0)
-			return (IResult<TValue>) handleNotExistingCommand(value);
-		ICommand<TValue> command = commands.get(0).getSecond();
-		return executeCommand(command, args);
+	public IResult executeCommand(String value, String[] args) {
+		DictionaryItems<ICommand<String>> commands = dictionary.get(value.toString());
+		if (commands.equalItems.size() > 0)
+			return executeCommand(commands.equalItems.get(0).value, args);
+		if (commands.almostEqualItems.size() > 0)
+			return handleNotExistingCommand(commands.almostEqualItems);
+		return new Result("Unknown command!", ResultState.UNKNOWN);
 	}
 	
 }

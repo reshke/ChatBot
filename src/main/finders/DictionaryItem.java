@@ -1,8 +1,10 @@
 package main.finders;
 
 
-public class DictionaryItem<Value> {    public final String key;
+public class DictionaryItem<Value> {    
+	public final String key;
     public final Value value;
+    
     public DictionaryItem(String key, Value value)
     {
         RaiseIfGivenKeyIsIncorrect(key);
