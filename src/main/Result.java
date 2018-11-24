@@ -1,11 +1,11 @@
 package main;
 
-public class Result<TValue> implements IResult<TValue> {
-	private final TValue result;
+public class Result implements IResult<String> {
+	private final String result;
 	private final String errorMessage;
 	private final ResultState state;
 	
-	public TValue getResult() {
+	public String getResult() {
 		return result;
 	}
 	
@@ -17,20 +17,12 @@ public class Result<TValue> implements IResult<TValue> {
 		return state;
 	}
 	
-	public Result(TValue resultInformation, ResultState resultState)
-	{
-		this.result = resultInformation;
-		errorMessage = null;
-		this.state = resultState;
-	}
-
-	@SuppressWarnings("unchecked")
 	public Result(String string, ResultState resultState) {
 		
 		if (resultState == ResultState.SUCCESS)
 		{
 			errorMessage = null;
-			result = (TValue) string;
+			result = string;
 		}
 		else
 		{		

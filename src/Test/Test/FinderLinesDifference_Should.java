@@ -63,7 +63,7 @@ public class FinderLinesDifference_Should {
 		assertEquals(4, result);
 	}
 	
-	@Test(timeout = 1000)
+	@Test(timeout = 2000)
 	public void getDifference_WorksFast_WhenGetsManySmallString() {
 		String firstString = "aabsdksadasdas";
 		String secondString = "qweescksl;asd";

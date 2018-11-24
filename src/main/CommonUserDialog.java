@@ -9,19 +9,29 @@ import main.Games.NumGame;
 import main.Games.PseudoBase;
 import main.Games.StringGuessGame;
 import main.IO.Reader;
+import main.classLoader.ModuleEngine;
 
 public class CommonUserDialog implements IDialogCommon {
 	private IDialogGame currentGameDialog;
 	private final ICommandContainer commandContainer;
 	private IResult<String> previousAnswer;
+	protected final ModuleEngine moduleEngine = new ModuleEngine();
+
 	
 	public CommonUserDialog() {
 		commandContainer = new CommandContainer();
 		commandContainer.addCommand(new CommandHelp<String>("help", "help"));
-		commandContainer.addCommand(new CommandSwitchGame<String>("switch", "switch", (x) -> switchGame(x)));
+		commandContainer.addCommand(new CommandSwitchGame<String>("switch", "switch", (x) -> switchGame2(x)));
 		commandContainer.addCommand(new CommandExitGame<String>("exit", "exit", () -> exitGame()));
 		commandContainer.addCommand(new CommandGamesList<String>("gamesList", "gamesList"));
 	}
+	
+	public void switchGame2(String typeGame) {
+		int a = 1;
+		
+		this.moduleEngine.runModule("C:\\Users\\rockl\\Desktop\\java\\ChatBot\\bin\\main\\Games\\", typeGame);
+	}
+	
 	
 	public void switchGame(TypeGame typeGame) {
 		switch(typeGame) {

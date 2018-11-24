@@ -5,8 +5,9 @@ import main.GameState;
 import main.IGuessStringGame;
 import main.IRandomGenerator;
 import main.TypeGame;
+import main.classLoader.IModule;
 
-public class StringGuessGame extends Game implements IGuessStringGame {
+public class StringGuessGame extends Game implements IGuessStringGame, IModule{
 	private final String dataString;
 	private final int dataStringLength;
 	private final int guessedNumber[];
@@ -76,5 +77,23 @@ public class StringGuessGame extends Game implements IGuessStringGame {
 
 		Integer questionIndex = Integer.parseInt(args[1]);
 		return getHint(questionIndex);
+	}
+
+	@Override
+	public void load() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int run() {
+		System.out.println("was");
+		return 0;
+	}
+
+	@Override
+	public void unload() {
+		// TODO Auto-generated method stub
+		
 	}
 }

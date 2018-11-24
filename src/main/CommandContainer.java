@@ -42,15 +42,15 @@ public class CommandContainer implements ICommandContainer {
 		dictionary.clear();
 	}
 	
-	private IResult handleNotExistingCommand(List<DictionaryItem<ICommand<String>>> possibleCommands)
+	private IResult<String> handleNotExistingCommand(List<DictionaryItem<ICommand<String>>> possibleCommands)
 	{
 		StringBuilder messageWithTips = new StringBuilder();
 		for(DictionaryItem<ICommand<String>> command: possibleCommands)
-			messageWithTips.append(command.key.toString());
+			messageWithTips.append(command.key.toString() + " ");
 		return new Result("Unknown command! Maybe you mean: " + messageWithTips.toString(), ResultState.POSSIBLE_MISTAKE);
 	}
 	
-	private IResult executeCommand(ICommand<String> command, String[] args) {
+	private IResult<String> executeCommand(ICommand<String> command, String[] args) {
 		try {
 			String result = command.executeCommand(args);
 			return new Result(result, ResultState.SUCCESS);
@@ -64,7 +64,7 @@ public class CommandContainer implements ICommandContainer {
 	}
 	
 	@Override
-	public IResult executeCommand(String value, String[] args) {
+	public IResult<String> executeCommand(String value, String[] args) {
 		DictionaryItems<ICommand<String>> commands = dictionary.get(value.toString());
 		if (commands.equalItems.size() > 0)
 			return executeCommand(commands.equalItems.get(0).value, args);

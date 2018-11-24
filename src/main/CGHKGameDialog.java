@@ -1,6 +1,5 @@
 package main;
 
-import main.Commands.CommandEndGame;
 import main.Commands.CommandGetString;
 import main.Commands.CommandGuess;
 import main.Commands.CommandHint;
