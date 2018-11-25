@@ -4,18 +4,12 @@ import main.Game;
 import main.ICHGKGame;
 import main.IResult;
 import main.ResultState;
-import main.TypeGame;
 
 public class CHGK_Game extends Game implements ICHGKGame {
 	private final IQuestionContainer questionBase;
 	
 	public CHGK_Game(IQuestionContainer questionBase) {
 		this.questionBase = questionBase;
-	}
-	
-	@Override
-	public TypeGame getTypeGame() {
-		return TypeGame.CHGK_Game;
 	}
 
 	public String getHint() {

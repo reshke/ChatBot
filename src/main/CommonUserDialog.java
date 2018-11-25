@@ -12,6 +12,7 @@ import main.classLoader.ModuleEngine;
 
 public class CommonUserDialog implements IDialogCommon {
 	private IDialogGame currentGameDialog;
+	
 	private final ICommandContainer commandContainer;
 	private IResult<String> previousAnswer;
 	protected final ModuleEngine moduleEngine = new ModuleEngine();
@@ -26,13 +27,12 @@ public class CommonUserDialog implements IDialogCommon {
 	}
 	
 	public void switchGame2(String typeGame) {
-		int a = 1;
 		
-		this.moduleEngine.loadClass(new String[] {"C:\\Users\\rockl\\Desktop\\java\\ChatBot\\bin\\", typeGame});
+		 moduleEngine.loadClass(new String[] {"C:\\Users\\rockl\\Desktop\\java\\ChatBot\\bin\\", typeGame});
 	}
 	
 	
-	public void switchGame(TypeGame typeGame) {}
+//	public void switchGame(TypeGame typeGame) {}
 //		switch(typeGame) {
 //		case GUESS_STRING: currentGameDialog = 
 //				new StringGuessGameDialog(new StringGuessGame(10, new RandomGenerator()), new GamesHelper(new Reader()));

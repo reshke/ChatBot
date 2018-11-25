@@ -31,13 +31,14 @@ public abstract class GameDialog implements IDialogGame {
 	}
 	
 	public IResult<String> getHelp(String args) {
-		try {
-			TypeGame gameType = game.getTypeGame();
-			String helpMessage = helper.getHelp(gameType);
-			return new Result(helpMessage, ResultState.SUCCESS);
-		}
-		catch (UnsupportedOperationException | IllegalArgumentException exception) {
-			return new Result(exception.getMessage(), ResultState.UNSUPPORTED_OPERATION);
-		}
+		return new Result("no help", ResultState.UNSUPPORTED_OPERATION);
+//		try {
+//			TypeGame gameType = game.getTypeGame();
+//			String helpMessage = helper.getHelp(gameType);
+//			return new Result(helpMessage, ResultState.SUCCESS);
+//		}
+//		catch (UnsupportedOperationException | IllegalArgumentException exception) {
+//			return new Result(exception.getMessage(), ResultState.UNSUPPORTED_OPERATION);
+//		}
 	}
 }

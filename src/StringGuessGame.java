@@ -3,8 +3,11 @@
 import main.IRandomGenerator;
 import main.RandomGenerator;
 import main.classLoader.IModule;
+import main.Game;
+import main.GameState;
+import main.IGuessStringGame;
 
-public class StringGuessGame implements IModule{
+public class StringGuessGame extends Game implements IGuessStringGame, IModule{
 	private final String dataString;
 	private final int dataStringLength;
 	private final int guessedNumber[];
@@ -16,10 +19,10 @@ public class StringGuessGame implements IModule{
 		}
 	}
 
-//	public GameState getGameState() {
-//		return gameState;
-//	}
-//	
+	public GameState getGameState() {
+		return gameState;
+	}
+	
 	private void raiseIfLengthIsIncorrect(int length)
 	{
 		if (length <= 0)
@@ -41,7 +44,7 @@ public class StringGuessGame implements IModule{
 	
 	public StringGuessGame(int length, IRandomGenerator generator) {
 		raiseIfLengthIsIncorrect(length);
-//		gameState = GameState.NOT_STARTED;
+		gameState = GameState.NOT_STARTED;
 		this.generator = generator;
 		dataString = generator.generateRandomString(length);
 		dataStringLength = length;
@@ -85,7 +88,7 @@ public class StringGuessGame implements IModule{
 
 	@Override
 	public int run() {
-		System.out.println("was");
+		System.out.println("hello from StrignGuessGame!!");
 		return 0;
 	}
 

@@ -5,7 +5,6 @@ import java.util.Arrays;
 import main.Game;
 import main.IAskAnswerStringGame;
 import main.IRandomGenerator;
-import main.TypeGame;
 
 public class NumGame extends Game implements IAskAnswerStringGame{
 	private final String dataString;
@@ -78,10 +77,4 @@ public class NumGame extends Game implements IAskAnswerStringGame{
 		Integer questionIndex = Integer.parseInt(args[1]);
 		return getHint(questionIndex);
 	}
-
-	@Override
-	public TypeGame getTypeGame() {
-		return TypeGame.NUM_GAME;
-	}
-
 }

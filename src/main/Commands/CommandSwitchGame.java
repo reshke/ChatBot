@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 import main.ICommand;
-import main.TypeGame;
 
 public class CommandSwitchGame<TKey> implements ICommand<TKey> {
 

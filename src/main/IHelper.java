@@ -1,5 +1,5 @@
 package main;
 
 public interface IHelper {
-	public String getHelp(TypeGame typeGame);
+//	public String getHelp(TypeGame typeGame);
 }
