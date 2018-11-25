@@ -7,7 +7,6 @@ import main.Commands.CommandSwitchGame;
 import main.Games.CHGK_Game;
 import main.Games.NumGame;
 import main.Games.PseudoBase;
-import main.Games.StringGuessGame;
 import main.IO.Reader;
 import main.classLoader.ModuleEngine;
 
@@ -29,26 +28,26 @@ public class CommonUserDialog implements IDialogCommon {
 	public void switchGame2(String typeGame) {
 		int a = 1;
 		
-		this.moduleEngine.runModule("C:\\Users\\rockl\\Desktop\\java\\ChatBot\\bin\\main\\Games\\", typeGame);
+		this.moduleEngine.loadClass(new String[] {"C:\\Users\\rockl\\Desktop\\java\\ChatBot\\bin\\", typeGame});
 	}
 	
 	
-	public void switchGame(TypeGame typeGame) {
-		switch(typeGame) {
-		case GUESS_STRING: currentGameDialog = 
-				new StringGuessGameDialog(new StringGuessGame(10, new RandomGenerator()), new GamesHelper(new Reader()));
-				break;
-		case NUM_GAME: 
-			currentGameDialog = new NumGameDialog(new NumGame(new RandomGenerator()), new GamesHelper(new Reader()));
-			break;
-						  
-		case CHGK_Game: 
-			currentGameDialog = new CGHKGameDialog(new CHGK_Game(new PseudoBase()), new GamesHelper(new Reader()));
-			break;
-				
-		default: throw new IllegalArgumentException("Unknown game");
-		}
-	}
+	public void switchGame(TypeGame typeGame) {}
+//		switch(typeGame) {
+//		case GUESS_STRING: currentGameDialog = 
+//				new StringGuessGameDialog(new StringGuessGame(10, new RandomGenerator()), new GamesHelper(new Reader()));
+//				break;
+//		case NUM_GAME: 
+//			currentGameDialog = new NumGameDialog(new NumGame(new RandomGenerator()), new GamesHelper(new Reader()));
+//			break;
+//						  
+//		case CHGK_Game: 
+//			currentGameDialog = new CGHKGameDialog(new CHGK_Game(new PseudoBase()), new GamesHelper(new Reader()));
+//			break;
+//				
+//		default: throw new IllegalArgumentException("Unknown game");
+//		}
+//	}
 	
 	private IResult<String> executeQuery(String query) {
 		String[] arguments = query.split(" ");

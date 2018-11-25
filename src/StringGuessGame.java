@@ -1,13 +1,10 @@
-package main.Games;
 
-import main.Game;
-import main.GameState;
-import main.IGuessStringGame;
+
 import main.IRandomGenerator;
-import main.TypeGame;
+import main.RandomGenerator;
 import main.classLoader.IModule;
 
-public class StringGuessGame extends Game implements IGuessStringGame, IModule{
+public class StringGuessGame implements IModule{
 	private final String dataString;
 	private final int dataStringLength;
 	private final int guessedNumber[];
@@ -19,10 +16,10 @@ public class StringGuessGame extends Game implements IGuessStringGame, IModule{
 		}
 	}
 
-	public GameState getGameState() {
-		return gameState;
-	}
-	
+//	public GameState getGameState() {
+//		return gameState;
+//	}
+//	
 	private void raiseIfLengthIsIncorrect(int length)
 	{
 		if (length <= 0)
@@ -31,22 +28,29 @@ public class StringGuessGame extends Game implements IGuessStringGame, IModule{
 			throw new IllegalArgumentException("Length of line is too big!");
 	}
 	
+	public StringGuessGame()
+	{
+		this.generator = new RandomGenerator();
+		int length = 10;
+
+		dataString = generator.generateRandomString(length);
+		dataStringLength = length;
+		guessedNumber = new int[length + 1];
+		calculateGuessedNumber();
+	}
+	
 	public StringGuessGame(int length, IRandomGenerator generator) {
 		raiseIfLengthIsIncorrect(length);
-		gameState = GameState.NOT_STARTED;
+//		gameState = GameState.NOT_STARTED;
 		this.generator = generator;
 		dataString = generator.generateRandomString(length);
 		dataStringLength = length;
 		guessedNumber = new int[length + 1];
 		calculateGuessedNumber();
 	}
-
-	@Override
 	public Boolean guessAnswer(String query) {
 		return dataString.equals(query);
 	}
-
-	@Override
 	public int postQuery(int leftBound, int rightBound) {
 		if (rightBound < leftBound || leftBound < 1 || rightBound > dataString.length())
 			throw new IllegalArgumentException("Query borders should satisfy following conditionts:\n"
@@ -58,11 +62,6 @@ public class StringGuessGame extends Game implements IGuessStringGame, IModule{
 			return generator.generateRandomInt(rightBound - leftBound + 1);
 		
 	}
-	
-	@Override
-	public TypeGame getTypeGame() {
-		return TypeGame.GUESS_STRING;
-	}
 
 	private String getHint(int position){
 		if (position < 1 || position > dataString.length())
@@ -70,7 +69,6 @@ public class StringGuessGame extends Game implements IGuessStringGame, IModule{
 		return dataString.substring(position - 1, position);
 	}
 	
-	@Override
 	public String getHint(String [] args){
 		if (args.length != 2)
 			return "Incorrect count of arguments";

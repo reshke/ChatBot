@@ -1,4 +1,5 @@
 package main.classLoader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -6,45 +7,34 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class ModuleLoader extends ClassLoader {
-  private String pathtobin;
-  
-  public ModuleLoader(String pathtobin, ClassLoader parent) {
-    super(parent);    
-    this.pathtobin = pathtobin;    
-  }
+	 
+    @Override
+    public Class<?> findClass(String name) throws ClassNotFoundException {
+        byte[] b;
+		try {
+			b = loadClassFromFile(name);
 
-  @Override
-  public Class<?> findClass(String className) throws ClassNotFoundException {
-    try {
-      byte b[] = fetchClassFromFS(pathtobin + className + ".class");
-      return defineClass(className, b, 0, b.length);
-    } catch (FileNotFoundException ex) {
-      return super.findClass(className);
-    } catch (IOException ex) {
-      return super.findClass(className);
-    } 
-  }
-  
-  private byte[] fetchClassFromFS(String path) throws FileNotFoundException, IOException {
-    InputStream is = new FileInputStream(new File(path));
-    
-    long length = new File(path).length();
-  
-    byte[] bytes = new byte[(int)length];
-  
-    int offset = 0;
-    int numRead = 0;
-    while (offset < bytes.length
-        && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
-      offset += numRead;
+	        return defineClass(name, b, 0, b.length);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		throw new ClassNotFoundException();
     }
-  
-    if (offset < bytes.length) {
-      throw new IOException("Could not completely read file "+path);
+ 
+    private byte[] loadClassFromFile(String fileName) throws FileNotFoundException  {
+        InputStream inputStream = new FileInputStream(new File("C:\\Users\\rockl\\Desktop\\java\\ChatBot\\bin\\" + fileName + ".class"));
+        byte[] buffer;
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        int nextValue = 0;
+        try {
+            while ( (nextValue = inputStream.read()) != -1 ) {
+                byteStream.write(nextValue);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        buffer = byteStream.toByteArray();
+        return buffer;
     }
-  
-    is.close();
-    return bytes;
-
-  }
 }

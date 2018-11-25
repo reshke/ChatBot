@@ -2,7 +2,6 @@ package main;
 
 import main.Commands.CommandEndGame;
 import main.Commands.CommandHelpGame;
-import main.classLoader.ModuleEngine;
 
 public abstract class GameDialog implements IDialogGame {
 	protected final ICommandContainer gameCommandContainer = new CommandContainer();

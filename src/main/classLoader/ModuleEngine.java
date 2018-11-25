@@ -3,8 +3,10 @@ import java.io.File;
 import main.classLoader.IModule;
 
 public class ModuleEngine {
-	public static void runModule(String modulePath, String requiredModuleName) {
-	    ModuleLoader loader = new ModuleLoader(modulePath, ClassLoader.getSystemClassLoader());
+	public static void loadClass(String args[]) {
+		String modulePath = args[0];
+		String requiredModuleName = args[1];
+		ModuleLoader c = new ModuleLoader();
 	    File dir = new File(modulePath);
 	    String[] modules = dir.list();
 	    
@@ -13,7 +15,7 @@ public class ModuleEngine {
 	        String moduleName = module.split(".class")[0];
 	        if (moduleName.equals(requiredModuleName))
 	        {
-		        Class<?> clazz = loader.loadClass(moduleName);
+		        Class<?> clazz = c.findClass(moduleName);
 		        IModule execute = (IModule) clazz.newInstance(); 
 		        
 		        execute.load();
