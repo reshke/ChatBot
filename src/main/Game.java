@@ -1,7 +1,17 @@
 package main;
 
+import main.Commands.CommandEndGame;
+import main.Commands.CommandHelpGame;
+
 public abstract class Game implements IGame {
+	protected final ICommandContainer gameCommandContainer = new CommandContainer();
+
 	protected GameState gameState = GameState.NOT_STARTED;
+	
+	public Game() {
+		this.gameCommandContainer.addCommand(new CommandHelpGame<String>("gamehelp", "gamehelp", (x) -> this.getHelp(x)));
+		this.gameCommandContainer.addCommand(new CommandEndGame<String>("end", "end", (x) -> this.endGame()));
+	}
 	
 	@Override
 	public IGame startGame() {
@@ -19,5 +29,21 @@ public abstract class Game implements IGame {
 	@Override
 	public void pauseGame() {
 		gameState = GameState.PAUSED;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public IResult<String> postQuery(String[] args) {
+		return gameCommandContainer.executeCommand(args[0], args);
+	}
+	
+	protected void createBaseForGame(IHelper helper, IGame game, ICommand<String> gameCommands[]) {
+		for (ICommand<String> command: gameCommands) {
+			this.gameCommandContainer.addCommand(command);
+		}
+	}
+	
+	public IResult<String> getHelp(String args) {
+		return new Result("no help", ResultState.UNSUPPORTED_OPERATION);
 	}
 }

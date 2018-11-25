@@ -1,4 +1,4 @@
-package main.Commands;
+
 import java.util.function.Function;
 
 import main.ICommand;

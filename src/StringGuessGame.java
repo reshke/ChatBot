@@ -1,10 +1,14 @@
 
 
 import main.IRandomGenerator;
+import main.IResult;
 import main.RandomGenerator;
+import main.Segment;
+import main.Commands.CommandHint;
 import main.classLoader.IModule;
 import main.Game;
 import main.GameState;
+import main.ICommand;
 import main.IGuessStringGame;
 
 public class StringGuessGame extends Game implements IGuessStringGame, IModule{
@@ -40,6 +44,9 @@ public class StringGuessGame extends Game implements IGuessStringGame, IModule{
 		dataStringLength = length;
 		guessedNumber = new int[length + 1];
 		calculateGuessedNumber();
+		
+		for (ICommand<String> command : this.get_commands())
+			this.gameCommandContainer.addCommand(command);
 	}
 	
 	public StringGuessGame(int length, IRandomGenerator generator) {
@@ -65,6 +72,11 @@ public class StringGuessGame extends Game implements IGuessStringGame, IModule{
 			return generator.generateRandomInt(rightBound - leftBound + 1);
 		
 	}
+	
+	public int postQuery(Segment segment)
+	{
+		return this.postQuery(segment.left, segment.right);
+	}
 
 	private String getHint(int position){
 		if (position < 1 || position > dataString.length())
@@ -82,19 +94,20 @@ public class StringGuessGame extends Game implements IGuessStringGame, IModule{
 
 	@Override
 	public void load() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("hello from StrignGuessGame!!");
 	}
 
 	@Override
 	public int run() {
-		System.out.println("hello from StrignGuessGame!!");
 		return 0;
 	}
 
 	@Override
-	public void unload() {
-		// TODO Auto-generated method stub
-		
+	public void unload() {}
+	
+	public ICommand<String>[] get_commands() {
+		return new ICommand[] { new CommandPostQuery<String>("ask", "ask", x -> this.postQuery(x)),
+				new CommandGuess<String>("result", "result", (x) -> this.guessAnswer(x)),
+				new CommandHint<String>("hint", "hint", (x) -> this.getHint(x))};
 	}
 }

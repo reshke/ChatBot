@@ -1,10 +1,14 @@
-package main;
 
+
+import java.util.function.Function;
+
+import main.ICommand;
+import main.Segment;;
 
 public class CommandPostQuery<TKey> implements ICommand<TKey> {
 
 	private final String name;
-	private final TwoArgsFunction<Integer, Integer, Integer> function;
+	private final Function<Segment, Integer> function;
 	private final TKey key;
 	
 	@Override
@@ -26,11 +30,10 @@ public class CommandPostQuery<TKey> implements ICommand<TKey> {
 		{
 			throw new IllegalArgumentException("Arguments should be integer!");
 		}
-		
-		return Integer.toString(function.apply(left, right));
+		return Integer.toString(function.apply(new Segment(left, right)));
 	}
 	
-	public CommandPostQuery(TKey key, String name, TwoArgsFunction<Integer, Integer, Integer> executedFunction) {
+	public CommandPostQuery(TKey key, String name, Function<Segment, Integer> executedFunction) {
 		function = executedFunction;
 		this.name = name;
 		this.key = key;
@@ -40,10 +43,4 @@ public class CommandPostQuery<TKey> implements ICommand<TKey> {
 	public TKey getKey() {
 		return key;
 	}
-}
-
-
-@FunctionalInterface
-interface TwoArgsFunction<T1, T2, T3> {
-	public T3 apply(T1 left, T2 right);
 }

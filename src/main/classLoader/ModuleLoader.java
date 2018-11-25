@@ -6,15 +6,22 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import main.Game;
+
 public class ModuleLoader extends ClassLoader {
-	 
+	protected final String pathbin;
+	public ModuleLoader(String pathbin)
+	{
+		this.pathbin = pathbin;
+	}
+	
     @Override
-    public Class<?> findClass(String name) throws ClassNotFoundException {
+    public Class<? extends Game> findClass(String name) throws ClassNotFoundException {
         byte[] b;
 		try {
 			b = loadClassFromFile(name);
 
-	        return defineClass(name, b, 0, b.length);
+	        return (Class<? extends Game>) defineClass(name, b, 0, b.length);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -23,7 +30,7 @@ public class ModuleLoader extends ClassLoader {
     }
  
     private byte[] loadClassFromFile(String fileName) throws FileNotFoundException  {
-        InputStream inputStream = new FileInputStream(new File("C:\\Users\\rockl\\Desktop\\java\\ChatBot\\bin\\" + fileName + ".class"));
+        InputStream inputStream = new FileInputStream(new File(pathbin + fileName + ".class"));
         byte[] buffer;
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
         int nextValue = 0;

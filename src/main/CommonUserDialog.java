@@ -4,18 +4,15 @@ import main.Commands.CommandExitGame;
 import main.Commands.CommandGamesList;
 import main.Commands.CommandHelp;
 import main.Commands.CommandSwitchGame;
-import main.Games.CHGK_Game;
-import main.Games.NumGame;
 import main.Games.PseudoBase;
 import main.IO.Reader;
-import main.classLoader.ModuleEngine;
+import main.classLoader.ModuleLoader;;
 
 public class CommonUserDialog implements IDialogCommon {
-	private IDialogGame currentGameDialog;
-	
+	private Game currentGame;
 	private final ICommandContainer commandContainer;
 	private IResult<String> previousAnswer;
-	protected final ModuleEngine moduleEngine = new ModuleEngine();
+	private final ModuleLoader moduleLoader = new ModuleLoader("C:\\Users\\rockl\\Desktop\\java\\ChatBot\\bin\\");
 
 	
 	public CommonUserDialog() {
@@ -27,8 +24,13 @@ public class CommonUserDialog implements IDialogCommon {
 	}
 	
 	public void switchGame2(String typeGame) {
-		
-		 moduleEngine.loadClass(new String[] {"C:\\Users\\rockl\\Desktop\\java\\ChatBot\\bin\\", typeGame});
+		try {
+			this.currentGame = this.moduleLoader.findClass(typeGame).newInstance();
+		}catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+			this.currentGame = null;
+				e.printStackTrace();
+		}
 	}
 	
 	
@@ -52,13 +54,13 @@ public class CommonUserDialog implements IDialogCommon {
 	private IResult<String> executeQuery(String query) {
 		String[] arguments = query.split(" ");
 		IResult<String> result = commandContainer.executeCommand(arguments[0], arguments);
-		if (currentGameDialog == null)
+		if (this.currentGame == null)
 			return result;
 		if (result.getState() == ResultState.UNKNOWN)
-			return currentGameDialog.postQuery(arguments);  //senderCommandContainer.executeCommand(arguments[0], arguments);
+			return this.currentGame.postQuery(arguments);  //senderCommandContainer.executeCommand(arguments[0], arguments);
 		else if (result.getState() == ResultState.POSSIBLE_MISTAKE)
 		{
-			IResult<String> senderResult = currentGameDialog.postQuery(arguments);
+			IResult<String> senderResult = this.currentGame.postQuery(arguments);
 			if (senderResult.getState() != ResultState.UNKNOWN)
 				return senderResult;
 		}
@@ -66,9 +68,9 @@ public class CommonUserDialog implements IDialogCommon {
 	}
 	
 	public void exitGame() {
-		if (currentGameDialog == null)
+		if (this.currentGame == null)
 			throw new UnsupportedOperationException("Game is not chosen!");
-		currentGameDialog = null;
+		this.currentGame = null;
 	}
 	
 	@Override
