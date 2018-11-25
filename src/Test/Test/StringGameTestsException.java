@@ -9,7 +9,6 @@
 //
 //public class StringGameTestsException {
 //	
-//	// В junit есть возможность для проверки того, что исключения произошло!
 //	
 //	@Test
 //	public void testZeroLengthLineException() {

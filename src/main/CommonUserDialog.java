@@ -12,7 +12,7 @@ public class CommonUserDialog implements IDialogCommon {
 	private Game currentGame;
 	private final ICommandContainer commandContainer;
 	private IResult<String> previousAnswer;
-	private final ModuleLoader moduleLoader = new ModuleLoader("C:\\Users\\rockl\\Desktop\\java\\ChatBot\\bin\\");
+	private final ModuleLoader moduleLoader = new ModuleLoader(System.getProperty("user.dir") + "\\bin\\");
 
 	
 	public CommonUserDialog() {
@@ -27,29 +27,10 @@ public class CommonUserDialog implements IDialogCommon {
 		try {
 			this.currentGame = this.moduleLoader.findClass(typeGame).newInstance();
 		}catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 			this.currentGame = null;
 				e.printStackTrace();
 		}
 	}
-	
-	
-//	public void switchGame(TypeGame typeGame) {}
-//		switch(typeGame) {
-//		case GUESS_STRING: currentGameDialog = 
-//				new StringGuessGameDialog(new StringGuessGame(10, new RandomGenerator()), new GamesHelper(new Reader()));
-//				break;
-//		case NUM_GAME: 
-//			currentGameDialog = new NumGameDialog(new NumGame(new RandomGenerator()), new GamesHelper(new Reader()));
-//			break;
-//						  
-//		case CHGK_Game: 
-//			currentGameDialog = new CGHKGameDialog(new CHGK_Game(new PseudoBase()), new GamesHelper(new Reader()));
-//			break;
-//				
-//		default: throw new IllegalArgumentException("Unknown game");
-//		}
-//	}
 	
 	private IResult<String> executeQuery(String query) {
 		String[] arguments = query.split(" ");
