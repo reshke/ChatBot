@@ -12,7 +12,6 @@ import main.Commands.CommandSwitchGame;
 import main.classLoader.ModuleLoader;
 
 public class CommonUserDialog implements IDialogCommon {
-//	protected GameInfo currentGameIngo;
 	private Game currentGame;
 	private final ICommandContainer commandContainer;
 	private IResult<String> previousAnswer;

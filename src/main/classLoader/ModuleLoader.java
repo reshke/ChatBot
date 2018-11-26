@@ -35,7 +35,7 @@ public class ModuleLoader extends ClassLoader {
     }
     
     @SuppressWarnings("unchecked")
-	public Pair<String, Game>[] loadGames()
+	public ArrayList<Pair<String, Game>> loadGames()
     {
     	ArrayList<Pair<String, Game>> result = new ArrayList<>();
 
@@ -57,7 +57,7 @@ public class ModuleLoader extends ClassLoader {
             }
         }
 
-        return (Pair<String, Game>[]) result.toArray();
+        return result;
     }
  
     private byte[] loadClassFromFile(String fileName) throws FileNotFoundException  {
