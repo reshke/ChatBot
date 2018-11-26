@@ -1,53 +1,51 @@
-//package Test;
-//
-//import static org.junit.Assert.assertEquals;
-//import org.junit.Test;
-//
-//import main.CGHKGameDialog;
-//import main.GameDialog;
-//import main.GamesHelper;
-//import main.IResult;
-//import main.ResultState;
-//import main.Games.CHGK_Game;
-//import main.Games.PseudoBase;
-//import main.IO.Reader;
-//
-//
-//public class CHGKGameTests {
-//	@Test
-//	public void testStartExecutesCorrect() {
-//		GameDialog game = new CGHKGameDialog(new CHGK_Game(new PseudoBase()), new GamesHelper(new Reader()));
-//		ResultState expectedState = ResultState.SUCCESS;
-//		IResult<String> result = game.getHelp("");
-//		
-//		assertEquals(expectedState, result.getState());
-//	}
-//	
-//	@Test
-//	public void testGamehelpExecutesCorrect() {
-//		GameDialog game = new CGHKGameDialog(new CHGK_Game(new PseudoBase()), new GamesHelper(new Reader()));
-//		ResultState expectedState = ResultState.SUCCESS;
-//		IResult<String> result = game.postQuery(new String[] {"gamehelp"});
-//		
-//		assertEquals(expectedState, result.getState());
-//	}
-//	
-//
-//	@Test
-//	public void testGuessQueryExecutesCorrect() {
-//		GameDialog game = new CGHKGameDialog(new CHGK_Game(new PseudoBase()), new GamesHelper(new Reader()));
-//		ResultState expectedState = ResultState.SUCCESS;
-//		IResult<String> result = game.postQuery(new String[] {"ask"});
-//		
-//		assertEquals(expectedState, result.getState());
-//	}
-//	
-//	@Test
-//	public void testAskQueryExecutesCorrect() {
-//		GameDialog game = new CGHKGameDialog(new CHGK_Game(new PseudoBase()), new GamesHelper(new Reader()));
-//		ResultState expectedState = ResultState.SUCCESS;
-//		IResult<String> result = game.postQuery(new String[] {"result", "5"});
-//		
-//		assertEquals(expectedState, result.getState());
-//	}
-//}
+package Test;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import main.Game;
+import main.IResult;
+import main.ResultState;
+import main.Games.CHGK_Game;
+
+
+public class CHGKGameTests {
+	private Game game;
+	@Before
+	public void bef()
+	{
+		game = new CHGK_Game();
+	}
+	
+	@Test
+	public void testStartExecutesCorrect() {ResultState expectedState = ResultState.UNSUPPORTED_OPERATION;
+		IResult<String> result = game.getHelp();
+		
+		assertEquals(expectedState, result.getState());
+	}
+	
+	@Test
+	public void testGamehelpExecutesCorrect() {ResultState expectedState = ResultState.SUCCESS;
+		IResult<String> result = game.executeQuery(new String[] {"gamehelp"});
+		
+		assertEquals(expectedState, result.getState());
+	}
+	
+
+	@Test
+	public void testGuessQueryExecutesCorrect() {ResultState expectedState = ResultState.SUCCESS;
+		IResult<String> result = game.executeQuery(new String[] {"ask"});
+		
+		assertEquals(expectedState, result.getState());
+	}
+	
+	@Test
+	public void testAskQueryExecutesCorrect() {
+		ResultState expectedState = ResultState.SUCCESS;
+		IResult<String> result = game.executeQuery(new String[] {"result", "5"});
+		
+		assertEquals(expectedState, result.getState());
+	}
+}

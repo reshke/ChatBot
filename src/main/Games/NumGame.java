@@ -62,11 +62,16 @@ public class NumGame extends Game{
 		}
 		return equalDigits;
 	}
+	
+	public Boolean guessAnswer(String query)
+	{
+		return query.equals(this.dataString);
+	}
 
 	public IResult<String> guessAnswer(String[] args) {
 		if (args.length != 2)
 			return new Result("Count of arguments is not correct", ResultState.WRONG_ARGUMENTS);
-		if (args[1].equals(this.dataString)) {
+		if (this.guessAnswer(args[1])) {
 			this.endGame();
 			return new Result("You won!");
 		}

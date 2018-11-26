@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import kotlin.Pair;
 import main.Game;
-import main.ResultState;
 
 public class ModuleLoader extends ClassLoader {
 	private final String pathbin;

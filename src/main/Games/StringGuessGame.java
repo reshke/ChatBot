@@ -6,7 +6,6 @@ import main.IResult;
 import main.RandomGenerator;
 import main.Result;
 import main.ResultState;
-import main.Segment;
 import main.Commands.Command;
 import main.classLoader.IModule;
 import main.Game;
@@ -100,11 +99,6 @@ public class StringGuessGame extends Game implements IModule{
 			return new Result("Arguments should be integer!", ResultState.UNSUPPORTED_OPERATION);
 		}
 		return new Result(Integer.toString(this.postQuery(left, right)));
-	}
-	
-	public int postQuery(Segment segment)
-	{
-		return this.postQuery(segment.left, segment.right);
 	}
 
 	private String getHint(int position){
