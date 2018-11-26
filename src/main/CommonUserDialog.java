@@ -4,11 +4,10 @@ import main.Commands.CommandExitGame;
 import main.Commands.CommandGamesList;
 import main.Commands.CommandHelp;
 import main.Commands.CommandSwitchGame;
-import main.Games.PseudoBase;
-import main.IO.Reader;
 import main.classLoader.ModuleLoader;;
 
 public class CommonUserDialog implements IDialogCommon {
+//	protected GameInfo currentGameIngo;
 	private Game currentGame;
 	private final ICommandContainer commandContainer;
 	private IResult<String> previousAnswer;
@@ -18,17 +17,16 @@ public class CommonUserDialog implements IDialogCommon {
 	public CommonUserDialog() {
 		commandContainer = new CommandContainer();
 		commandContainer.addCommand(new CommandHelp<String>("help", "help"));
-		commandContainer.addCommand(new CommandSwitchGame<String>("switch", "switch", (x) -> switchGame2(x)));
+		commandContainer.addCommand(new CommandSwitchGame<String>("switch", "switch", (x) -> switchGame(x)));
 		commandContainer.addCommand(new CommandExitGame<String>("exit", "exit", () -> exitGame()));
 		commandContainer.addCommand(new CommandGamesList<String>("gamesList", "gamesList"));
 	}
 	
-	public void switchGame2(String typeGame) {
+	public void switchGame(String typeGame) {
 		try {
 			this.currentGame = this.moduleLoader.findClass(typeGame).newInstance();
 		}catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 			this.currentGame = null;
-				e.printStackTrace();
 		}
 	}
 	
@@ -38,10 +36,10 @@ public class CommonUserDialog implements IDialogCommon {
 		if (this.currentGame == null)
 			return result;
 		if (result.getState() == ResultState.UNKNOWN)
-			return this.currentGame.postQuery(arguments);  //senderCommandContainer.executeCommand(arguments[0], arguments);
+			return this.currentGame.executeQuery(arguments);  //senderCommandContainer.executeCommand(arguments[0], arguments);
 		else if (result.getState() == ResultState.POSSIBLE_MISTAKE)
 		{
-			IResult<String> senderResult = this.currentGame.postQuery(arguments);
+			IResult<String> senderResult = this.currentGame.executeQuery(arguments);
 			if (senderResult.getState() != ResultState.UNKNOWN)
 				return senderResult;
 		}

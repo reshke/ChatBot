@@ -1,4 +1,5 @@
 package main.Commands;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;

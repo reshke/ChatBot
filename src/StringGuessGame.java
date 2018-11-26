@@ -1,17 +1,16 @@
 
 
 import main.IRandomGenerator;
-import main.IResult;
 import main.RandomGenerator;
 import main.Segment;
-import main.Commands.CommandHint;
 import main.classLoader.IModule;
+import main.Command;
 import main.Game;
 import main.GameState;
 import main.ICommand;
 import main.IGuessStringGame;
 
-public class StringGuessGame extends Game implements IGuessStringGame, IModule{
+public class StringGuessGame extends Game implements IModule{
 	private final String dataString;
 	private final int dataStringLength;
 	private final int guessedNumber[];
@@ -58,8 +57,14 @@ public class StringGuessGame extends Game implements IGuessStringGame, IModule{
 		guessedNumber = new int[length + 1];
 		calculateGuessedNumber();
 	}
-	public Boolean guessAnswer(String query) {
-		return dataString.equals(query);
+	
+	public String guessAnswer(String[] args) {
+		if (args.length != 2)
+			return "Count of arguments is not correct";
+		
+		return dataString.equals(args[1]) 
+				? "You guessed right!"
+				: "You are wrong!";
 	}
 	public int postQuery(int leftBound, int rightBound) {
 		if (rightBound < leftBound || leftBound < 1 || rightBound > dataString.length())
@@ -71,6 +76,23 @@ public class StringGuessGame extends Game implements IGuessStringGame, IModule{
 		else
 			return generator.generateRandomInt(rightBound - leftBound + 1);
 		
+	}
+	
+	public String postQuery(String [] args)
+	{
+		if (args.length != 3)
+			throw new IllegalArgumentException("Count of arguments is not correct");
+		Integer left, right;
+		try
+		{
+			left = Integer.parseInt(args[1]);
+			right = Integer.parseInt(args[2]);
+		}
+		catch (Exception e) 
+		{
+			throw new IllegalArgumentException("Arguments should be integer!");
+		}
+		return Integer.toString(this.postQuery(left, right));
 	}
 	
 	public int postQuery(Segment segment)
@@ -106,8 +128,17 @@ public class StringGuessGame extends Game implements IGuessStringGame, IModule{
 	public void unload() {}
 	
 	public ICommand<String>[] get_commands() {
-		return new ICommand[] { new CommandPostQuery<String>("ask", "ask", x -> this.postQuery(x)),
-				new CommandGuess<String>("result", "result", (x) -> this.guessAnswer(x)),
-				new CommandHint<String>("hint", "hint", (x) -> this.getHint(x))};
+		return new Command[] { new Command("ask", x -> this.postQuery(x)),
+				new Command("result", (x) -> this.guessAnswer(x)),
+				new Command("hint", (x) -> this.getHint(x)), new Command("gamehelp", x -> this.GetHelp())};
+	}
+	
+	@Override
+	public String GetHelp()
+	{
+		return "To start game type start (length) and bot will make a line of zeros and units this length\r\n" + 
+				"To send a request type on the keyboard \"ask leftBorder rightBorder\"\r\n" + 
+				"To suggest a string type on the keyboard \"guess ....(your string)\"\r\n" + 
+				"To end game type end";
 	}
 }

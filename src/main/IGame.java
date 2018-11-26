@@ -6,5 +6,5 @@ public interface IGame
 	public IGame startGame();
 	public void endGame();
 	public void pauseGame();
-	public IResult<String> postQuery(String[] args);
+	public IResult<String> executeQuery(String[] args);
 }
