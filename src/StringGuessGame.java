@@ -8,7 +8,6 @@ import main.Command;
 import main.Game;
 import main.GameState;
 import main.ICommand;
-import main.IGuessStringGame;
 
 public class StringGuessGame extends Game implements IModule{
 	private final String dataString;
@@ -130,15 +129,29 @@ public class StringGuessGame extends Game implements IModule{
 	public ICommand<String>[] get_commands() {
 		return new Command[] { new Command("ask", x -> this.postQuery(x)),
 				new Command("result", (x) -> this.guessAnswer(x)),
-				new Command("hint", (x) -> this.getHint(x)), new Command("gamehelp", x -> this.GetHelp())};
+				new Command("hint", (x) -> this.getHint(x)), new Command("gamehelp", x -> this.getHelp())};
 	}
 	
 	@Override
-	public String GetHelp()
+	public String getHelp()
 	{
 		return "To start game type start (length) and bot will make a line of zeros and units this length\r\n" + 
 				"To send a request type on the keyboard \"ask leftBorder rightBorder\"\r\n" + 
 				"To suggest a string type on the keyboard \"guess ....(your string)\"\r\n" + 
 				"To end game type end";
 	}
+	
+	@Override
+	public String gameName() { return "guessGame"; }
+	
+	@Override
+	public String getGameDescriptor() { return "String Guess Game(send 'switch guessGame' to start): \r\n" + 
+			"	to start this game type switch guessGame and then start (length)\r\n" + 
+			"	The game is as follows:\r\n" + 
+			"		the bot makes a line of zeros and units of length (length), \r\n" + 
+			"		after which you can ask the bot about the segment \r\n" + 
+			"		of this line with indices from a to b,\r\n" + 
+			"		in response to which it will return either the number of ones on this segment \r\n" + 
+			"		or any number from the segment from 0 to a - b + 1.\r\n" + 
+			"		Your task for the minimum number of moves to guess the string."; }
 }

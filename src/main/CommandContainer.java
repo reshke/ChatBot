@@ -1,9 +1,7 @@
 package main;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.glassfish.grizzly.utils.Pair;
 
 import main.finders.DictionaryItem;
 import main.finders.DictionaryItems;

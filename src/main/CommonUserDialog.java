@@ -1,5 +1,7 @@
 package main;
 
+import java.util.HashMap;
+
 import main.Commands.CommandExitGame;
 import main.Commands.CommandGamesList;
 import main.Commands.CommandHelp;
@@ -12,6 +14,7 @@ public class CommonUserDialog implements IDialogCommon {
 	private final ICommandContainer commandContainer;
 	private IResult<String> previousAnswer;
 	private final ModuleLoader moduleLoader = new ModuleLoader(System.getProperty("user.dir") + "\\bin\\");
+	private HashMap<String, String> gameNames = new HashMap<String, String>();
 
 	
 	public CommonUserDialog() {
@@ -19,12 +22,26 @@ public class CommonUserDialog implements IDialogCommon {
 		commandContainer.addCommand(new CommandHelp<String>("help", "help"));
 		commandContainer.addCommand(new CommandSwitchGame<String>("switch", "switch", (x) -> switchGame(x)));
 		commandContainer.addCommand(new CommandExitGame<String>("exit", "exit", () -> exitGame()));
-		commandContainer.addCommand(new CommandGamesList<String>("gamesList", "gamesList"));
+		commandContainer.addCommand(new Command("gamesList", (x) -> this.getGamesList(x)));
+	}
+	
+	public String getGamesList(String[] args)
+	{
+		StringBuilder result = new StringBuilder("Realized games list: \n");
+		
+		for (String value : this.gameNames.keySet()) {
+			result.append(value);
+			result.append(this.gameNames.get(value));
+			result.append("\n");
+		}
+		
+		return result.toString();
 	}
 	
 	public void switchGame(String typeGame) {
 		try {
 			this.currentGame = this.moduleLoader.findClass(typeGame).newInstance();
+			this.gameNames.put(this.currentGame.gameName(), this.currentGame.getHelp());
 		}catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 			this.currentGame = null;
 		}

@@ -15,13 +15,15 @@ public class ModuleLoader extends ClassLoader {
 		this.pathbin = pathbin;
 	}
 	
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Class<? extends Game> findClass(String name) throws ClassNotFoundException {
         byte[] b;
 		try {
 			b = loadClassFromFile(name);
 
 	        return (Class<? extends Game>) defineClass(name, b, 0, b.length);
+	        
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

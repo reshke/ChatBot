@@ -8,7 +8,7 @@ public abstract class Game implements IGame {
 	protected GameState gameState = GameState.NOT_STARTED;
 	
 	public Game() {
-//		this.gameCommandContainer.addCommand(new CommandHelpGame<String>("gamehelp", "gamehelp", (x) -> this.getHelp(x)));
+		this.gameCommandContainer.addCommand(new Command("gamehelp", (x) -> this.getHelp()));
 		this.gameCommandContainer.addCommand(new CommandEndGame<String>("end", "end", (x) -> this.endGame()));
 	}
 	
@@ -42,5 +42,9 @@ public abstract class Game implements IGame {
 		}
 	}
 	
-	public String GetHelp() {return "No help for this game";}
+	public String getHelp() { return "No help for this game"; }
+	
+	public String getGameDescriptor() { return null; }
+	
+	public String gameName() { return null; }
 }
