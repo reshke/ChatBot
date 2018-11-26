@@ -10,7 +10,12 @@ public abstract class Game implements IGame {
 	public Game() {
 		this.gameCommandContainer.addCommand(new Command("gamehelp", (x) -> this.getHelp()));
 		this.gameCommandContainer.addCommand(new CommandEndGame<String>("end", "end", (x) -> this.endGame()));
+
+		for (ICommand<String> command : this.get_commands())
+			this.gameCommandContainer.addCommand(command);
 	}
+	
+	public abstract ICommand<String>[] get_commands();
 	
 	@Override
 	public IGame startGame() {

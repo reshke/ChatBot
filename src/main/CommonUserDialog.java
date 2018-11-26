@@ -39,7 +39,6 @@ public class CommonUserDialog implements IDialogCommon {
 		StringBuilder result = new StringBuilder("Realized games list: \n");
 		
 		for (String gameName : this.games.keySet()) {
-			result.append(gameName);
 			result.append(this.games.get(gameName).getGameDescriptor());
 			result.append("\n");
 		}
@@ -48,12 +47,7 @@ public class CommonUserDialog implements IDialogCommon {
 	}
 	
 	public void switchGame(String typeGame) {
-		try {
-			this.currentGame = (Game) this.moduleLoader.findClass(typeGame).newInstance();
-			this.games.put(this.currentGame.gameName(), this.currentGame);
-		}catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-			this.currentGame = null;
-		}
+		this.currentGame = this.games.get(typeGame);
 	}
 	
 	private IResult<String> executeQuery(String query) {

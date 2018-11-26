@@ -130,7 +130,7 @@ public class StringGuessGame extends Game implements IModule{
 	public ICommand<String>[] get_commands() {
 		return new Command[] { new Command("ask", x -> this.postQuery(x)),
 				new Command("result", (x) -> this.guessAnswer(x)),
-				new Command("hint", (x) -> this.getHint(x)), new Command("gamehelp", x -> this.getHelp())};
+				new Command("hint", (x) -> this.getHint(x))};
 	}
 	
 	@Override
