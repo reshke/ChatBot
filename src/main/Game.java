@@ -1,7 +1,6 @@
 package main;
 
 import main.Commands.Command;
-import main.Commands.CommandEndGame;
 
 public abstract class Game implements IGame {
 	protected final ICommandContainer gameCommandContainer = new CommandContainer();
@@ -10,7 +9,6 @@ public abstract class Game implements IGame {
 	
 	public Game() {
 		this.gameCommandContainer.addCommand(new Command("gamehelp", (x) -> this.getHelp()));
-		this.gameCommandContainer.addCommand(new CommandEndGame<String>("end", "end", (x) -> this.endGame()));
 
 		for (ICommand<String> command : this.get_commands())
 			this.gameCommandContainer.addCommand(command);

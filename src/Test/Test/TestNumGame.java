@@ -8,7 +8,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.IGame;
 import main.IRandomGenerator;
 import main.RandomGenerator;
 import main.Games.NumGame;

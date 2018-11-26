@@ -20,7 +20,7 @@ public class CHGKGameTests {
 	}
 	
 	@Test
-	public void testStartExecutesCorrect() {ResultState expectedState = ResultState.UNSUPPORTED_OPERATION;
+	public void testStartExecutesCorrect() {ResultState expectedState = ResultState.SUCCESS;
 		IResult<String> result = game.getHelp();
 		
 		assertEquals(expectedState, result.getState());

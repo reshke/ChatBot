@@ -65,6 +65,11 @@ public class CHGK_Game extends Game {
 	}
 	
 	@Override
+	public IResult<String> getHelp(){return new Result("to find out the condition, type ask\r\n" + 
+			"to try answer the answer, type result \"your answer\"\r\n" + 
+			"note, that answer is one single word");}
+	
+	@Override
 	public IResult<String> gameName() { return new Result("chgk"); }
 	
 	@Override
