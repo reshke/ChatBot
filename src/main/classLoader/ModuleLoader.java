@@ -5,11 +5,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import main.Game;
 
 public class ModuleLoader extends ClassLoader {
-	protected final String pathbin;
+	private final String pathbin;
 	public ModuleLoader(String pathbin)
 	{
 		this.pathbin = pathbin;
@@ -17,23 +18,44 @@ public class ModuleLoader extends ClassLoader {
 	
     @SuppressWarnings("unchecked")
 	@Override
-    public Class<? extends Game> findClass(String name) throws ClassNotFoundException {
+    public Class<?> findClass(String name) throws ClassNotFoundException {
         byte[] b;
 		try {
 			b = loadClassFromFile(name);
 
-	        return (Class<? extends Game>) defineClass("main.Games." + name, b, 0, b.length);
+	        return defineClass("main.Games." + name, b, 0, b.length);
 	        
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			
 		}
+        catch (LinkageError e) {}
 		throw new ClassNotFoundException();
     }
     
-//    public Game[] loadGames()
-//    {
-//    	
-//    }
+    public Game[] loadGames()
+    {
+    	ArrayList<Game> result = new ArrayList<>();
+
+        File dir = new File(pathbin);
+        String[] modules = dir.list();
+
+        for (String module: modules) {
+            try {
+                String moduleName = module.split(".class")[0];
+                Class currentClass = findClass(moduleName);
+                try  {
+                	result.add((Game) currentClass.newInstance());
+                }
+                catch (ClassCastException e) {}
+            }
+            catch (IllegalAccessException | ClassNotFoundException | InstantiationException e)
+            {
+
+            }
+        }
+
+        return result.toArray(new Game[0]);
+    }
  
     private byte[] loadClassFromFile(String fileName) throws FileNotFoundException  {
         InputStream inputStream = new FileInputStream(new File(pathbin + fileName + ".class"));

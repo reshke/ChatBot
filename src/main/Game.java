@@ -36,12 +36,6 @@ public abstract class Game implements IGame {
 		return gameCommandContainer.executeCommand(args[0], args);
 	}
 	
-	protected void createBaseForGame(IHelper helper, IGame game, ICommand<String> gameCommands[]) {
-		for (ICommand<String> command: gameCommands) {
-			this.gameCommandContainer.addCommand(command);
-		}
-	}
-	
 	public String getHelp() { return "No help for this game"; }
 	
 	public String getGameDescriptor() { return null; }

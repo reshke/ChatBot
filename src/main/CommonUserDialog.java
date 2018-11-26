@@ -15,7 +15,7 @@ public class CommonUserDialog implements IDialogCommon {
 	private final ICommandContainer commandContainer;
 	private IResult<String> previousAnswer;
 	private final ModuleLoader moduleLoader = new ModuleLoader(System.getProperty("user.dir") + "\\bin\\main\\Games\\");
-	private HashMap<String, String> gameNames = new HashMap<String, String>();
+	private HashMap<String, Game> games = new HashMap<String, Game>();
 
 	
 	public CommonUserDialog() {
@@ -24,15 +24,23 @@ public class CommonUserDialog implements IDialogCommon {
 		commandContainer.addCommand(new CommandSwitchGame<String>("switch", "switch", (x) -> switchGame(x)));
 		commandContainer.addCommand(new CommandExitGame<String>("exit", "exit", () -> exitGame()));
 		commandContainer.addCommand(new Command("gamesList", (x) -> this.getGamesList(x)));
+		
+		try {
+			for (Game game : this.moduleLoader.loadGames())
+			{
+				this.games.put(game.gameName(), game);
+			}
+		} catch (IllegalArgumentException | SecurityException e) {
+		}
 	}
 	
 	public String getGamesList(String[] args)
 	{
 		StringBuilder result = new StringBuilder("Realized games list: \n");
 		
-		for (String value : this.gameNames.keySet()) {
-			result.append(value);
-			result.append(this.gameNames.get(value));
+		for (String gameName : this.games.keySet()) {
+			result.append(gameName);
+			result.append(this.games.get(gameName).getGameDescriptor());
 			result.append("\n");
 		}
 		
@@ -41,15 +49,8 @@ public class CommonUserDialog implements IDialogCommon {
 	
 	public void switchGame(String typeGame) {
 		try {
-//			try {
-//				Game game =  (Game) this.moduleLoader.findClass(typeGame).getConstructors()[0].newInstance();
-//			} catch (IllegalArgumentException | InvocationTargetException | SecurityException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			Game game = 
-			this.currentGame = this.moduleLoader.findClass(typeGame).newInstance();
-			this.gameNames.put(this.currentGame.gameName(), this.currentGame.getHelp());
+			this.currentGame = (Game) this.moduleLoader.findClass(typeGame).newInstance();
+			this.games.put(this.currentGame.gameName(), this.currentGame);
 		}catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 			this.currentGame = null;
 		}
