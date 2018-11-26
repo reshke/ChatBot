@@ -61,11 +61,15 @@ public class StringGuessGame extends Game implements IModule{
 		calculateGuessedNumber();
 	}
 	
+	public Boolean guessAnswer(String arg) {
+		return dataString.equals(arg);
+	}
+	
 	public IResult<String> guessAnswer(String[] args) {
 		if (args.length != 2)
 			return new Result("Count of arguments is not correct", ResultState.UNSUPPORTED_OPERATION);
 		
-		return new Result(dataString.equals(args[1]) 
+		return new Result(this.guessAnswer(args[1])
 				? "You guessed right!"
 				: "You are wrong!");
 	}
