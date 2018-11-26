@@ -4,6 +4,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
+import kotlin.Pair;
+import main.Commands.Command;
 import main.Commands.CommandExitGame;
 import main.Commands.CommandHelp;
 import main.Commands.CommandSwitchGame;
@@ -26,15 +28,19 @@ public class CommonUserDialog implements IDialogCommon {
 		commandContainer.addCommand(new Command("gamesList", (x) -> this.getGamesList(x)));
 		
 		try {
-			for (Game game : this.moduleLoader.loadGames())
+			for (Pair<String, Game> gameInfo : this.moduleLoader.loadGames())
 			{
-				this.games.put(game.gameName(), game);
+				IResult<String> gameName = gameInfo.component2().gameName();
+				if (gameName.getState() == ResultState.SUCCESS)
+					this.games.put(gameName.getResult(), gameInfo.component2());
+				else
+					this.games.put(gameInfo.component1(), gameInfo.component2());
 			}
 		} catch (IllegalArgumentException | SecurityException e) {
 		}
 	}
 	
-	public String getGamesList(String[] args)
+	public IResult<String> getGamesList(String[] args)
 	{
 		StringBuilder result = new StringBuilder("Realized games list: \n");
 		
@@ -43,7 +49,7 @@ public class CommonUserDialog implements IDialogCommon {
 			result.append("\n");
 		}
 		
-		return result.toString();
+		return new Result(result.toString(), ResultState.SUCCESS);
 	}
 	
 	public void switchGame(String typeGame) {

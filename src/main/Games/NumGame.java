@@ -2,11 +2,14 @@ package main.Games;
 
 import java.util.Arrays;
 
-import main.Command;
 import main.Game;
 import main.ICommand;
 import main.IRandomGenerator;
+import main.IResult;
 import main.RandomGenerator;
+import main.Result;
+import main.ResultState;
+import main.Commands.Command;
 
 public class NumGame extends Game{
 	private final String dataString;
@@ -60,14 +63,14 @@ public class NumGame extends Game{
 		return equalDigits;
 	}
 
-	public String guessAnswer(String[] args) {
+	public IResult<String> guessAnswer(String[] args) {
 		if (args.length != 2)
-			return "Count of arguments is not correct";
+			return new Result("Count of arguments is not correct", ResultState.WRONG_ARGUMENTS);
 		if (args[1].equals(this.dataString)) {
 			this.endGame();
-			return "You won!";
+			return new Result("You won!");
 		}
-		return this.postQuery(args[1]);
+		return new Result(this.postQuery(args[1]));
 	}
 
 	public String postQuery(String answer) {
@@ -78,11 +81,11 @@ public class NumGame extends Game{
 		return Integer.toString(orderedDigits) + " cows and " + Integer.toString(unorderedDigits - orderedDigits) + " bulls!";
 	}
 
-	public String postQuery(String[] args)
+	public IResult<String> postQuery(String[] args)
 	{
 		if (args.length != 2)
-			return "Count of arguments is not correct";
-		return this.postQuery(args[1]);
+			return new Result("Count of arguments is not correct", ResultState.WRONG_ARGUMENTS);
+		return new Result(this.postQuery(args[1]));
 	}
 	
 	private String getHint(int position){
@@ -91,16 +94,16 @@ public class NumGame extends Game{
 		return dataString.substring(position - 1, position);
 	}
 	
-	public String getHint(String[] args)
+	public IResult<String> getHint(String[] args)
 	{
 		if (args.length != 2)
-			return "Count of arguments is not correct";
+			return new Result("Count of arguments is not correct", ResultState.WRONG_ARGUMENTS);
 		
 		try {
-			return this.getHint(Integer.parseInt(args[1]));
+			return new Result(this.getHint(Integer.parseInt(args[1])));
 		}
 		catch (NumberFormatException e) {
-			return "second argument must be an integer";
+			return new Result("second argument must be an integer", ResultState.WRONG_ARGUMENTS);
 		}
 	}
 	
@@ -112,16 +115,16 @@ public class NumGame extends Game{
 	
 
 	@Override
-	public String getHelp()
+	public IResult<String> getHelp()
 	{
-		return "to guess a number type guess \"number\"";
+		return new Result("to guess a number type guess \"number\"");
 	}
 	
 	@Override
-	public String gameName() { return "numGame"; }
+	public IResult<String> gameName() { return new Result("numGame"); }
 	
 	@Override
-	public String getGameDescriptor() { return "num Game (send 'switch numGame' to start):\r\n"
+	public IResult<String> getGameDescriptor() { return new Result("num Game (send 'switch numGame' to start):\r\n"
 			+ "	The numerical version of the game\r\n"
 			+ "	is usually played with 4 digits, but can also be played with 3 or any other number of digits.\r\n" + 
 			"\r\n" + 
@@ -130,5 +133,5 @@ public class NumGame extends Game{
 			+ "		Then, in turn, the players try to guess their opponent's \r\n"
 			+ "		number who gives the number of matches. \r\n"
 			+ "		If the matching digits are in their right positions, \r\n"
-			+ "		they are \"bulls\", if in different positions, they are \"cows\"."; }
+			+ "		they are \"bulls\", if in different positions, they are \"cows\"."); }
 }

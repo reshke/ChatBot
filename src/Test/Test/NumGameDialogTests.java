@@ -1,38 +1,43 @@
-//package Test;
-//
-//import static org.junit.Assert.assertEquals;
-//import org.junit.Test;
-//
-//import main.GameDialog;
-//import main.GamesHelper;
-//import main.IResult;
-//import main.NumGameDialog;
-//import main.RandomGenerator;
-//import main.ResultState;
-//import main.Games.NumGame;
-//import main.IO.Reader;
-//
-//
-//public class NumGameDialogTests {
-//	@Test
-//	public void testStartExecutesCorrect() {
-//		GameDialog game = new NumGameDialog(new NumGame(new RandomGenerator()), new GamesHelper(new Reader()));
-//		ResultState expectedState = ResultState.SUCCESS;
-//		IResult<String> result = game.getHelp("");
-//		
-//		assertEquals(expectedState, result.getState());
-//	}
-//	
-//	@Test
-//	public void testGamehelpExecutesCorrect() {
-//		GameDialog game = new NumGameDialog(new NumGame(new RandomGenerator()), new GamesHelper(new Reader()));
-//		ResultState expectedState = ResultState.SUCCESS;
-//		IResult<String> result = game.postQuery(new String[] {"gamehelp"});
-//		
-//		assertEquals(expectedState, result.getState());
-//	}
-//	
-//
+package Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import main.Game;
+import main.IResult;
+import main.RandomGenerator;
+import main.ResultState;
+import main.Games.NumGame;
+import main.IO.Reader;
+
+
+public class NumGameDialogTests {
+	private NumGame game;
+	@Before
+	public void before()
+	{
+		game = new NumGame();
+	}
+	
+	@Test
+	public void testStartExecutesCorrect() {
+		ResultState result = (new NumGame()).getHelp().getState();
+		
+		assertEquals(ResultState.SUCCESS, result);
+	}
+	
+	@Test
+	public void testGamehelpExecutesCorrect() {
+		ResultState expectedState = ResultState.SUCCESS;
+		IResult<String> result = game.postQuery(new String[] {"gamehelp"});
+		
+		assertEquals(expectedState, result.getState());
+	}
+	
+
 //	@Test
 //	public void testGuessQueryExecutesCorrect() {
 //		GameDialog game = new NumGameDialog(new NumGame(new RandomGenerator()), new GamesHelper(new Reader()));
@@ -68,4 +73,4 @@
 //		
 //		assertEquals(expectedState, result.getResult());
 //	}
-//}
+}

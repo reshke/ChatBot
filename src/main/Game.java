@@ -1,5 +1,6 @@
 package main;
 
+import main.Commands.Command;
 import main.Commands.CommandEndGame;
 
 public abstract class Game implements IGame {
@@ -41,9 +42,9 @@ public abstract class Game implements IGame {
 		return gameCommandContainer.executeCommand(args[0], args);
 	}
 	
-	public String getHelp() { return "No help for this game"; }
+	public IResult<String> getHelp() { return new Result("No help for this game", ResultState.UNSUPPORTED_OPERATION); }
 	
-	public String getGameDescriptor() { return null; }
+	public IResult<String> getGameDescriptor() { return new Result("No game description for this game", ResultState.UNSUPPORTED_OPERATION); }
 	
-	public String gameName() { return null; }
+	public IResult<String> gameName() { return new Result(null, ResultState.UNSUPPORTED_OPERATION); }
 }

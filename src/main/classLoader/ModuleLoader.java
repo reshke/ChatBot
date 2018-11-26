@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import kotlin.Pair;
 import main.Game;
+import main.ResultState;
 
 public class ModuleLoader extends ClassLoader {
 	private final String pathbin;
@@ -32,9 +34,10 @@ public class ModuleLoader extends ClassLoader {
 		throw new ClassNotFoundException();
     }
     
-    public Game[] loadGames()
+    @SuppressWarnings("unchecked")
+	public Pair<String, Game>[] loadGames()
     {
-    	ArrayList<Game> result = new ArrayList<>();
+    	ArrayList<Pair<String, Game>> result = new ArrayList<>();
 
         File dir = new File(pathbin);
         String[] modules = dir.list();
@@ -44,7 +47,7 @@ public class ModuleLoader extends ClassLoader {
                 String moduleName = module.split(".class")[0];
                 Class currentClass = findClass(moduleName);
                 try  {
-                	result.add((Game) currentClass.newInstance());
+                	result.add(new Pair<String, Game>(moduleName, (Game) currentClass.newInstance()));
                 }
                 catch (ClassCastException e) {}
             }
@@ -54,7 +57,7 @@ public class ModuleLoader extends ClassLoader {
             }
         }
 
-        return result.toArray(new Game[0]);
+        return (Pair<String, Game>[]) result.toArray();
     }
  
     private byte[] loadClassFromFile(String fileName) throws FileNotFoundException  {
