@@ -1,3 +1,4 @@
+package main.Games;
 
 
 import main.IRandomGenerator;

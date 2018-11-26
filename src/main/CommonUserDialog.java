@@ -1,19 +1,20 @@
 package main;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 import main.Commands.CommandExitGame;
-import main.Commands.CommandGamesList;
 import main.Commands.CommandHelp;
 import main.Commands.CommandSwitchGame;
-import main.classLoader.ModuleLoader;;
+import main.classLoader.ModuleLoader;
 
 public class CommonUserDialog implements IDialogCommon {
 //	protected GameInfo currentGameIngo;
 	private Game currentGame;
 	private final ICommandContainer commandContainer;
 	private IResult<String> previousAnswer;
-	private final ModuleLoader moduleLoader = new ModuleLoader(System.getProperty("user.dir") + "\\bin\\");
+	private final ModuleLoader moduleLoader = new ModuleLoader(System.getProperty("user.dir") + "\\bin\\main\\Games\\");
 	private HashMap<String, String> gameNames = new HashMap<String, String>();
 
 	
@@ -40,6 +41,13 @@ public class CommonUserDialog implements IDialogCommon {
 	
 	public void switchGame(String typeGame) {
 		try {
+//			try {
+//				Game game =  (Game) this.moduleLoader.findClass(typeGame).getConstructors()[0].newInstance();
+//			} catch (IllegalArgumentException | InvocationTargetException | SecurityException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			Game game = 
 			this.currentGame = this.moduleLoader.findClass(typeGame).newInstance();
 			this.gameNames.put(this.currentGame.gameName(), this.currentGame.getHelp());
 		}catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {

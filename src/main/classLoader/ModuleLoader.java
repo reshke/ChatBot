@@ -22,13 +22,18 @@ public class ModuleLoader extends ClassLoader {
 		try {
 			b = loadClassFromFile(name);
 
-	        return (Class<? extends Game>) defineClass(name, b, 0, b.length);
+	        return (Class<? extends Game>) defineClass("main.Games." + name, b, 0, b.length);
 	        
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		throw new ClassNotFoundException();
     }
+    
+//    public Game[] loadGames()
+//    {
+//    	
+//    }
  
     private byte[] loadClassFromFile(String fileName) throws FileNotFoundException  {
         InputStream inputStream = new FileInputStream(new File(pathbin + fileName + ".class"));
