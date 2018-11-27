@@ -36,20 +36,6 @@ public class StringGuessGame extends Game implements IModule{
 			throw new IllegalArgumentException("Length of line is too big!");
 	}
 	
-	public StringGuessGame()
-	{
-		this.generator = new RandomGenerator();
-		int length = 10;
-
-		dataString = generator.generateRandomString(length);
-		dataStringLength = length;
-		guessedNumber = new int[length + 1];
-		calculateGuessedNumber();
-		
-		for (ICommand<String> command : this.get_commands())
-			this.gameCommandContainer.addCommand(command);
-	}
-	
 	public StringGuessGame(int length, IRandomGenerator generator) {
 		raiseIfLengthIsIncorrect(length);
 		gameState = GameState.NOT_STARTED;

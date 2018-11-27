@@ -1,7 +1,5 @@
 package main;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 import kotlin.Pair;
@@ -15,28 +13,17 @@ public class CommonUserDialog implements IDialogCommon {
 	private Game currentGame;
 	private final ICommandContainer commandContainer;
 	private IResult<String> previousAnswer;
-	private final ModuleLoader moduleLoader = new ModuleLoader(System.getProperty("user.dir") + "\\bin\\main\\Games\\");
 	private HashMap<String, Game> games = new HashMap<String, Game>();
 
 	
-	public CommonUserDialog() {
+	public CommonUserDialog(HashMap<String, Game> games) {
 		commandContainer = new CommandContainer();
 		commandContainer.addCommand(new CommandHelp<String>("help", "help"));
 		commandContainer.addCommand(new CommandSwitchGame<String>("switch", "switch", (x) -> switchGame(x)));
 		commandContainer.addCommand(new CommandExitGame<String>("exit", "exit", () -> exitGame()));
 		commandContainer.addCommand(new Command("gamesList", (x) -> this.getGamesList(x)));
+		this.games = games;
 		
-		try {
-			for (Pair<String, Game> gameInfo : this.moduleLoader.loadGames())
-			{
-				IResult<String> gameName = gameInfo.component2().gameName();
-				if (gameName.getState() == ResultState.SUCCESS)
-					this.games.put(gameName.getResult(), gameInfo.component2());
-				else
-					this.games.put(gameInfo.component1(), gameInfo.component2());
-			}
-		} catch (IllegalArgumentException | SecurityException e) {
-		}
 	}
 	
 	public IResult<String> getGamesList(String[] args)

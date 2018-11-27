@@ -8,13 +8,14 @@ import org.junit.Test;
 
 import main.CommonUserDialog;
 import main.ResultState;
+import main.classLoader.LoaderGames;
 
 public class TestCommonUserDialog {
 	CommonUserDialog dialog;
 	
 	@Before
 	public void setUp() {
-		 dialog = new CommonUserDialog();
+		 dialog = new CommonUserDialog(new LoaderGames().Load());
 	}
 	
 	

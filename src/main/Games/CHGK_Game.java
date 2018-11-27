@@ -14,10 +14,6 @@ public class CHGK_Game extends Game {
 		this.questionBase = questionBase;
 	}
 
-	public CHGK_Game() {
-		this.questionBase = new PseudoBase();
-	}
-
 	public String getHint() {
 		IResult<Question> result = questionBase.getCurrentQuestion();
 		return result.getState() == ResultState.SUCCESS ? result.getResult().getQuestionAnswer() : result.getError();

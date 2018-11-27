@@ -14,14 +14,6 @@ import main.Commands.Command;
 public class NumGame extends Game{
 	private final String dataString;
 	
-	public NumGame() 
-	{
-		RandomGenerator generator = new RandomGenerator();
-		dataString = generator.generateRandomInteger(4, true);
-		if (!isCorrectQuery(dataString))
-			throw new IllegalArgumentException("Conveived string should be 4-digits string with different digits");
-	}
-	
 	public NumGame(IRandomGenerator generator) {
 		dataString = generator.generateRandomInteger(4, true);
 		if (!isCorrectQuery(dataString))

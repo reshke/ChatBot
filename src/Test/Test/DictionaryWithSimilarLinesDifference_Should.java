@@ -22,6 +22,7 @@ public class DictionaryWithSimilarLinesDifference_Should {
 		dictionary = new DictionaryWithSimilarLinesDifference<Integer>(finderSimilarLines);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test(expected = NullPointerException.class)
 	public void creation_RaisesException_WhenGetsNullInsteadOfFinder() {
 		dictionary = new DictionaryWithSimilarLinesDifference(null);

@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import main.IResult;
 import main.ResultState;
+import main.Games.FactoryNumGame;
 import main.Games.NumGame;
 
 
@@ -21,7 +22,7 @@ public class NumGameDialogTests {
 	
 	@Test
 	public void testStartExecutesCorrect() {
-		ResultState result = (new NumGame()).getHelp().getState();
+		ResultState result = (new FactoryNumGame().Create()).getHelp().getState();
 		
 		assertEquals(ResultState.SUCCESS, result);
 	}

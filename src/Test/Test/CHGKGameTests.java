@@ -9,6 +9,7 @@ import main.Game;
 import main.IResult;
 import main.ResultState;
 import main.Games.CHGK_Game;
+import main.Games.PseudoBase;
 
 
 public class CHGKGameTests {
@@ -16,7 +17,7 @@ public class CHGKGameTests {
 	@Before
 	public void bef()
 	{
-		game = new CHGK_Game();
+		game = new CHGK_Game(new PseudoBase());
 	}
 	
 	@Test
