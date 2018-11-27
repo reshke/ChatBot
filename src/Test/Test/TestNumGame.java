@@ -8,15 +8,12 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.IGame;
-import main.IAskAnswerStringGame;
 import main.IRandomGenerator;
 import main.RandomGenerator;
-import main.TypeGame;
 import main.Games.NumGame;
 
 public class TestNumGame {
-	IAskAnswerStringGame game;
+	NumGame game;
 	
 	@Before
 	public void setUp() {
@@ -25,17 +22,17 @@ public class TestNumGame {
 	
 	@Test
 	public void getHint_ReturnsHelpString_WhenGetsZeroIndex() {
-		assertTrue(game.getHint(new String[]{"hint", "0"}).equals("You can ask digit only in range from 1 to 4"));
+		assertTrue(game.getHint(new String[]{"hint", "0"}).getResult().equals("You can ask digit only in range from 1 to 4"));
 	}
 	
 	@Test
 	public void getHint_ReturnsHelpString_WhenGetsNegativeIndex() {
-		assertTrue(game.getHint(new String[]{"hint", "-1"}).equals("You can ask digit only in range from 1 to 4"));
+		assertTrue(game.getHint(new String[]{"hint", "-1"}).getResult().equals("You can ask digit only in range from 1 to 4"));
 	}
 	
 	@Test
 	public void getHint_ReturnsHelpString_WhenGetIndexMoreThanFour() {
-		assertTrue(game.getHint(new String[]{"hint", "5"}).equals("You can ask digit only in range from 1 to 4"));
+		assertTrue(game.getHint(new String[]{"hint", "5"}).getResult().equals("You can ask digit only in range from 1 to 4"));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -75,7 +72,7 @@ public class TestNumGame {
 	
 	@Test(expected = NullPointerException.class)
 	public void askInformation_ThrowsNullPointerException_WhenGetsANullArgument() {
-		game.postQuery(null);
+		game.executeQuery(null);
 	}
 	
 	@Test(expected = NullPointerException.class)
@@ -88,7 +85,7 @@ public class TestNumGame {
 		String result = "";
 		
 		for (int i = 1; i <= 4; i++) {
-			result += game.getHint(new String[]{"hint", "" + i});
+			result += game.getHint(new String[]{"hint", "" + i}).getResult();
 		}
 		
 		assertTrue(game.guessAnswer(result));
@@ -177,10 +174,4 @@ public class TestNumGame {
 		IRandomGenerator generator = new MockRandomGenerator("1233");
 		new NumGame(generator);
 	}
-	
-	@Test
-	public void getTypeGame_ShouldReturnNumTypeGame() {
-		assertEquals(((IGame) game).getTypeGame(), TypeGame.NUM_GAME);
-	}
-	
 }

@@ -9,18 +9,18 @@ import main.IRandomGenerator;
 import main.RandomGenerator;
 
 public class TestRandomGenerator {
-	
+
 	@Test
 	public void testCreating() {
 	}
-	
+
 	@Test
 	public void testLineSize() {
 		IRandomGenerator generator = new RandomGenerator();
 		String line = generator.generateRandomString(10);
 		assertEquals(line.length(), 10);
 	}
-	
+
 	@Test
 	public void testSymbolsLine() {
 		IRandomGenerator generator = new RandomGenerator();
@@ -29,27 +29,27 @@ public class TestRandomGenerator {
 			char symbol = line.charAt(i);
 			if (symbol != '0' && symbol != '1')
 				fail("Line contains wrong symbols!");
-				
+
 		}
 	}
-	
+
 	@Test
 	public void testCreatingBigLine() {
 		IRandomGenerator generator = new RandomGenerator();
 		String line = generator.generateRandomString(100);
 		assertEquals(line.length(), 100);
 	}
-	
+
 	@Test
 	public void testBooleanCreatingNoException() {
 		IRandomGenerator generator = new RandomGenerator();
 		for (int index = 0; index < 1000000; index++) {
 			generator.generateRandomBoolean();
 		}
-		
+
 		assertEquals(true, true);
 	}
-	
+
 	@Test
 	public void testBooleanCreatingDifferent() {
 		IRandomGenerator generator = new RandomGenerator();
@@ -61,15 +61,15 @@ public class TestRandomGenerator {
 			else
 				falseBooleans++;
 		}
-		
+
 		boolean result = falseBooleans == 0 || trueBooleans == 0;
-		
+
 		if (result)
 			fail("Generator creates same bools");
 
 		assertEquals(true, !result);
 	}
-	
+
 	@Test
 	public void testCreatingDifferentIntegersWorks() {
 		IRandomGenerator generator = new RandomGenerator();
@@ -78,7 +78,7 @@ public class TestRandomGenerator {
 			generator.generateRandomInt(i);
 		}
 	}
-	
+
 	@Test
 	public void testBounds() {
 		IRandomGenerator generator = new RandomGenerator();

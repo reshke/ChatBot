@@ -18,7 +18,6 @@ class MockReader implements IReader{
 
 	@Override
 	public String ReadQuery() {
-		// TODO Auto-generated method stub
 		return data;
 	}
 
@@ -27,7 +26,7 @@ class MockReader implements IReader{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }
 
 class MockWriter implements IWriter {
@@ -45,14 +44,12 @@ class TestBotUserInteaction {
 	void testBotExecutesHelpCommand() {
 		MockWriter writer =new MockWriter();
 		Bot bot = new Bot(new MockReader("help"), writer, new DialogManager());
-		
+
 		bot.startBot();
 		bot.executeQuery();
 		CommandHelp<String> command = new CommandHelp<String>("help", "help");
-		
+
 		assertEquals(writer.lastQuery, command.executeCommand(null));
 	}
-	
-
 }
 

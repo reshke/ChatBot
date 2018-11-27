@@ -18,19 +18,16 @@ public class MockRandomGenerator implements IRandomGenerator{
 
 	@Override
 	public String generateRandomString(int lenght) {
-		// TODO Auto-generated method stub
 		return randomString;
 	}
 
 	@Override
 	public Boolean generateRandomBoolean() {
-		// TODO Auto-generated method stub
 		return randomBoolean;
 	}
 
 	@Override
 	public Integer generateRandomInt(int bound) {
-		// TODO Auto-generated method stub
 		return randomInt;
 	}
 	@Override

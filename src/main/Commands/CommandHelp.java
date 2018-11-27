@@ -1,4 +1,5 @@
 package main.Commands;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -15,8 +16,7 @@ public class CommandHelp<TKey> implements ICommand<TKey> {
 		this.name = name;
 		this.key = key;
 	}
-	
-	// То же самое считывание из файла, что и в gameList?
+
 	
 	private File getHelpFile(){
 		String path = new File("").getAbsolutePath();

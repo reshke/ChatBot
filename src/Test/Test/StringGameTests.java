@@ -6,8 +6,6 @@ import main.RandomGenerator;
 import main.Games.StringGuessGame;
 
 
-
-
 public class StringGameTests {
 
 	@Test

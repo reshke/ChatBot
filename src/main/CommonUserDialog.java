@@ -1,55 +1,70 @@
 package main;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+
+import kotlin.Pair;
+import main.Commands.Command;
 import main.Commands.CommandExitGame;
-import main.Commands.CommandGamesList;
 import main.Commands.CommandHelp;
 import main.Commands.CommandSwitchGame;
-import main.Games.CHGK_Game;
-import main.Games.NumGame;
-import main.Games.PseudoBase;
-import main.Games.StringGuessGame;
-import main.IO.Reader;
+import main.classLoader.ModuleLoader;
 
 public class CommonUserDialog implements IDialogCommon {
-	private IDialogGame currentGameDialog;
+	private Game currentGame;
 	private final ICommandContainer commandContainer;
 	private IResult<String> previousAnswer;
+	private final ModuleLoader moduleLoader = new ModuleLoader(System.getProperty("user.dir") + "\\bin\\main\\Games\\");
+	private HashMap<String, Game> games = new HashMap<String, Game>();
+
 	
 	public CommonUserDialog() {
 		commandContainer = new CommandContainer();
 		commandContainer.addCommand(new CommandHelp<String>("help", "help"));
 		commandContainer.addCommand(new CommandSwitchGame<String>("switch", "switch", (x) -> switchGame(x)));
 		commandContainer.addCommand(new CommandExitGame<String>("exit", "exit", () -> exitGame()));
-		commandContainer.addCommand(new CommandGamesList<String>("gamesList", "gamesList"));
+		commandContainer.addCommand(new Command("gamesList", (x) -> this.getGamesList(x)));
+		
+		try {
+			for (Pair<String, Game> gameInfo : this.moduleLoader.loadGames())
+			{
+				IResult<String> gameName = gameInfo.component2().gameName();
+				if (gameName.getState() == ResultState.SUCCESS)
+					this.games.put(gameName.getResult(), gameInfo.component2());
+				else
+					this.games.put(gameInfo.component1(), gameInfo.component2());
+			}
+		} catch (IllegalArgumentException | SecurityException e) {
+		}
 	}
 	
-	public void switchGame(TypeGame typeGame) {
-		switch(typeGame) {
-		case GUESS_STRING: currentGameDialog = 
-				new StringGuessGameDialog(new StringGuessGame(10, new RandomGenerator()), new GamesHelper(new Reader()));
-				break;
-		case NUM_GAME: 
-			currentGameDialog = new NumGameDialog(new NumGame(new RandomGenerator()), new GamesHelper(new Reader()));
-			break;
-						  
-		case CHGK_Game: 
-			currentGameDialog = new CGHKGameDialog(new CHGK_Game(new PseudoBase()), new GamesHelper(new Reader()));
-			break;
-				
-		default: throw new IllegalArgumentException("Unknown game");
+	public IResult<String> getGamesList(String[] args)
+	{
+		StringBuilder result = new StringBuilder("Realized games list: \n");
+		
+		for (String gameName : this.games.keySet()) {
+			result.append(this.games.get(gameName).getGameDescriptor().getResult());
+			result.append("\n\n\n");
 		}
+		
+		return new Result(result.toString(), ResultState.SUCCESS);
+	}
+	
+	public void switchGame(String typeGame) {
+		this.currentGame = this.games.get(typeGame);
 	}
 	
 	private IResult<String> executeQuery(String query) {
 		String[] arguments = query.split(" ");
 		IResult<String> result = commandContainer.executeCommand(arguments[0], arguments);
-		if (currentGameDialog == null)
+		if (this.currentGame == null)
 			return result;
 		if (result.getState() == ResultState.UNKNOWN)
-			return currentGameDialog.postQuery(arguments);  //senderCommandContainer.executeCommand(arguments[0], arguments);
+			return this.currentGame.executeQuery(arguments);  //senderCommandContainer.executeCommand(arguments[0], arguments);
 		else if (result.getState() == ResultState.POSSIBLE_MISTAKE)
 		{
-			IResult<String> senderResult = currentGameDialog.postQuery(arguments);
+			IResult<String> senderResult = this.currentGame.executeQuery(arguments);
 			if (senderResult.getState() != ResultState.UNKNOWN)
 				return senderResult;
 		}
@@ -57,9 +72,9 @@ public class CommonUserDialog implements IDialogCommon {
 	}
 	
 	public void exitGame() {
-		if (currentGameDialog == null)
+		if (this.currentGame == null)
 			throw new UnsupportedOperationException("Game is not chosen!");
-		currentGameDialog = null;
+		this.currentGame = null;
 	}
 	
 	@Override

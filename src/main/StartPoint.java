@@ -3,8 +3,6 @@ package main;
 import main.IO.Reader;
 import main.IO.Writer;
 
-//import javafx.application.Application;
-
 
 public class StartPoint{
 	public static void main(String[] args) {

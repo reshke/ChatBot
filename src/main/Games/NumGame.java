@@ -3,12 +3,24 @@ package main.Games;
 import java.util.Arrays;
 
 import main.Game;
-import main.IAskAnswerStringGame;
+import main.ICommand;
 import main.IRandomGenerator;
-import main.TypeGame;
+import main.IResult;
+import main.RandomGenerator;
+import main.Result;
+import main.ResultState;
+import main.Commands.Command;
 
-public class NumGame extends Game implements IAskAnswerStringGame{
+public class NumGame extends Game{
 	private final String dataString;
+	
+	public NumGame() 
+	{
+		RandomGenerator generator = new RandomGenerator();
+		dataString = generator.generateRandomInteger(4, true);
+		if (!isCorrectQuery(dataString))
+			throw new IllegalArgumentException("Conveived string should be 4-digits string with different digits");
+	}
 	
 	public NumGame(IRandomGenerator generator) {
 		dataString = generator.generateRandomInteger(4, true);
@@ -50,18 +62,35 @@ public class NumGame extends Game implements IAskAnswerStringGame{
 		}
 		return equalDigits;
 	}
-
-	public Boolean guessAnswer(String query) {
-		return dataString.equals(query);
+	
+	public Boolean guessAnswer(String query)
+	{
+		return query.equals(this.dataString);
 	}
 
-	@Override
+	public IResult<String> guessAnswer(String[] args) {
+		if (args.length != 2)
+			return new Result("Count of arguments is not correct", ResultState.WRONG_ARGUMENTS);
+		if (this.guessAnswer(args[1])) {
+			this.endGame();
+			return new Result("You won!");
+		}
+		return new Result(this.postQuery(args[1]));
+	}
+
 	public String postQuery(String answer) {
 		if (!isCorrectQuery(answer))
 			throw new IllegalArgumentException("Query should be 4-digits string with different digits!");
 		Integer orderedDigits = countOrderedEqualsSymbols(dataString, answer);
 		Integer unorderedDigits = countUnorderedEqualsSymbols(dataString, answer);
 		return Integer.toString(orderedDigits) + " cows and " + Integer.toString(unorderedDigits - orderedDigits) + " bulls!";
+	}
+
+	public IResult<String> postQuery(String[] args)
+	{
+		if (args.length != 2)
+			return new Result("Count of arguments is not correct", ResultState.WRONG_ARGUMENTS);
+		return new Result(this.postQuery(args[1]));
 	}
 	
 	private String getHint(int position){
@@ -70,18 +99,44 @@ public class NumGame extends Game implements IAskAnswerStringGame{
 		return dataString.substring(position - 1, position);
 	}
 	
-	@Override
-	public String getHint(String [] args){
+	public IResult<String> getHint(String[] args)
+	{
 		if (args.length != 2)
-			return "Incorrect count of arguments";
-
-		Integer questionIndex = Integer.parseInt(args[1]);
-		return getHint(questionIndex);
+			return new Result("Count of arguments is not correct", ResultState.WRONG_ARGUMENTS);
+		
+		try {
+			return new Result(this.getHint(Integer.parseInt(args[1])));
+		}
+		catch (NumberFormatException e) {
+			return new Result("second argument must be an integer", ResultState.WRONG_ARGUMENTS);
+		}
 	}
+	
+	public ICommand<String>[] get_commands() {
+		return new Command[] { new Command("ask", x -> this.postQuery(x)),
+				new Command("guess", (x) -> this.guessAnswer(x)),
+				new Command("hint", (x) -> this.getHint(x))};
+	}
+	
 
 	@Override
-	public TypeGame getTypeGame() {
-		return TypeGame.NUM_GAME;
+	public IResult<String> getHelp()
+	{
+		return new Result("to guess a number type guess \"number\"");
 	}
-
+	
+	@Override
+	public IResult<String> gameName() { return new Result("numGame"); }
+	
+	@Override
+	public IResult<String> getGameDescriptor() { return new Result("num Game (send 'switch numGame' to start):\r\n"
+			+ "	The numerical version of the game\r\n"
+			+ "	is usually played with 4 digits, but can also be played with 3 or any other number of digits.\r\n" + 
+			"\r\n" + 
+			"	On a sheet of paper, the players each write a 4-digit secret number. \r\n"
+			+ "		The digits must be all different. \r\n"
+			+ "		Then, in turn, the players try to guess their opponent's \r\n"
+			+ "		number who gives the number of matches. \r\n"
+			+ "		If the matching digits are in their right positions, \r\n"
+			+ "		they are \"bulls\", if in different positions, they are \"cows\"."); }
 }
