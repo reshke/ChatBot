@@ -6,12 +6,9 @@ import static org.junit.Assert.assertNotEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.Game;
 import main.IResult;
-import main.RandomGenerator;
 import main.ResultState;
 import main.Games.NumGame;
-import main.IO.Reader;
 
 
 public class NumGameDialogTests {

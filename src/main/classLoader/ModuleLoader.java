@@ -59,7 +59,7 @@ public class ModuleLoader extends ClassLoader {
         return result;
     }
  
-    private byte[] loadClassFromFile(String fileName) throws FileNotFoundException  {
+    public byte[] loadClassFromFile(String fileName) throws FileNotFoundException  {
         InputStream inputStream = new FileInputStream(new File(pathbin + fileName + ".class"));
         byte[] buffer;
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();

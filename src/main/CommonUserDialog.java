@@ -44,8 +44,8 @@ public class CommonUserDialog implements IDialogCommon {
 		StringBuilder result = new StringBuilder("Realized games list: \n");
 		
 		for (String gameName : this.games.keySet()) {
-			result.append(this.games.get(gameName).getGameDescriptor());
-			result.append("\n");
+			result.append(this.games.get(gameName).getGameDescriptor().getResult());
+			result.append("\n\n\n");
 		}
 		
 		return new Result(result.toString(), ResultState.SUCCESS);
