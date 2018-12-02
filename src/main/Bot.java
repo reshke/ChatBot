@@ -1,35 +1,30 @@
 package main;
 
-import main.IO.IReader;
-import main.IO.IWriter;
+public class Bot implements IBot{
 
-public class Bot {
-
-	private final IReader reader;
-	private final IWriter writer;
 	private final IDialogManager dialogManager;
+	private final IGameLoaderFactory factory;
 	
-	public Bot(IReader reader, IWriter writer, IDialogManager dialogManager) {
-		this.reader = reader;
-		this.writer = writer;
+	public Bot(IDialogManager dialogManager, IGameLoaderFactory factory) {
 		this.dialogManager = dialogManager;
+		this.factory = factory;
 	}
 	
 	
-	public void startBot() {
-		writer.WriteLine("Welcome! I'm chat bot! help to see help");
+	public String startBot(Long userId) {
+		dialogManager.startDialog(userId, this.factory);
 		
-		dialogManager.startDialog(0L);
+		return "Welcome! I'm chat bot! help to see help";
 	}
 	
-	public void executeQuery(){
-		String query = reader.ReadQuery();
-		IResult<String> result = dialogManager.handleQuery(0L, query);
+	public String executeQuery(Long userId, String query){
+		IResult<String> result = dialogManager.handleQuery(userId, query);
 		ResultState state = result.getState();
 		
 		if (state == ResultState.SUCCESS)
-			writer.WriteLine(result.getResult());
+			return result.getResult();
 		else
-			writer.WriteLine(result.getError());
+			return result.getError();
 	}
+	
 }

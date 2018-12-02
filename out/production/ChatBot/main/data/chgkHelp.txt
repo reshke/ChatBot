@@ -1,3 +1,0 @@
-to find out the condition, type ask
-to try answer the answer, type result "your answer"
-note, that answer is one single word

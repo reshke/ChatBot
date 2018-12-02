@@ -1,4 +1,4 @@
-package Test;
+package test;
 import main.IRandomGenerator;
 
 public class MockRandomGenerator implements IRandomGenerator{

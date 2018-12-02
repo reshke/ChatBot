@@ -4,11 +4,11 @@ import java.util.HashMap;
 
 import kotlin.Pair;
 import main.Game;
-import main.IGameLoaderFabrics;
+import main.IGameLoaderFactory;
 import main.IResult;
 import main.ResultState;
 
-public class LoaderGames implements IGameLoaderFabrics {
+public class LoaderGames implements IGameLoaderFactory {
 	public HashMap<String, Game> Load()
 	{
 		ModuleLoader moduleLoader = new ModuleLoader(System.getProperty("user.dir") + "\\bin\\main\\Games\\");
