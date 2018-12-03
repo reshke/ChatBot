@@ -72,4 +72,9 @@ public class CommonUserDialog implements IDialogCommon {
 	public IResult<String> getLastAnswer() {
 		return previousAnswer;
 	}
+
+	@Override
+	public String[] getCurrentUserExecutableCommands() {
+		return this.commandContainer.getCommands();
+	}
 }

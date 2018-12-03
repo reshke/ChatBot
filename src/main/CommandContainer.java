@@ -70,5 +70,10 @@ public class CommandContainer implements ICommandContainer {
 			return handleNotExistingCommand(commands.almostEqualItems);
 		return new Result("Unknown command!", ResultState.UNKNOWN);
 	}
+
+	@Override
+	public String[] getCommands() {
+		return this.dictionary.getKeyArray();
+	}
 	
 }

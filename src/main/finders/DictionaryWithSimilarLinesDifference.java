@@ -12,11 +12,12 @@ public class DictionaryWithSimilarLinesDifference<Value> implements DictionaryWi
         this.finder = finder;
     }
 
-    public void put(String key, Value value) {
+    public Value put(String key, Value value) {
     	raiseIfGivenStringIsIncorrect(key);
     	removeItemIfKeyIsAdded(key);
     	DictionaryItem<Value> item = new DictionaryItem<Value>(key, value);
     	items.add(item);
+    	return value;
     }
 
     public DictionaryItems<Value> get(String key) {
@@ -63,4 +64,16 @@ public class DictionaryWithSimilarLinesDifference<Value> implements DictionaryWi
     	if (givenString == null)
     		throw new NullPointerException("Dictionary cannot contain or handle null instead of a string!");
     }
+
+	@Override
+	public String[] getKeyArray() {
+		String[] ret = new String[items.size()];
+		int i = 0;
+		for (DictionaryItem<Value> value : this.items){
+			ret[i] = value.key;
+			i+=1;
+		}
+		
+		return ret;
+	}
 }

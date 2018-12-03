@@ -26,5 +26,11 @@ public class Bot implements IBot{
 		else
 			return result.getError();
 	}
+
+
+	@Override
+	public String[] getExecutableCommands(Long userId) {
+		return this.dialogManager.getUserExecutableCommands(userId);
+	}
 	
 }
