@@ -11,7 +11,7 @@ import main.ResultState;
 public class LoaderGames implements IGameLoaderFactory {
 	public HashMap<String, Game> Load()
 	{
-		ModuleLoader moduleLoader = new ModuleLoader(System.getProperty("user.dir") + "\\bin\\main\\Games\\");
+		ModuleLoader moduleLoader = new ModuleLoader(System.getProperty("user.dir") + "\\bin\\main\\Games\\", "main.Games.");
 		HashMap<String, Game>  games = new HashMap<String, Game> ();
 		try {
 			for (Pair<String, Game> gameInfo : moduleLoader.loadFabrics())

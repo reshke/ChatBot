@@ -12,10 +12,13 @@ import main.Game;
 import main.IGameFactory;
 
 public class ModuleLoader extends ClassLoader {
+	private final String gamesDir;
 	private final String pathbin;
-	public ModuleLoader(String pathbin)
+	
+	public ModuleLoader(String pathbin, String gamesDir)
 	{
 		this.pathbin = pathbin;
+		this.gamesDir = gamesDir;
 	}
 	
     @Override
@@ -24,7 +27,7 @@ public class ModuleLoader extends ClassLoader {
 		try {
 			b = loadClassFromFile(name);
 
-	        return defineClass("main.Games." + name, b, 0, b.length);
+	        return defineClass(gamesDir + name, b, 0, b.length);
 	        
 		} catch (FileNotFoundException e) {
 			

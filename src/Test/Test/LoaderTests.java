@@ -10,12 +10,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import main.Game;
 import main.classLoader.ModuleLoader;
 
 public class LoaderTests {
-	private final ModuleLoader moduleLoader = new ModuleLoader(System.getProperty("user.dir") + "\\bin\\main\\Games\\");
-	private int len;
-	
+	private final ModuleLoader moduleLoader = new ModuleLoader(System.getProperty("user.dir") + "\\bin\\Test\\", "Test.");
 	
 	@Before
 	public void before() throws IOException
@@ -67,7 +66,6 @@ public class LoaderTests {
 				"}\r\n" + 
 				"";
 		fos.write(data.getBytes());
-		len = data.length();
 		fos.flush();
 		fos.close();
 	}
@@ -78,8 +76,8 @@ public class LoaderTests {
 		byte[] data;
 		try {
 			data = this.moduleLoader.loadClassFromFile("MockGame");
-
-			assertTrue(data.length == len);
+			int len = data.length;
+			assertTrue(len == 861);
 		} catch (FileNotFoundException e) {
 			fail();
 		}
@@ -89,6 +87,7 @@ public class LoaderTests {
 	public void test_moduleLoader_finds_game_correct()
 	{
 		try {
+			@SuppressWarnings({ "unused", "rawtypes" })
 			Class game = this.moduleLoader.findClass("MockGame");
 
 			assertTrue(true);
@@ -97,20 +96,21 @@ public class LoaderTests {
 		}
 	}
 	
-//	@Test
-//	public void test_game_execute_help_command_well()
-//	{
-//		try {
-//
-//			Game game = (Game) this.moduleLoader.findClass("MockGame").newInstance();
-//
-//			assertTrue(game.getHelp().getResult().equals("mockHelp"));
-//		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-//			fail();
-//		}
-//
-//	}
-//	
+	@Test
+	public void test_game_execute_help_command_well()
+	{
+		try {
+
+			@SuppressWarnings("deprecation")
+			Game game = (Game) this.moduleLoader.findClass("MockGame").newInstance();
+
+			assertTrue(game.getHelp().getResult().equals("mockHelp"));
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			fail();
+		}
+
+	}
+	
 	@After
 	public void after()
 	{
