@@ -6,21 +6,12 @@ import main.Game;
 import main.ICommand;
 import main.IRandomGenerator;
 import main.IResult;
-import main.RandomGenerator;
 import main.Result;
 import main.ResultState;
 import main.Commands.Command;
 
 public class NumGame extends Game{
 	private final String dataString;
-	
-	public NumGame() 
-	{
-		RandomGenerator generator = new RandomGenerator();
-		dataString = generator.generateRandomInteger(4, true);
-		if (!isCorrectQuery(dataString))
-			throw new IllegalArgumentException("Conveived string should be 4-digits string with different digits");
-	}
 	
 	public NumGame(IRandomGenerator generator) {
 		dataString = generator.generateRandomInteger(4, true);

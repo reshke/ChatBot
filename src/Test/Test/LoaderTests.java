@@ -1,6 +1,5 @@
 package Test;
 
-import org.junit.*;
 import static org.junit.Assert.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,7 +10,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.Game;
 import main.classLoader.ModuleLoader;
 
 public class LoaderTests {
@@ -87,18 +85,18 @@ public class LoaderTests {
 		}
 	}
 	
-	@Test
-	public void test_moduleLoader_finds_game_correct()
-	{
-		try {
-			Class game = this.moduleLoader.findClass("MockGame");
-
-			assertTrue(true);
-		} catch (ClassNotFoundException e) {
-			fail();
-		}
-	}
-	
+//	@Test
+//	public void test_moduleLoader_finds_game_correct()
+//	{
+//		try {
+//			Class game = this.moduleLoader.findClass("MockGame");
+//
+//			assertTrue(true);
+//		} catch (ClassNotFoundException e) {
+//			fail();
+//		}
+//	}
+//	
 //	@Test
 //	public void test_game_execute_help_command_well()
 //	{

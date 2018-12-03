@@ -5,25 +5,26 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import main.Bot;
 import main.DialogManager;
-import main.IDialogManager;
-import main.IResult;
-import main.ResultState;
+import main.IBot;
+import main.classLoader.LoaderGames;
 
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
 public class TelegramBot extends TelegramLongPollingBot {
-	private final IDialogManager dialog = new DialogManager();
+	private final IBot bot = new Bot(new DialogManager(), new LoaderGames());
 	
 	public static void main(String[] args) {
-	ApiContextInitializer.init();
-	TelegramBotsApi botapi = new TelegramBotsApi();
-	try {
-		botapi.registerBot(new TelegramBot());
-	} catch (TelegramApiException e) {
-		e.printStackTrace();
-	}
+		ApiContextInitializer.init();
+		TelegramBotsApi botapi = new TelegramBotsApi();
+		try {
+			botapi.registerBot(new TelegramBot());
+		} catch (TelegramApiException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -49,22 +50,12 @@ public class TelegramBot extends TelegramLongPollingBot {
 		System.out.println("Input: " + txt);
 		if (txt.equals("/start")) {
 			sendMsg(msg, "Hello, world! This is simple bot!");
-			dialog.startDialog(msg.getChatId());
+			bot.startBot(msg.getChatId());
 		}
 		else {
 			
-			IResult<String> result = dialog.handleQuery(msg.getChatId(), txt);
+			String answer = bot.executeQuery(msg.getChatId(), txt);
 			
-			ResultState state = result.getState();
-			String answer = "";
-			if (state == ResultState.SUCCESS)
-			{
-				answer = result.getResult();
-			}
-			else
-			{
-				answer = result.getError();
-			}
 			sendMsg(msg, answer);
 		}
 	}

@@ -6,8 +6,9 @@ public class DialogManager implements IDialogManager {
 	
 	private final Map<Long, IDialogCommon> dialogs = new HashMap<Long, IDialogCommon>();
 	
-	public void startDialog(Long userId){
-		CommonUserDialog dialog = new CommonUserDialog();
+	public void startDialog(Long userId, IGameLoaderFactory factory){
+		
+		CommonUserDialog dialog = new CommonUserDialog(factory.Load());
 		dialogs.put(userId, dialog);
 	}
 	

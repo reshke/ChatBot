@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import kotlin.Pair;
 import main.Game;
+import main.IGameFactory;
 
 public class ModuleLoader extends ClassLoader {
 	private final String pathbin;
@@ -17,8 +18,7 @@ public class ModuleLoader extends ClassLoader {
 		this.pathbin = pathbin;
 	}
 	
-    @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public Class<?> findClass(String name) throws ClassNotFoundException {
         byte[] b;
 		try {
@@ -33,8 +33,8 @@ public class ModuleLoader extends ClassLoader {
 		throw new ClassNotFoundException();
     }
     
-    @SuppressWarnings("unchecked")
-	public ArrayList<Pair<String, Game>> loadGames()
+    @SuppressWarnings("deprecation")
+	public ArrayList<Pair<String, Game>> loadFabrics()
     {
     	ArrayList<Pair<String, Game>> result = new ArrayList<>();
 
@@ -44,9 +44,9 @@ public class ModuleLoader extends ClassLoader {
         for (String module: modules) {
             try {
                 String moduleName = module.split(".class")[0];
-                Class currentClass = findClass(moduleName);
+                Class<?> currentClass = findClass(moduleName);
                 try  {
-                	result.add(new Pair<String, Game>(moduleName, (Game) currentClass.newInstance()));
+                	result.add(new Pair<String, Game>(moduleName, ((IGameFactory) currentClass.newInstance()).Create()));
                 }
                 catch (ClassCastException e) {}
             }
@@ -58,6 +58,7 @@ public class ModuleLoader extends ClassLoader {
 
         return result;
     }
+    
  
     public byte[] loadClassFromFile(String fileName) throws FileNotFoundException  {
         InputStream inputStream = new FileInputStream(new File(pathbin + fileName + ".class"));

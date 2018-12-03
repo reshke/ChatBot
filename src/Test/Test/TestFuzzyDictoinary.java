@@ -170,6 +170,7 @@ public class TestFuzzyDictoinary {
 		}
 
 		for (int index = 0; index < 100000; index++) {
+			@SuppressWarnings("unused")
 			List<Pair<String, Integer>> items = stringDictionary.get(Integer.toString(index % 100), 0);
 		}
 	}

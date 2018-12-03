@@ -34,7 +34,6 @@ public abstract class Game implements IGame {
 		gameState = GameState.PAUSED;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public IResult<String> executeQuery(String args[]) {
 		return gameCommandContainer.executeCommand(args[0], args);
