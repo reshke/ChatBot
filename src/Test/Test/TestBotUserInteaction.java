@@ -20,5 +20,26 @@ class TestBotUserInteaction {
 
 		assertEquals(bot.executeQuery(0L, "help"), command.executeCommand(null));
 	}
+	
+	@Test
+	void testBotReturnsExecutableCommandsWell() {
+		Bot bot = new Bot(new DialogManager(), new LoaderGames());
+
+		bot.startBot(0L);
+		String[] commands = bot.getExecutableCommands(0L);
+
+		assertArrayEquals(new String[] {"help", "gamesList"}, commands);
+	}
+	
+	@Test
+	void testBotReturnsExecutableCommandsInGameDialogWell() {
+		Bot bot = new Bot(new DialogManager(), new LoaderGames());
+
+		bot.startBot(0L);
+		bot.executeQuery(0L, "switch guessGame");
+		String[] commands = bot.getExecutableCommands(0L);
+
+		assertArrayEquals(new String[] {"help", "gamesList", "gamehelp"}, commands);
+	}
 }
 

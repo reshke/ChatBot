@@ -85,18 +85,18 @@ public class LoaderTests {
 		}
 	}
 	
-//	@Test
-//	public void test_moduleLoader_finds_game_correct()
-//	{
-//		try {
-//			Class game = this.moduleLoader.findClass("MockGame");
-//
-//			assertTrue(true);
-//		} catch (ClassNotFoundException e) {
-//			fail();
-//		}
-//	}
-//	
+	@Test
+	public void test_moduleLoader_finds_game_correct()
+	{
+		try {
+			Class game = this.moduleLoader.findClass("MockGame");
+
+			assertTrue(true);
+		} catch (ClassNotFoundException e) {
+			fail();
+		}
+	}
+	
 //	@Test
 //	public void test_game_execute_help_command_well()
 //	{
