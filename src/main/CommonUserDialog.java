@@ -17,7 +17,8 @@ public class CommonUserDialog implements IDialogCommon {
 	public CommonUserDialog(HashMap<String, Game> games) {
 		commandContainer = new CommandContainer();
 		commandContainer.addCommand(new CommandHelp<String>("help", "help"));
-		commandContainer.addCommand(new CommandSwitchGame<String>("switch", "switch", (x) -> switchGame(x)));
+		commandContainer.addCommand(
+				new CommandSwitchGame<String>("switch", "switch", (x) -> switchGame(x)));
 		commandContainer.addCommand(new CommandExitGame<String>("exit", "exit", () -> exitGame()));
 		commandContainer.addCommand(new Command("gamesList", (x) -> this.getGamesList(x)));
 		this.games = games;
@@ -75,6 +76,9 @@ public class CommonUserDialog implements IDialogCommon {
 
 	@Override
 	public String[] getCurrentUserExecutableCommands() {
-		return this.commandContainer.getCommands();
+		if (this.currentGame != null)
+			return new String[] {"help", "gamesList", "gamehelp"};
+		return new String[] {"help", "gamesList"};
+		//return this.commandContainer.getCommands();
 	}
 }

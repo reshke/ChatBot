@@ -50,28 +50,8 @@ public class TelegramBot extends TelegramLongPollingBot {
 		}
 	}
 	
-	@Override
-	public void onUpdateReceived(Update e) {
-		Message msg = e.getMessage();
-		String txt = msg.getText();
-		System.out.println("Input: " + txt);
-		if (txt.equals("/start")) {
-			sendMsg(msg, "Hello, world! This is simple bot!");
-			bot.startBot(msg.getChatId());
-		}
-		else {
-			String answer = bot.executeQuery(msg.getChatId(), txt);
-			SendMessage s = new SendMessage();
-			s.setChatId(msg.getChatId());
-			this.setButtons(s, bot.getExecutableCommands(msg.getChatId()));
-			sendMsg(msg, answer);
-		}
-	}
-	
-	
-	public synchronized void setButtons(SendMessage sendMessage, String[] commands) {
-        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-        sendMessage.setReplyMarkup(replyKeyboardMarkup);
+	private ReplyKeyboardMarkup getKeyboardButtons(String[] commands){
+		ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
         replyKeyboardMarkup.setSelective(true);
         replyKeyboardMarkup.setResizeKeyboard(true);
         replyKeyboardMarkup.setOneTimeKeyboard(false);
@@ -84,13 +64,41 @@ public class TelegramBot extends TelegramLongPollingBot {
             keyboardRow.add(new KeyboardButton(command));
             keyboard.add(keyboardRow);
         }
+        
         replyKeyboardMarkup.setKeyboard(keyboard);
-    }
+        return replyKeyboardMarkup;
+	}
+	
+	@Override
+	public void onUpdateReceived(Update element) {
+		Message msg = element.getMessage();
+		String txt = msg.getText();
+		System.out.println("Input: " + txt);
+		if (txt.equals("/start")) {
+			sendMsg(msg, "Hello, world! This is simple bot!");
+			bot.startBot(msg.getChatId());
+		}
+		else {
+			String answer = bot.executeQuery(msg.getChatId(), txt);
+			SendMessage s = new SendMessage();
+			s.setChatId(msg.getChatId());
+			s.setReplyMarkup(
+					getKeyboardButtons(bot.getExecutableCommands(msg.getChatId())));
+			
+			s.setText(answer);
+			
+			try { 
+				execute(s);
+			} catch (TelegramApiException ex){
+				ex.printStackTrace();
+			}
+		}
+	}
 	
 
 	@Override
 	public String getBotToken() {
-			return "667623625:AAEnR1RZwHBKDGLSrLaYfgemIX6TXAQlZX4";
+		return "667623625:AAEnR1RZwHBKDGLSrLaYfgemIX6TXAQlZX4";
 	}
 
 }
