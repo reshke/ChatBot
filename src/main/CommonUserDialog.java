@@ -2,12 +2,10 @@ package main;
 
 import java.util.HashMap;
 
-import kotlin.Pair;
 import main.Commands.Command;
 import main.Commands.CommandExitGame;
 import main.Commands.CommandHelp;
 import main.Commands.CommandSwitchGame;
-import main.classLoader.ModuleLoader;
 
 public class CommonUserDialog implements IDialogCommon {
 	private Game currentGame;

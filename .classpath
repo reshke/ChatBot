@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="module" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
@@ -12,17 +12,17 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry exported="true" kind="lib" path="jre_for_telegram/telegrambots-4.1-jar-with-dependencies.jar"/>
 	<classpathentry exported="true" kind="lib" path="jre_for_telegram/telegrambots-abilities-4.1-jar-with-dependencies.jar"/>
 	<classpathentry exported="true" kind="lib" path="jre_for_telegram/telegrambots-chat-session-bot-4.1-jar-with-dependencies.jar"/>
 	<classpathentry exported="true" kind="lib" path="jre_for_telegram/telegrambots-meta-4.1-jar-with-dependencies.jar"/>
 	<classpathentry exported="true" kind="lib" path="jre_for_telegram/telegrambots-spring-boot-starter-4.1-jar-with-dependencies.jar"/>
 	<classpathentry exported="true" kind="lib" path="jre_for_telegram/telegrambotsextensions-4.1-jar-with-dependencies.jar"/>
-	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+	<classpathentry exported="true" kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="output" path="target/classes"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>
