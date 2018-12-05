@@ -10,20 +10,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import main.Commands.Command;
 import main.Commands.CommandExitGame;
-import main.Commands.CommandHelp;
 import main.Commands.CommandSwitchGame;
 import main.Commands.SaveAndPauseGameCommand;
 
 public class CommonUserDialog implements IDialogCommon {
 	private Game currentGame;
 	private final ICommandContainer commandContainer;
+	private final IGameSaver gameSaver;
 	private IResult<String> previousAnswer;
 	private HashMap<String, Game> games = new HashMap<String, Game>();
 
 	
-	public CommonUserDialog(HashMap<String, Game> games) {
-		commandContainer = new CommandContainer();
-		commandContainer.addCommand(new CommandHelp<String>("help", "help"));
+	public CommonUserDialog(HashMap<String, Game> games, ICommandContainer commandContainer,
+			IGameSaver gamesSaver) {
+		this.commandContainer = commandContainer;
+		this.gameSaver = gamesSaver;
+		
 		commandContainer.addCommand(
 				new CommandSwitchGame<String>("switch", "switch", (x) -> switchGame(x)));
 		commandContainer.addCommand(new CommandExitGame<String>("exit", "exit", () -> exitGame()));
@@ -61,7 +63,7 @@ public class CommonUserDialog implements IDialogCommon {
 		if (this.currentGame == null)
 			return result;
 		if (result.getState() == ResultState.UNKNOWN)
-			return this.currentGame.executeQuery(arguments);  //senderCommandContainer.executeCommand(arguments[0], arguments);
+			return this.currentGame.executeQuery(arguments);
 		else if (result.getState() == ResultState.POSSIBLE_MISTAKE)
 		{
 			IResult<String> senderResult = this.currentGame.executeQuery(arguments);
@@ -84,12 +86,16 @@ public class CommonUserDialog implements IDialogCommon {
 		StringWriter writer = new StringWriter();
 		ObjectMapper mapper = new ObjectMapper();
 		
-		mapper.writeValue(writer, this.currentGame);
+		this.gameSaver.saveGame(
+				mapper.writeValueAsBytes(this.currentGame), "name");
 
-		String result = writer.toString();
-		System.out.println(result);
+		return "Your game was saved sucessfully!";
+	}
+	
+	public String loadGame(String name) {
+		this.gameSaver.LoadGame(name);
 		
-		return null;
+		return "Your game was loaded sucessfully!";
 	}
 	
 	@Override
@@ -108,6 +114,5 @@ public class CommonUserDialog implements IDialogCommon {
 		if (this.currentGame != null)
 			return new String[] {"help", "gamesList", "gamehelp"};
 		return new String[] {"help", "gamesList"};
-		//return this.commandContainer.getCommands();
 	}
 }

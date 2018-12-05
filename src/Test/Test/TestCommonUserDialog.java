@@ -6,16 +6,24 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import main.CommandContainer;
 import main.CommonUserDialog;
+import main.GameSaver;
+import main.ICommand;
 import main.ResultState;
+import main.Commands.CommandHelp;
 import main.classLoader.LoaderGames;
 
 public class TestCommonUserDialog {
 	CommonUserDialog dialog;
 	
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() {
-		 dialog = new CommonUserDialog(new LoaderGames().Load());
+		
+		 dialog = new CommonUserDialog(new LoaderGames().Load(), 
+				 new CommandContainer(new ICommand[] { new CommandHelp<String>("help", "help")}),
+				 new GameSaver(System.getProperty("user.dir") + "\\out\\production\\ChatBot\\main\\data\\"));
 	}
 	
 	

@@ -27,6 +27,13 @@ public class CommandContainer implements ICommandContainer {
 		dictionary = new DictionaryWithSimilarLinesDifference<ICommand<String>>(finderSimilarLines);
 	}
 	
+	public CommandContainer(ICommand<String>[] commands) {
+		FinderSimilarLines finderSimilarLines = new FinderSimilarDistanceWords(new LevenshteinDifference(), 1, 3);
+		dictionary = new DictionaryWithSimilarLinesDifference<ICommand<String>>(finderSimilarLines);
+		for (int i = 0; i < commands.length; i++) 
+			dictionary.put(commands[i].getKey().toString(), commands[i]);
+	}
+
 	public void addCommand(ICommand<String> command) {
 		dictionary.put(command.getKey(), command);
 	}
