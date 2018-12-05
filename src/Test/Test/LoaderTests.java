@@ -111,6 +111,67 @@ public class LoaderTests {
 
 	}
 	
+	@Test
+	public void test_game_execute_getName_command_well()
+	{
+		try {
+
+			@SuppressWarnings("deprecation")
+			Game game = (Game) this.moduleLoader.findClass("MockGame").newInstance();
+
+			assertTrue(game.gameName().getResult().equals("mockGame"));
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			fail();
+		}
+
+	}
+	
+	@Test
+	public void test_game_execute_getGameDescriptor_command_well()
+	{
+		try {
+
+			@SuppressWarnings("deprecation")
+			Game game = (Game) this.moduleLoader.findClass("MockGame").newInstance();
+
+			assertTrue(game.getGameDescriptor().getResult().equals("mockmock"));
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			fail();
+		}
+
+	}
+	
+	@Test
+	public void test_game_execute_command_well()
+	{
+		try {
+
+			@SuppressWarnings("deprecation")
+			Game game = (Game) this.moduleLoader.findClass("MockGame").newInstance();
+
+			assertTrue(game.executeQuery(new String[] {"mockOne"}).getResult().equals("some result"));
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			fail();
+		}
+
+	}
+	
+	@Test
+	public void test_game_execute_gamehelp_command_well()
+	{
+		try {
+
+			@SuppressWarnings("deprecation")
+			Game game = (Game) this.moduleLoader.findClass("MockGame").newInstance();
+
+			assertTrue(game.executeQuery(new String[] {"gamehelp"}).getResult().equals("mockHelp"));
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			fail();
+		}
+
+	}
+	
+	
 	@After
 	public void after()
 	{

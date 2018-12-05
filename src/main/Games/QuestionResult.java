@@ -3,6 +3,7 @@ package main.Games;
 import main.IResult;
 import main.ResultState;
 
+@SuppressWarnings("hiding")
 class QuestionResult<Question> implements IResult<Question>
 	{
 		private Question question;

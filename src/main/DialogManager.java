@@ -12,7 +12,10 @@ public class DialogManager implements IDialogManager {
 	}
 	
 	public IResult<String> handleQuery(Long userId, String line) {
-		return dialogs.get(userId).handleQuery(line);
+		IDialogCommon dialog = dialogs.get(userId);
+		if (dialog == null)
+			return new Result("Dialog was not started!");
+		return dialog.handleQuery(line);
 	}
 
 	@Override

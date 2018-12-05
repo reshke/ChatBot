@@ -22,10 +22,6 @@ public class StringGuessGame extends Game implements IModule{
 			guessedNumber[i + 1] = guessedNumber[i] + (dataString.charAt(i) == '1' ? 1 : 0);
 		}
 	}
-
-	public GameState getGameState() {
-		return gameState;
-	}
 	
 	private void raiseIfLengthIsIncorrect(int length)
 	{

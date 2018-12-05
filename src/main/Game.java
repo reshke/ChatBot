@@ -3,18 +3,20 @@ package main;
 import main.Commands.Command;
 
 public abstract class Game implements IGame {
-	protected final ICommandContainer gameCommandContainer = new CommandContainer();
-
+	private final ICommandContainer gameCommandContainer = new CommandContainer();
 	protected GameState gameState = GameState.NOT_STARTED;
 	
 	public Game() {
 		this.gameCommandContainer.addCommand(new Command("gamehelp", (x) -> this.getHelp()));
-
+		
 		for (ICommand<String> command : this.get_commands())
 			this.gameCommandContainer.addCommand(command);
 	}
 	
 	public abstract ICommand<String>[] get_commands();
+	
+	@Override
+	public GameState getGameState() { return this.gameState; }
 	
 	@Override
 	public IGame startGame() {
@@ -30,8 +32,10 @@ public abstract class Game implements IGame {
 	}
 
 	@Override
-	public void pauseGame() {
+	public String pauseGame() {
 		gameState = GameState.PAUSED;
+		
+		return "Game paused successfully";
 	}
 	
 	@Override

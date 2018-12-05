@@ -9,7 +9,7 @@ public enum EqualState {
     equal(3);
 
     private int value;
-    private static Map map = new HashMap<>();
+    private static Map<Integer, EqualState> map = new HashMap<>();
 
     private EqualState(int value){
         this.value = value;

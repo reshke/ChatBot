@@ -1,11 +1,18 @@
 package main;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.HashMap;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import main.Commands.Command;
 import main.Commands.CommandExitGame;
 import main.Commands.CommandHelp;
 import main.Commands.CommandSwitchGame;
+import main.Commands.SaveAndPauseGameCommand;
 
 public class CommonUserDialog implements IDialogCommon {
 	private Game currentGame;
@@ -21,8 +28,15 @@ public class CommonUserDialog implements IDialogCommon {
 				new CommandSwitchGame<String>("switch", "switch", (x) -> switchGame(x)));
 		commandContainer.addCommand(new CommandExitGame<String>("exit", "exit", () -> exitGame()));
 		commandContainer.addCommand(new Command("gamesList", (x) -> this.getGamesList(x)));
+		this.commandContainer.addCommand(new SaveAndPauseGameCommand(() -> {
+			try {
+				return this.saveCurrentGame();
+			} catch (IOException e) {
+				e.printStackTrace();
+				return "IO error occured";
+			}
+		}));
 		this.games = games;
-		
 	}
 	
 	public IResult<String> getGamesList(String[] args)
@@ -61,6 +75,21 @@ public class CommonUserDialog implements IDialogCommon {
 		if (this.currentGame == null)
 			throw new UnsupportedOperationException("Game is not chosen!");
 		this.currentGame = null;
+	}
+	
+	public String saveCurrentGame() throws JsonGenerationException, JsonMappingException, IOException {
+		if (this.currentGame == null)
+			throw new UnsupportedOperationException("Game is not chosen!");
+		this.currentGame.pauseGame();
+		StringWriter writer = new StringWriter();
+		ObjectMapper mapper = new ObjectMapper();
+		
+		mapper.writeValue(writer, this.currentGame);
+
+		String result = writer.toString();
+		System.out.println(result);
+		
+		return null;
 	}
 	
 	@Override
