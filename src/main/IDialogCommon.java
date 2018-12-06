@@ -5,4 +5,5 @@ public interface IDialogCommon {
 	public IResult<String> getLastAnswer();
 	public void switchGame(String typeGame);
 	public String[] getCurrentUserExecutableCommands();
+	public Game LoadGame(String name);
 }

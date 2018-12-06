@@ -6,16 +6,25 @@ import main.IResult;
 import main.Result;
 import main.ResultState;
 import main.Commands.Command;
-import main.classLoader.IModule;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import main.Game;
 import main.GameState;
 import main.ICommand;
 
-public class StringGuessGame extends Game implements IModule{
-	private final String dataString;
-	private final int dataStringLength;
-	private final int guessedNumber[];
-	private final IRandomGenerator generator;
+public class StringGuessGame extends Game{
+	@JsonProperty("dataString")
+	private String dataString;
+
+	@JsonProperty("dataStringLength")
+	private int dataStringLength;
+	
+	@JsonProperty("guessedNumber")
+	private int guessedNumber[];
+	
+	private IRandomGenerator generator;
 	
 	private void calculateGuessedNumber() {
 		for (int i = 0; i < dataStringLength; i++){
@@ -31,6 +40,8 @@ public class StringGuessGame extends Game implements IModule{
 			throw new IllegalArgumentException("Length of line is too big!");
 	}
 	
+	public StringGuessGame() {}
+
 	public StringGuessGame(int length, IRandomGenerator generator) {
 		raiseIfLengthIsIncorrect(length);
 		gameState = GameState.NOT_STARTED;
@@ -95,26 +106,15 @@ public class StringGuessGame extends Game implements IModule{
 		Integer questionIndex = Integer.parseInt(args[1]);
 		return new Result(getHint(questionIndex));
 	}
-
-	@Override
-	public void load() {
-		System.out.println("hello from StrignGuessGame!!");
-	}
-
-	@Override
-	public int run() {
-		return 0;
-	}
-
-	@Override
-	public void unload() {}
 	
+	@JsonIgnore
 	public ICommand<String>[] get_commands() {
 		return new Command[] { new Command("ask", x -> this.postQuery(x)),
 				new Command("result", (x) -> this.guessAnswer(x)),
 				new Command("hint", (x) -> this.getHint(x))};
 	}
 	
+	@JsonIgnore
 	@Override
 	public IResult<String> getHelp()
 	{
@@ -124,9 +124,11 @@ public class StringGuessGame extends Game implements IModule{
 				"To end game type end");
 	}
 	
+	@JsonIgnore
 	@Override
 	public IResult<String> gameName() { return new Result("guessGame"); }
 	
+	@JsonIgnore
 	@Override
 	public IResult<String> getGameDescriptor() { return new Result("String Guess Game(send 'switch guessGame' to start): \r\n" + 
 			"	to start this game type switch guessGame and then start (length)\r\n" + 

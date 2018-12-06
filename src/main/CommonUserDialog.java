@@ -1,16 +1,12 @@
 package main;
 
-import java.io.IOException;
-import java.io.StringWriter;
 import java.util.HashMap;
-
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Map.Entry;
 
 import main.Commands.Command;
 import main.Commands.CommandExitGame;
 import main.Commands.CommandSwitchGame;
+import main.Commands.LoadCommand;
 import main.Commands.SaveAndPauseGameCommand;
 
 public class CommonUserDialog implements IDialogCommon {
@@ -30,15 +26,13 @@ public class CommonUserDialog implements IDialogCommon {
 				new CommandSwitchGame<String>("switch", "switch", (x) -> switchGame(x)));
 		commandContainer.addCommand(new CommandExitGame<String>("exit", "exit", () -> exitGame()));
 		commandContainer.addCommand(new Command("gamesList", (x) -> this.getGamesList(x)));
+		commandContainer.addCommand(new LoadCommand((name) -> this.loadGame(name)));
 		this.commandContainer.addCommand(new SaveAndPauseGameCommand(() -> {
-			try {
-				return this.saveCurrentGame();
-			} catch (IOException e) {
-				e.printStackTrace();
-				return "IO error occured";
-			}
-		}));
+			return this.saveCurrentGame(this.currentGame.gameName().getResult());}));
 		this.games = games;
+		
+		for (Entry<String, Game> game : this.games.entrySet())
+			gameSaver.registerGame(game.getKey(), game.getValue().getClass());
 	}
 	
 	public IResult<String> getGamesList(String[] args)
@@ -79,21 +73,22 @@ public class CommonUserDialog implements IDialogCommon {
 		this.currentGame = null;
 	}
 	
-	public String saveCurrentGame() throws JsonGenerationException, JsonMappingException, IOException {
+	public String saveCurrentGame(String name){
 		if (this.currentGame == null)
 			throw new UnsupportedOperationException("Game is not chosen!");
 		this.currentGame.pauseGame();
-		StringWriter writer = new StringWriter();
-		ObjectMapper mapper = new ObjectMapper();
-		
-		this.gameSaver.saveGame(
-				mapper.writeValueAsBytes(this.currentGame), "name");
+		this.gameSaver.saveGame(this.currentGame, name);
 
 		return "Your game was saved sucessfully!";
 	}
+
+	@Override
+	public Game LoadGame(String name) {
+		return this.gameSaver.LoadGame(this.currentGame.gameName().getResult(), name);
+	}
 	
 	public String loadGame(String name) {
-		this.gameSaver.LoadGame(name);
+		this.currentGame = this.LoadGame(name);
 		
 		return "Your game was loaded sucessfully!";
 	}
