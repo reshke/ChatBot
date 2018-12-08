@@ -1,15 +1,14 @@
 package main.finders;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by 1232 on 18.11.2018.
- */
-
 
 public class FinderSimilarDistanceWords implements FinderSimilarLines {
-    private final List<FinderLinesDifference> finders;
+
+	private static final long serialVersionUID = -3125957620875442478L;
+	private final List<FinderLinesDifference> finders;
     private final int maxEqualDistance;
     private final int maxAlmostEqualDistance;
 

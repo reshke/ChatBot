@@ -1,9 +1,7 @@
 package main.finders;
 
-/**
- * Created by 1232 on 18.11.2018.
- */
+import java.io.Serializable;
 
-public interface FinderLinesDifference {
+public interface FinderLinesDifference extends Serializable {
     public int getDifference(String firstString, String secondString);
 }
