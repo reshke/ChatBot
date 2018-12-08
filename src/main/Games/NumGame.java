@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import main.Game;
 import main.ICommand;
+import main.ICommandContainer;
 import main.IRandomGenerator;
 import main.IResult;
 import main.Result;
@@ -11,9 +12,12 @@ import main.ResultState;
 import main.Commands.Command;
 
 public class NumGame extends Game{
+	private static final long serialVersionUID = 5533026093947690885L;
 	private final String dataString;
 	
-	public NumGame(IRandomGenerator generator) {
+	public NumGame(IRandomGenerator generator, ICommandContainer container) {
+		super(container);
+
 		dataString = generator.generateRandomInteger(4, true);
 		if (!isCorrectQuery(dataString))
 			throw new IllegalArgumentException("Conveived string should be 4-digits string with different digits");

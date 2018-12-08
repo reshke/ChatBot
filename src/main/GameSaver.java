@@ -1,14 +1,12 @@
 package main;
 
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class GameSaver implements IGameSaver {
 	private final String path;
@@ -20,55 +18,44 @@ public class GameSaver implements IGameSaver {
 	
 	@Override
 	public void saveGame(Game game, String name) {
-
-		ObjectMapper mapper = new ObjectMapper();
-		byte[] src;
-		try {
-			src = mapper.writeValueAsBytes(game);
-		} catch (JsonProcessingException e1) {
-			e1.printStackTrace();
-			return;
-		}
-		
-		File file = new File(this.path + name);
-		FileOutputStream writer;
-		try {
-			writer = new FileOutputStream(file);
-			writer.write(src);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
+		try
+        {    
+            FileOutputStream file = new FileOutputStream(this.path + name); 
+            ObjectOutputStream out = new ObjectOutputStream(file); 
+            
+            game.save();
+            out.writeObject(game); 
+              
+            out.close(); 
+            file.close(); 
+        } 
+          
+        catch(IOException ex) 
+        { 
+        	ex.printStackTrace();
+        } 
 	}
 
 	@Override
 	public Game LoadGame(String gameName, String name) {
-
-		File file = new File(this.path + name);
-		StringBuilder data = new StringBuilder();
-		
-		FileReader fr;
-		try {
-			fr = new FileReader(file);
-			
-			int i;
-		
-			while ((i=fr.read()) != -1) {
-				System.out.print((char) i);
-				data.append((char) i);
-			}
+		try{    
+			FileInputStream file = new FileInputStream(this.path + name); 
+			ObjectInputStream in = new ObjectInputStream(file); 
+	        Game game = (Game)in.readObject();
+	        game.load();
+	        in.close(); 
+	        file.close(); 
+	            
+	        return game;
+	   }catch(IOException ex){
+			ex.printStackTrace();
 		}
-		catch (IOException e) {
-			e.printStackTrace();
-		} 
+		catch(ClassNotFoundException ex)
+		{
+			ex.printStackTrace();
+		}
 		
-		ObjectMapper objectMapper= new ObjectMapper();
-		Game game = null;
-		try {
-			game = objectMapper.readValue(data.toString(), biection.get(gameName));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}  
-		return game;
+		return null; 
 	}
 
 	@Override

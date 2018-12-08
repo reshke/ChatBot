@@ -2,15 +2,18 @@ package main.Games;
 
 import main.Game;
 import main.ICommand;
+import main.ICommandContainer;
 import main.IResult;
 import main.Result;
 import main.ResultState;
 import main.Commands.Command;
 
 public class CHGK_Game extends Game {
+	private static final long serialVersionUID = -6521591853957602757L;
 	private final IQuestionContainer questionBase;
 	
-	public CHGK_Game(IQuestionContainer questionBase) {
+	public CHGK_Game(IQuestionContainer questionBase, ICommandContainer container) {
+		super(container);
 		this.questionBase = questionBase;
 	}
 

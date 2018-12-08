@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import main.CommandContainer;
 import main.IResult;
 import main.ResultState;
 import main.Games.NumGame;
@@ -17,7 +18,7 @@ public class NumGameDialogTests {
 	@Before
 	public void before()
 	{
-		game = new NumGame(new MockRandomGenerator("1235"));
+		game = new NumGame(new MockRandomGenerator("1235"), new CommandContainer());
 	}
 	
 	@Test

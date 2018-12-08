@@ -8,16 +8,17 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import main.CommandContainer;
 import main.IRandomGenerator;
-import main.RandomGenerator;
 import main.Games.NumGame;
+import main.Games.NumGameFactory;
 
 public class TestNumGame {
 	NumGame game;
 	
 	@Before
 	public void setUp() {
-		game = new NumGame(new RandomGenerator());
+		game = new NumGameFactory().Create();
 	}
 	
 	@Test
@@ -77,7 +78,7 @@ public class TestNumGame {
 	
 	@Test(expected = NullPointerException.class)
 	public void creationNumGame_ThrowsNullPointerException_WhenGetsANullInsteadOfAIRandomGenerator() {
-		new NumGame(null);
+		new NumGame(null, new CommandContainer());
 	}
 	
 	@Test
@@ -115,7 +116,7 @@ public class TestNumGame {
 	@Test
 	public void postQuery_ShouldReturnTwoCowsAndZeroBulls_WhenTwoDigitsExchangedPlacesAndOtherDigitsWrongs() {
 		IRandomGenerator generator = new MockRandomGenerator("1234");
-		NumGame numGame = new NumGame(generator);
+		NumGame numGame = new NumGame(generator, new CommandContainer());
 		
 		assertEquals(numGame.postQuery("2156"), "0 cows and 2 bulls!");
 	}
@@ -123,7 +124,7 @@ public class TestNumGame {
 	@Test
 	public void postQuery_ShouldReturnFourCowsAndZeroBulls_WhenGetsFullNumber() {
 		IRandomGenerator generator = new MockRandomGenerator("2567");
-		NumGame numGame = new NumGame(generator);
+		NumGame numGame = new NumGame(generator, new CommandContainer());
 		
 		assertEquals(numGame.postQuery("2567"), "4 cows and 0 bulls!");
 	}
@@ -131,7 +132,7 @@ public class TestNumGame {
 	@Test
 	public void postQuery_ShouldReturnZeroCowsAndZeroBulls_WhenAllNumbersAreAbsolutelyWrong() {
 		IRandomGenerator generator = new MockRandomGenerator("1234");
-		NumGame numGame = new NumGame(generator);
+		NumGame numGame = new NumGame(generator, new CommandContainer());
 		
 		assertEquals(numGame.postQuery("5678"), "0 cows and 0 bulls!");
 	}
@@ -139,7 +140,7 @@ public class TestNumGame {
 	@Test
 	public void postQuery_ShouldReturnOneCowAndTwoBulls_WhenOneDigitInCorrectPositionAndTwoDigitsExchangedPlaces() {
 		IRandomGenerator generator = new MockRandomGenerator("1234");
-		NumGame numGame = new NumGame(generator);
+		NumGame numGame = new NumGame(generator, new CommandContainer());
 		
 		assertEquals(numGame.postQuery("1328"), "1 cows and 2 bulls!");
 	}
@@ -147,16 +148,16 @@ public class TestNumGame {
 	@Test
 	public void guessAnswer_GetsAnswerToSecondGame_ShouldReturnFalse_WhenFirstGameAndSecondGameContainsDifferentNumbers() {
 		IRandomGenerator generator = new MockRandomGenerator("1234");
-		NumGame numGame = new NumGame(generator);
+		NumGame numGame = new NumGame(generator, new CommandContainer());
 		assertFalse(numGame.guessAnswer("5678"));
 	}
 	
 	@Test
 	public void postQueriesToFirstGameAndSecondGame_ShouldReturnDifferentStrings_WhenQueryContainsOneDigitFromFirstGameAndContainsTwoDigitsFromSecond() {
 		IRandomGenerator generator = new MockRandomGenerator("1234");
-		NumGame numGame = new NumGame(generator);
+		NumGame numGame = new NumGame(generator, new CommandContainer());
 		IRandomGenerator secondGenerator = new MockRandomGenerator("5678");
-		NumGame secondGame = new NumGame(secondGenerator);
+		NumGame secondGame = new NumGame(secondGenerator, new CommandContainer());
 		
 		assertNotEquals(numGame.postQuery("1679"), secondGame.postQuery("1679"));
 	}
@@ -172,6 +173,6 @@ public class TestNumGame {
 	public void creationNumGame_ShouldFail_WhenGetsInCorrectNumber()
 	{
 		IRandomGenerator generator = new MockRandomGenerator("1233");
-		new NumGame(generator);
+		new NumGame(generator, new CommandContainer());
 	}
 }

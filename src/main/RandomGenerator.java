@@ -1,7 +1,12 @@
 package main;
+import java.io.Serializable;
 import java.util.Random;
 
-public class RandomGenerator implements IRandomGenerator {
+public class RandomGenerator implements IRandomGenerator, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2658224816119274235L;
 	private final Random random = new Random();
 	
 	public String generateRandomString(int lengthString){

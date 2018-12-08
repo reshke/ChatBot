@@ -76,8 +76,8 @@ public class CommonUserDialog implements IDialogCommon {
 	public String saveCurrentGame(String name){
 		if (this.currentGame == null)
 			throw new UnsupportedOperationException("Game is not chosen!");
-		this.currentGame.pauseGame();
-		this.gameSaver.saveGame(this.currentGame, name);
+		currentGame.pauseGame();
+		gameSaver.saveGame(this.currentGame, name);
 
 		return "Your game was saved sucessfully!";
 	}

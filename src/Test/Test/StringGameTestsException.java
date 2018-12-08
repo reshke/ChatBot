@@ -3,6 +3,7 @@ package Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
+import main.CommandContainer;
 import main.RandomGenerator;
 import main.Games.StringGuessGame;
 
@@ -14,7 +15,7 @@ public class StringGameTestsException {
 	public void testZeroLengthLineException() {
 		try {
 			@SuppressWarnings("unused")
-			StringGuessGame game = new StringGuessGame(0, new RandomGenerator());
+			StringGuessGame game = new StringGuessGame(0, new RandomGenerator(), new CommandContainer());
 		}
 		catch(IllegalArgumentException e) {
 			return;
@@ -26,7 +27,7 @@ public class StringGameTestsException {
 	public void testTooBigLineException() {
 		try {
 			@SuppressWarnings("unused")
-			StringGuessGame game = new StringGuessGame(100000000, new RandomGenerator());
+			StringGuessGame game = new StringGuessGame(100000000, new RandomGenerator(), new CommandContainer());
 		}
 		catch(IllegalArgumentException e) {
 			return;
@@ -36,7 +37,7 @@ public class StringGameTestsException {
 	
 	@Test
 	public void testAskingLeftIsZeroException() {
-		StringGuessGame game = new StringGuessGame(10, new RandomGenerator());
+		StringGuessGame game = new StringGuessGame(10, new RandomGenerator(), new CommandContainer());
 		game.startGame();
 		try {
 			game.postQuery(0, 5);
@@ -49,7 +50,7 @@ public class StringGameTestsException {
 	
 	@Test
 	public void testAnotherOrderArgumentsException() {
-		StringGuessGame game = new StringGuessGame(10, new RandomGenerator());
+		StringGuessGame game = new StringGuessGame(10, new RandomGenerator(), new CommandContainer());
 		game.startGame();
 		try {
 			game.postQuery(2, 1);
@@ -62,7 +63,7 @@ public class StringGameTestsException {
 	
 	@Test
 	public void testRightPositionBeyondBoundException() {
-		StringGuessGame game = new StringGuessGame(10, new RandomGenerator());
+		StringGuessGame game = new StringGuessGame(10, new RandomGenerator(), new CommandContainer());
 		game.startGame();
 		try {
 			game.postQuery(4, 11);
@@ -75,7 +76,7 @@ public class StringGameTestsException {
 	
 	@Test
 	public void testStoppingStoppedGameException() {
-		StringGuessGame game = new StringGuessGame(10, new RandomGenerator());
+		StringGuessGame game = new StringGuessGame(10, new RandomGenerator(), new CommandContainer());
 		game.startGame();
 		game.endGame();
 		try {

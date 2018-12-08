@@ -1,12 +1,17 @@
 package main.Commands;
 
+import java.io.Serializable;
 import java.util.function.Function;
 
 import main.ICommand;
 import main.IResult;
 import main.ResultState;
 
-public final class Command implements ICommand<String> {
+public final class Command implements ICommand<String>, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7527642818158797991L;
 	protected final String key;
 	protected Function<String[], IResult<String>> function;
 	

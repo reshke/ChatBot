@@ -1,6 +1,8 @@
 package Test;
 import org.junit.*;
 import static org.junit.Assert.*;
+
+import main.CommandContainer;
 import main.GameState;
 import main.RandomGenerator;
 import main.Games.StringGuessGame;
@@ -10,7 +12,7 @@ public class StringGameTests {
 
 	@Test
 	public void testWinningGameOneSymbol() {
-		StringGuessGame game = new StringGuessGame(1, new MockRandomGenerator("0"));
+		StringGuessGame game = new StringGuessGame(1, new MockRandomGenerator("0"), new CommandContainer());
 		
 		game.startGame();
 		Boolean firstAssert = game.guessAnswer("0");
@@ -23,7 +25,7 @@ public class StringGameTests {
 
 	@Test
 	public void testOneWinnerGameTwoSymbol() {
-		StringGuessGame game = new StringGuessGame(2, new MockRandomGenerator("01"));
+		StringGuessGame game = new StringGuessGame(2, new MockRandomGenerator("01"), new CommandContainer());
 		
 		game.startGame();
 		Boolean firstAssert = game.guessAnswer("01");
@@ -36,7 +38,7 @@ public class StringGameTests {
 	
 	@Test
 	public void testKeyWordIsInvariant() {
-		StringGuessGame game = new StringGuessGame(2, new MockRandomGenerator("01"));
+		StringGuessGame game = new StringGuessGame(2, new MockRandomGenerator("01"), new CommandContainer());
 		String winnerWord = "01";
 		Integer repetitionsCount = 100;
 		
@@ -48,7 +50,7 @@ public class StringGameTests {
 	
 	@Test
 	public void testWrongAnswerIsAlwaysWrong() {
-		StringGuessGame game = new StringGuessGame(4, new MockRandomGenerator("0110"));
+		StringGuessGame game = new StringGuessGame(4, new MockRandomGenerator("0110"), new CommandContainer());
 		String wrongAnswer = "0000";
 		Integer repetitionsCount = 100;
 		
@@ -61,7 +63,7 @@ public class StringGameTests {
 			
 	@Test
 	public void testAskAnswerOneSymbolIsCorrect() {
-		StringGuessGame game = new StringGuessGame(1, new MockRandomGenerator("1"));
+		StringGuessGame game = new StringGuessGame(1, new MockRandomGenerator("1"), new CommandContainer());
 		Integer repetitionsCount = 100;
 		Integer leftBound = 0;
 		Integer rightBound = 1;
@@ -76,7 +78,7 @@ public class StringGameTests {
 	
 	@Test
 	public void testAskAnswerMuchSymbolsIsCorrect() {
-		StringGuessGame game = new StringGuessGame(100, new RandomGenerator());
+		StringGuessGame game = new StringGuessGame(100, new RandomGenerator(), new CommandContainer());
 		Integer repetitionsCount = 100;
 		Integer leftQueryBound = 1;
 		Integer rightQueryBound = 80;
@@ -93,7 +95,7 @@ public class StringGameTests {
 	public void testLimitAskIsCorrect() {
 		Integer leftQueryBound = 1;
 		Integer rightQueryBound = 100;
-		StringGuessGame game = new StringGuessGame(100, new RandomGenerator());
+		StringGuessGame game = new StringGuessGame(100, new RandomGenerator(), new CommandContainer());
 		Integer maximumOneDiaposon = rightQueryBound - leftQueryBound + 1;
 		
 		game.startGame();
@@ -105,7 +107,7 @@ public class StringGameTests {
 	@Test 
 	public void testAskingFromBigToSmallIsCorrect() {
 		Integer lengthLine = 100;
-		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator());
+		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator(), new CommandContainer());
 		
 		game.startGame();
 		for (Integer index = lengthLine; index >= 1; index--) {
@@ -118,7 +120,7 @@ public class StringGameTests {
 	@Test
 	public void testMovingLeftBound() {
 		Integer lengthLine = 100;
-		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator());
+		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator(), new CommandContainer());
 		
 		game.startGame();
 		for (Integer index = lengthLine; index >= 1; index--) {
@@ -131,7 +133,7 @@ public class StringGameTests {
 	@Test
 	public void testAskBothBoundsInside() {
 		Integer lengthLine = 100;
-		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator());
+		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator(), new CommandContainer());
 		Integer leftBound = 10;
 		Integer rightBound = 21;
 		Integer maximumOneDiaposon = rightBound - leftBound + 1;
@@ -145,7 +147,7 @@ public class StringGameTests {
 	@Test
 	public void testRunningState() {
 		Integer lengthLine = 10;
-		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator());
+		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator(), new CommandContainer());
 		GameState expectedState = GameState.RUNNING;
 		
 		game.startGame();
@@ -156,7 +158,7 @@ public class StringGameTests {
 	@Test
 	public void testNotStartedGame() {
 		Integer lengthLine = 10;
-		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator());
+		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator(), new CommandContainer());
 		GameState expectedState = GameState.NOT_STARTED;
 		
 		GameState state = game.getGameState();
@@ -167,7 +169,7 @@ public class StringGameTests {
 	@Test
 	public void testOverGame() {
 		Integer lengthLine = 10;
-		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator());
+		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator(), new CommandContainer());
 		GameState expectedState = GameState.OVER;
 		
 		game.startGame();
@@ -180,7 +182,7 @@ public class StringGameTests {
 	@Test
 	public void testPauseGame() {
 		Integer lengthLine = 10;
-		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator());
+		StringGuessGame game = new StringGuessGame(lengthLine, new RandomGenerator(), new CommandContainer());
 		GameState expectedState = GameState.PAUSED;
 		
 		game.startGame();

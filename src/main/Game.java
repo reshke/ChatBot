@@ -1,16 +1,20 @@
 package main;
 
+import java.io.Serializable;
+
 import main.Commands.Command;
 
-public abstract class Game implements IGame {
-	private final ICommandContainer gameCommandContainer = new CommandContainer();
+public abstract class Game implements IGame, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7779799682263136873L;
+	private ICommandContainer gameCommandContainer;
 	protected GameState gameState = GameState.NOT_STARTED;
 	
-	public Game() {
-		this.gameCommandContainer.addCommand(new Command("gamehelp", (x) -> this.getHelp()));
-		
-		for (ICommand<String> command : this.get_commands())
-			this.gameCommandContainer.addCommand(command);
+	public Game(ICommandContainer container) {
+		this.gameCommandContainer = container;
+		this.load();
 	}
 	
 	public abstract ICommand<String>[] get_commands();
@@ -36,6 +40,17 @@ public abstract class Game implements IGame {
 		gameState = GameState.PAUSED;
 		
 		return "Game paused successfully";
+	}
+	
+	public void save(){
+		this.gameCommandContainer.clear();
+	}
+	
+	public void load(){
+		gameCommandContainer.addCommand(new Command("gamehelp", (x) -> this.getHelp()));
+		
+		for (ICommand<String> command : this.get_commands())
+			this.gameCommandContainer.addCommand(command);
 	}
 	
 	@Override
