@@ -29,7 +29,7 @@ public class TestCommonUserDialog {
 	
 	@Test(expected = UnsupportedOperationException.class)
 	public void testThrowsExceptionWhenExitEdnenGame(){
-		dialog.switchGame("guessGame");
+		dialog.switchGame(new String[] { "guessGame" });
 		
 		dialog.exitGame();
 		dialog.exitGame();
@@ -37,30 +37,30 @@ public class TestCommonUserDialog {
 	
 	@Test(expected = Test.None.class)
 	public void testSwitchWorkWell(){
-		dialog.switchGame("guessGame");
-		dialog.switchGame("numGame");
+		dialog.switchGame(new String[] { "guessGame" });
+		dialog.switchGame(new String[] { "numGame" });
 	}
 	
 	@Test(expected = Test.None.class)
 	public void testSwitchWorkWellWithDoubleSwitch(){
-		dialog.switchGame("guessGame");
-		dialog.switchGame("guessGame");
+		dialog.switchGame(new String[] { "guessGame" });
+		dialog.switchGame(new String[] { "guessGame" });
 	}
 	
 	@Test
 	public void testFuzzyCommandSearcthWorksWell(){
-		dialog.switchGame("guessGame");
+		dialog.switchGame(new String[] { "guessGame" });
 		assertTrue(dialog.handleQuery("hing 1").getState() == ResultState.SUCCESS);
 	}
 	
 	@Test
 	public void testFuzzyCommanFindsPossibleTypedCommands(){
-		dialog.switchGame("guessGame");
+		dialog.switchGame(new String[] { "guessGame" });
 		assertTrue(dialog.handleQuery("higg").getState() == ResultState.POSSIBLE_MISTAKE);
 	}
 	@Test
 	public void testFuzzyCommandDoNotFindVeryBadTypedCommand(){
-		dialog.switchGame("guessGame");
+		dialog.switchGame(new String[] { "guessGame" });
 		assertTrue(dialog.handleQuery("higggggggggg").getState() == ResultState.UNKNOWN);
 	}
 }

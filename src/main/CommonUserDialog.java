@@ -5,9 +5,7 @@ import java.util.Map.Entry;
 
 import main.Commands.Command;
 import main.Commands.CommandExitGame;
-import main.Commands.CommandSwitchGame;
 import main.Commands.LoadCommand;
-import main.Commands.SaveAndPauseGameCommand;
 
 public class CommonUserDialog implements IDialogCommon {
 	private Game currentGame;
@@ -23,12 +21,12 @@ public class CommonUserDialog implements IDialogCommon {
 		this.gameSaver = gamesSaver;
 		
 		commandContainer.addCommand(
-				new CommandSwitchGame<String>("switch", "switch", (x) -> switchGame(x)));
+				new Command("switch", (x) -> switchGame(x)));
 		commandContainer.addCommand(new CommandExitGame<String>("exit", "exit", () -> exitGame()));
 		commandContainer.addCommand(new Command("gamesList", (x) -> this.getGamesList(x)));
 		commandContainer.addCommand(new LoadCommand((name) -> this.loadGame(name)));
-		this.commandContainer.addCommand(new SaveAndPauseGameCommand(() -> {
-			return this.saveCurrentGame(this.currentGame.gameName().getResult());}));
+		commandContainer.addCommand(new Command("save", (x) ->  this.saveCurrentGame(x)));
+		
 		this.games = games;
 		
 		for (Entry<String, Game> game : this.games.entrySet())
@@ -47,8 +45,16 @@ public class CommonUserDialog implements IDialogCommon {
 		return new Result(result.toString(), ResultState.SUCCESS);
 	}
 	
-	public void switchGame(String typeGame) {
-		this.currentGame = this.games.get(typeGame);
+	public IResult<String> switchGame(String[] args) {
+		if (args.length != 2)
+			return new Result("Count of args is not correct!", ResultState.UNSUPPORTED_OPERATION);
+		String typeGame = args[1];
+		Game game = this.games.get(typeGame);
+		if (game == null)
+			return new Result("Incorrect game name " + typeGame + ": no such game founded!" , ResultState.UNSUPPORTED_OPERATION);
+		
+		this.currentGame = game;
+		return new Result("Game swithed to " + typeGame);
 	}
 	
 	private IResult<String> executeQuery(String query) {
@@ -73,9 +79,27 @@ public class CommonUserDialog implements IDialogCommon {
 		this.currentGame = null;
 	}
 	
-	public String saveCurrentGame(String name){
+	private String getSaveName() {
+		return this.currentGame.gameName().getInfo();
+	}
+	
+	public IResult<String> saveCurrentGame(String[] args){
+		if (args.length > 2)
+			return new Result("Count of args is not correct!", ResultState.WRONG_ARGUMENTS);
 		if (this.currentGame == null)
-			throw new UnsupportedOperationException("Game is not chosen!");
+			return new Result("Game is not chosen!");
+		
+		if (args.length == 2)
+		{
+			return new Result(this.saveCurrentGame(args[1]));
+		}
+			
+		String res = this.saveCurrentGame(this.getSaveName());
+		
+		return new Result(res);
+	}
+	
+	public String saveCurrentGame(String name){
 		currentGame.pauseGame();
 		gameSaver.saveGame(this.currentGame, name);
 
@@ -107,7 +131,7 @@ public class CommonUserDialog implements IDialogCommon {
 	@Override
 	public String[] getCurrentUserExecutableCommands() {
 		if (this.currentGame != null)
-			return new String[] {"help", "gamesList", "gamehelp"};
+			return new String[] {"help", "gamesList", "gamehelp", "save", "load"};
 		return new String[] {"help", "gamesList"};
 	}
 }

@@ -49,7 +49,7 @@ public abstract class Game implements IGame, Serializable{
 	public void load(){
 		gameCommandContainer.addCommand(new Command("gamehelp", (x) -> this.getHelp()));
 		
-		for (ICommand<String> command : this.get_commands())
+		for (ICommand<String> command : get_commands())
 			this.gameCommandContainer.addCommand(command);
 	}
 	
