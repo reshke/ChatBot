@@ -26,6 +26,7 @@ public class CommonUserDialog implements IDialogCommon {
 		commandContainer.addCommand(new Command("gamesList", (x) -> this.getGamesList(x)));
 		commandContainer.addCommand(new LoadCommand((name) -> this.loadGame(name)));
 		commandContainer.addCommand(new Command("save", (x) ->  this.saveCurrentGame(x)));
+		this.commandContainer.addCommand(new Command("savesList", (x) -> this.getSavesList(x)));
 		
 		this.games = games;
 		
@@ -35,7 +36,11 @@ public class CommonUserDialog implements IDialogCommon {
 		this.userId = userId;
 	}
 	
-	public IResult<String> getGamesList(String[] args)
+	private IResult<String> getSavesList(String[] x) {
+		return new Result(this.gameSaver.getSavesList(userId));
+	}
+
+	private IResult<String> getGamesList(String[] args)
 	{
 		StringBuilder result = new StringBuilder("Realized games list: \n");
 		
@@ -82,31 +87,9 @@ public class CommonUserDialog implements IDialogCommon {
 		this.currentGame = null;
 	}
 	
-	private String getSaveName() {
-		
-		return this.userId + "\\" + currentGame.gameName().getInfo();
-	}
-	
 	public IResult<String> saveCurrentGame(String[] args){
-		if (args.length > 2)
-			return new Result("Count of args is not correct!", ResultState.WRONG_ARGUMENTS);
-		if (this.currentGame == null)
-			return new Result("Game is not chosen!");
-		
-		if (args.length == 2){
-			return new Result(this.saveCurrentGame(args[1]));
-		}
-			
-		String res = this.saveCurrentGame(this.getSaveName());
-		
-		return new Result(res);
-	}
-	
-	public String saveCurrentGame(String name){
 		currentGame.pauseGame();
-		gameSaver.saveGame(this.currentGame, this.userId,  name);
-
-		return "Your game was saved sucessfully!";
+		return gameSaver.saveGame(this.currentGame, userId, args);		
 	}
 
 	@Override
