@@ -28,4 +28,9 @@ public class DialogManager implements IDialogManager {
 	public String[] getUserExecutableCommands(Long userId) {
 		return dialogs.get(userId).getCurrentUserExecutableCommands();
 	}
+
+	@Override
+	public Boolean hasDialogWith(Long userId) {
+		return this.dialogs.get(userId) != null;
+	}
 }

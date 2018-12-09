@@ -26,12 +26,12 @@ public class GameSaver implements IGameSaver {
 	public String saveGame(Game game, Long userId, String name) {
 		try
         {  
-			File f = new File(this.path +userId);
+		   File f = new File(this.path +userId);
 			if (!f.exists())
 				f.mkdir();
 			
             FileOutputStream file = new FileOutputStream(this.path + userId + "\\" + name); 
-            ObjectOutputStream out = new ObjectOutputStream(file); 
+            ObjectOutputStream out = new ObjectOutputStream(file);
             
             game.save();
             out.writeObject(game); 
@@ -102,7 +102,10 @@ public class GameSaver implements IGameSaver {
 	@Override
 	public String getSavesList(Long userId) {
 		StringBuilder answer = new StringBuilder();
-		for (File f : new File(this.path + "\\" + userId).listFiles()){
+		File files = new File(this.path + "\\" + userId);
+		if (!files.exists())
+			return "There are no saves for now";
+		for (File f : files.listFiles()){
 			if (f.isFile()) {
 				Path path = FileSystems.getDefault().getPath(f.getPath());
 			    BasicFileAttributes attrs = null;

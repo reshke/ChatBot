@@ -99,7 +99,7 @@ public class StringGuessGame extends Game{
 	public IResult<String> getHint(String [] args){
 		if (args.length != 2)
 			return new Result("Count of arguments is not correct", ResultState.UNSUPPORTED_OPERATION);
-		if (args[1].equals("--all"))
+		if (args[1].equals("all"))
 			return new Result(this.dataString);
 		Integer questionIndex = Integer.parseInt(args[1]);
 		return new Result(getHint(questionIndex));

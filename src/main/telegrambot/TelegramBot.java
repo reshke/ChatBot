@@ -74,16 +74,17 @@ public class TelegramBot extends TelegramLongPollingBot {
 		Message msg = element.getMessage();
 		String txt = msg.getText();
 		System.out.println("Input: " + txt);
+		Long userId = msg.getChatId();
 		if (txt.equals("/start")) {
 			sendMsg(msg, "Hello, world! This is simple bot!");
-			bot.startBot(msg.getChatId());
+			bot.startBot(userId);
 		}
-		else {
-			String answer = bot.executeQuery(msg.getChatId(), txt);
+		else if (this.bot.hasDialogWith(userId)){
+			String answer = bot.executeQuery(userId, txt);
 			SendMessage s = new SendMessage();
-			s.setChatId(msg.getChatId());
+			s.setChatId(userId);
 			s.setReplyMarkup(
-					getKeyboardButtons(bot.getExecutableCommands(msg.getChatId())));
+					getKeyboardButtons(bot.getExecutableCommands(userId)));
 			
 			s.setText(answer);
 			

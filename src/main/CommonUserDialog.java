@@ -117,7 +117,7 @@ public class CommonUserDialog implements IDialogCommon {
 	@Override
 	public String[] getCurrentUserExecutableCommands() {
 		if (this.currentGame != null)
-			return new String[] {"help", "gamesList", "gamehelp", "save", "load"};
-		return new String[] {"help", "gamesList"};
+			return new String[] {"help", "gamesList", "gamehelp", "save", "load", "savesList"};
+		return new String[] {"help", "gamesList", "savesList"};
 	}
 }
