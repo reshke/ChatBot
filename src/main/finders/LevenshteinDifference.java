@@ -1,14 +1,10 @@
 package main.finders;
 
-/**
- * Created by 1232 on 18.11.2018.
- */
+public class LevenshteinDifference implements FinderLinesDifference{
 
-// Вариация интерфейса поиска расстоянии между строками, использующий алгоритм Левенштейна
+	private static final long serialVersionUID = -578153278501987015L;
 
-public class LevenshteinDifference implements FinderLinesDifference {
-
-    @Override
+	@Override
     public int getDifference(String firstString, String secondString) {
         raiseIfArgumentsAreIncorrect(firstString, secondString);
         return calculateDifference(firstString, secondString);

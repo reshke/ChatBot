@@ -3,8 +3,10 @@ package main.finders;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DictionaryWithSimilarLinesDifference<Value> implements DictionaryWithAdditionalSearch<Value> {
-    private final List<DictionaryItem<Value>> items = new ArrayList<>();
+public class DictionaryWithSimilarLinesDifference<Value> implements DictionaryWithAdditionalSearch<Value>{
+ 
+	private static final long serialVersionUID = 4727953095180881992L;
+	private final List<DictionaryItem<Value>> items = new ArrayList<>();
     private final FinderSimilarLines finder;
 
     public DictionaryWithSimilarLinesDifference(FinderSimilarLines finder) {

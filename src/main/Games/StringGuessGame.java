@@ -8,22 +8,20 @@ import main.ResultState;
 import main.Commands.Command;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import main.Game;
 import main.GameState;
 import main.ICommand;
+import main.ICommandContainer;
 
 public class StringGuessGame extends Game{
-	@JsonProperty("dataString")
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9082275439919541996L;
 	private String dataString;
-
-	@JsonProperty("dataStringLength")
 	private int dataStringLength;
-	
-	@JsonProperty("guessedNumber")
-	private int guessedNumber[];
-	
+	private int guessedNumber[];	
 	private IRandomGenerator generator;
 	
 	private void calculateGuessedNumber() {
@@ -39,10 +37,9 @@ public class StringGuessGame extends Game{
 		if (length > 1000)
 			throw new IllegalArgumentException("Length of line is too big!");
 	}
-	
-	public StringGuessGame() {}
 
-	public StringGuessGame(int length, IRandomGenerator generator) {
+	public StringGuessGame(int length, IRandomGenerator generator, ICommandContainer container) {
+		super(container);
 		raiseIfLengthIsIncorrect(length);
 		gameState = GameState.NOT_STARTED;
 		this.generator = generator;
@@ -102,7 +99,8 @@ public class StringGuessGame extends Game{
 	public IResult<String> getHint(String [] args){
 		if (args.length != 2)
 			return new Result("Count of arguments is not correct", ResultState.UNSUPPORTED_OPERATION);
-
+		if (args[1].equals("all"))
+			return new Result(this.dataString);
 		Integer questionIndex = Integer.parseInt(args[1]);
 		return new Result(getHint(questionIndex));
 	}

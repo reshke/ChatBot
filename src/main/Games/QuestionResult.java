@@ -27,5 +27,11 @@ class QuestionResult<Question> implements IResult<Question>
 		public ResultState getState() {
 			return ResultState.SUCCESS;
 		}
+
+		@Override
+		public Question getInfo() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 		
 	}

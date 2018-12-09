@@ -32,5 +32,11 @@ public class Bot implements IBot{
 	public String[] getExecutableCommands(Long userId) {
 		return this.dialogManager.getUserExecutableCommands(userId);
 	}
+
+
+	@Override
+	public Boolean hasDialogWith(Long userId) {
+		return this.dialogManager.hasDialogWith(userId);
+	}
 	
 }

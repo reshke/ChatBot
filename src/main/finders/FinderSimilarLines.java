@@ -1,9 +1,7 @@
 package main.finders;
 
-/**
- * Created by 1232 on 18.11.2018.
- */
+import java.io.Serializable;
 
-public interface FinderSimilarLines {
+public interface FinderSimilarLines extends  Serializable {
     public EqualState getEqualRatio(String firstLine, String secondLine);
 }

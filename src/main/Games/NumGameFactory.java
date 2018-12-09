@@ -1,14 +1,14 @@
 package main.Games;
 
-import main.Game;
+import main.CommandContainer;
 import main.IGameFactory;
 import main.RandomGenerator;
 
 public class NumGameFactory implements IGameFactory {
 
 	@Override
-	public Game Create() {
-		return new NumGame(new RandomGenerator());
+	public NumGame Create() {
+		return new NumGame(new RandomGenerator(), new CommandContainer());
 	}
 
 }

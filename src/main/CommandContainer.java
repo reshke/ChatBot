@@ -1,5 +1,6 @@
 package main;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -12,7 +13,9 @@ import main.finders.FinderSimilarLines;
 import main.finders.LevenshteinDifference;
 
 
-public class CommandContainer implements ICommandContainer {
+public class CommandContainer implements ICommandContainer, Serializable {
+
+	private static final long serialVersionUID = 5256811346286329141L;
 	private final DictionaryWithAdditionalSearch<ICommand<String>> dictionary;
 	
 	public CommandContainer(List<ICommand<String>> commands) {

@@ -16,6 +16,11 @@ public class Result implements IResult<String> {
 	public ResultState getState() {
 		return state;
 	}
+	
+	public String getInfo() {
+		return this.state == ResultState.SUCCESS ? result : this.errorMessage;
+	}
+	
 	public Result(String string) { 
 		errorMessage = null;
 		result = string;
