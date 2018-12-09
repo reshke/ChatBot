@@ -13,7 +13,7 @@ public class DialogManager implements IDialogManager {
 		CommonUserDialog dialog = 
 				new CommonUserDialog(factory.Load(),
 						new CommandContainer(new ICommand[] { new CommandHelp<String>("help", "help")}),
-						new GameSaver(System.getProperty("user.dir") + "\\out\\production\\ChatBot\\main\\data\\"));
+						new GameSaver(System.getProperty("user.dir") + "\\out\\production\\ChatBot\\main\\data\\"), userId);
 		dialogs.put(userId, dialog);
 	}
 	

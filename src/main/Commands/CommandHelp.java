@@ -20,7 +20,7 @@ public class CommandHelp<TKey> implements ICommand<TKey> {
 	
 	private File getHelpFile(){
 		String path = new File("").getAbsolutePath();
-		String fullPath = path + "\\src\\main\\data\\";
+		String fullPath = path + "\\out\\production\\ChatBot\\main\\data\\";
 		return new File(fullPath, "help.txt");
 	}
 	

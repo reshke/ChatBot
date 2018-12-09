@@ -23,7 +23,7 @@ public class TestCommonUserDialog {
 		
 		 dialog = new CommonUserDialog(new LoaderGames().Load(), 
 				 new CommandContainer(new ICommand[] { new CommandHelp<String>("help", "help")}),
-				 new GameSaver(System.getProperty("user.dir") + "\\out\\production\\ChatBot\\main\\data\\"));
+				 new GameSaver(System.getProperty("user.dir") + "\\out\\production\\ChatBot\\main\\data\\"), 0L);
 	}
 	
 	

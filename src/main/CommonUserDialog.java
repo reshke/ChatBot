@@ -9,6 +9,7 @@ import main.Commands.LoadCommand;
 
 public class CommonUserDialog implements IDialogCommon {
 	private Game currentGame;
+	private final Long userId;
 	private final ICommandContainer commandContainer;
 	private final IGameSaver gameSaver;
 	private IResult<String> previousAnswer;
@@ -16,12 +17,11 @@ public class CommonUserDialog implements IDialogCommon {
 
 	
 	public CommonUserDialog(HashMap<String, Game> games, ICommandContainer commandContainer,
-			IGameSaver gamesSaver) {
+			IGameSaver gamesSaver, Long userId) {
 		this.commandContainer = commandContainer;
 		this.gameSaver = gamesSaver;
 		
-		commandContainer.addCommand(
-				new Command("switch", (x) -> switchGame(x)));
+		commandContainer.addCommand(new Command("switch", (x) -> switchGame(x)));
 		commandContainer.addCommand(new CommandExitGame<String>("exit", "exit", () -> exitGame()));
 		commandContainer.addCommand(new Command("gamesList", (x) -> this.getGamesList(x)));
 		commandContainer.addCommand(new LoadCommand((name) -> this.loadGame(name)));
@@ -31,6 +31,8 @@ public class CommonUserDialog implements IDialogCommon {
 		
 		for (Entry<String, Game> game : this.games.entrySet())
 			gameSaver.registerGame(game.getKey(), game.getValue().getClass());
+		
+		this.userId = userId;
 	}
 	
 	public IResult<String> getGamesList(String[] args)
@@ -48,13 +50,13 @@ public class CommonUserDialog implements IDialogCommon {
 	public IResult<String> switchGame(String[] args) {
 		if (args.length != 2)
 			return new Result("Count of args is not correct!", ResultState.UNSUPPORTED_OPERATION);
-		String typeGame = args[1];
-		Game game = this.games.get(typeGame);
+		String gameName = args[1];
+		Game game = this.games.get(gameName);
 		if (game == null)
-			return new Result("Incorrect game name " + typeGame + ": no such game founded!" , ResultState.UNSUPPORTED_OPERATION);
+			return new Result("Incorrect game name " + gameName + ": no such game founded!" , ResultState.UNSUPPORTED_OPERATION);
 		
 		this.currentGame = game;
-		return new Result("Game swithed to " + typeGame);
+		return new Result("Game swithed to " + gameName);
 	}
 	
 	private IResult<String> executeQuery(String query) {
@@ -62,14 +64,15 @@ public class CommonUserDialog implements IDialogCommon {
 		IResult<String> result = commandContainer.executeCommand(arguments[0], arguments);
 		if (this.currentGame == null)
 			return result;
-		if (result.getState() == ResultState.UNKNOWN)
+		if (result.getState() == ResultState.UNKNOWN) {
 			return this.currentGame.executeQuery(arguments);
-		else if (result.getState() == ResultState.POSSIBLE_MISTAKE)
-		{
+		}
+		else if (result.getState() == ResultState.POSSIBLE_MISTAKE){
 			IResult<String> senderResult = this.currentGame.executeQuery(arguments);
 			if (senderResult.getState() != ResultState.UNKNOWN)
 				return senderResult;
 		}
+		
 		return result;
 	}
 	
@@ -80,7 +83,8 @@ public class CommonUserDialog implements IDialogCommon {
 	}
 	
 	private String getSaveName() {
-		return this.currentGame.gameName().getInfo();
+		
+		return this.userId + "\\" + currentGame.gameName().getInfo();
 	}
 	
 	public IResult<String> saveCurrentGame(String[] args){
@@ -89,8 +93,7 @@ public class CommonUserDialog implements IDialogCommon {
 		if (this.currentGame == null)
 			return new Result("Game is not chosen!");
 		
-		if (args.length == 2)
-		{
+		if (args.length == 2){
 			return new Result(this.saveCurrentGame(args[1]));
 		}
 			
@@ -101,14 +104,14 @@ public class CommonUserDialog implements IDialogCommon {
 	
 	public String saveCurrentGame(String name){
 		currentGame.pauseGame();
-		gameSaver.saveGame(this.currentGame, name);
+		gameSaver.saveGame(this.currentGame, this.userId,  name);
 
 		return "Your game was saved sucessfully!";
 	}
 
 	@Override
 	public Game LoadGame(String name) {
-		return this.gameSaver.LoadGame(this.currentGame.gameName().getResult(), name);
+		return this.gameSaver.LoadGame(this.currentGame.gameName().getResult(), this.userId, name);
 	}
 	
 	public String loadGame(String name) {

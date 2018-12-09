@@ -1,5 +1,6 @@
 package main;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,10 +18,14 @@ public class GameSaver implements IGameSaver {
 	}
 	
 	@Override
-	public void saveGame(Game game, String name) {
+	public void saveGame(Game game, Long userId, String name) {
 		try
-        {    
-            FileOutputStream file = new FileOutputStream(this.path + name); 
+        {  
+			File f = new File(this.path +userId);
+			if (!f.exists())
+				f.mkdir();
+			
+            FileOutputStream file = new FileOutputStream(this.path + userId + "\\" + name); 
             ObjectOutputStream out = new ObjectOutputStream(file); 
             
             game.save();
@@ -37,9 +42,9 @@ public class GameSaver implements IGameSaver {
 	}
 
 	@Override
-	public Game LoadGame(String gameName, String name) {
+	public Game LoadGame(String gameName, Long userId, String name) {
 		try{    
-			FileInputStream file = new FileInputStream(this.path + name); 
+			FileInputStream file = new FileInputStream(this.path + userId + "\\" + name); 
 			ObjectInputStream in = new ObjectInputStream(file); 
 	        Game game = (Game)in.readObject();
 	        game.load();
