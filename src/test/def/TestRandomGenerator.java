@@ -5,8 +5,8 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import bot.IRandomGenerator;
-import bot.RandomGenerator;
+import userDialog.IRandomGenerator;
+import userDialog.RandomGenerator;
 
 public class TestRandomGenerator {
 

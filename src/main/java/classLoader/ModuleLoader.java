@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import bot.Game;
-import bot.IGameFactory;
+import userDialog.IGameFactory;
 
 public class ModuleLoader extends ClassLoader {
 	private final String gamesDir;

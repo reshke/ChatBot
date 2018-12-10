@@ -5,11 +5,12 @@ import IO.IWriter;
 import IO.Reader;
 import IO.Writer;
 import classLoader.LoaderGames;
+import userDialog.DialogFactory;
 
 
 public class StartPoint{
 	public static void main(String[] args) {
-		Bot bot = new Bot(new DialogManager(), new LoaderGames());
+		Bot bot = new Bot(new DialogManager(new DialogFactory()), new LoaderGames());
 		IReader reader = new Reader();
 		IWriter writer = new Writer();
 		

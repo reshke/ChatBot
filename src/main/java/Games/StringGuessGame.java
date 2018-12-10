@@ -2,13 +2,13 @@ package Games;
 
 import Commands.Command;
 import bot.Game;
-import bot.GameState;
-import bot.ICommand;
-import bot.ICommandContainer;
-import bot.IRandomGenerator;
 import bot.IResult;
-import bot.Result;
 import bot.ResultState;
+import userDialog.GameState;
+import userDialog.ICommand;
+import userDialog.ICommandContainer;
+import userDialog.IRandomGenerator;
+import userDialog.Result;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

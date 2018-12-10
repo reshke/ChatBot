@@ -3,9 +3,9 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import Games.StringGuessGame;
-import bot.CommandContainer;
-import bot.GameState;
-import bot.RandomGenerator;
+import userDialog.CommandContainer;
+import userDialog.GameState;
+import userDialog.RandomGenerator;
 
 
 public class StringGameTests {

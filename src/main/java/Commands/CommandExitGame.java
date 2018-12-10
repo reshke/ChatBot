@@ -1,6 +1,6 @@
 package Commands;
 
-import bot.ICommand;
+import userDialog.ICommand;
 
 public class CommandExitGame<TValue> implements ICommand<TValue> {
 	private final String name;

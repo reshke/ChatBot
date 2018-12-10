@@ -3,9 +3,9 @@ package Commands;
 import java.io.Serializable;
 import java.util.function.Function;
 
-import bot.ICommand;
 import bot.IResult;
 import bot.ResultState;
+import userDialog.ICommand;
 
 public final class Command implements ICommand<String>, Serializable {
 	/**

@@ -3,8 +3,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import Games.StringGuessGame;
-import bot.CommandContainer;
-import bot.RandomGenerator;
+import userDialog.CommandContainer;
+import userDialog.RandomGenerator;
 
 public class StringGameTestsException {
 	@Test

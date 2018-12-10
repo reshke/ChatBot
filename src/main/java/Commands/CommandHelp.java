@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import bot.ICommand;
+import userDialog.ICommand;
 
 public class CommandHelp<TKey> implements ICommand<TKey> {
 	

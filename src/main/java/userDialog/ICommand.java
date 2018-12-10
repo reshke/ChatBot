@@ -1,4 +1,4 @@
-package bot;
+package userDialog;
 
 public interface ICommand<TKey> {
 	public TKey getKey();

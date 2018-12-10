@@ -1,11 +1,11 @@
 package def;
 
-import bot.CommandContainer;
 import bot.Game;
-import bot.ICommand;
-import bot.ICommandContainer;
 import bot.IResult;
-import bot.Result;
+import userDialog.CommandContainer;
+import userDialog.ICommand;
+import userDialog.ICommandContainer;
+import userDialog.Result;
 
 public class MockGame extends Game {
 	/**

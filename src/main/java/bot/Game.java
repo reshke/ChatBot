@@ -3,6 +3,10 @@ package bot;
 import java.io.Serializable;
 
 import Commands.Command;
+import userDialog.GameState;
+import userDialog.ICommand;
+import userDialog.ICommandContainer;
+import userDialog.Result;
 
 public abstract class Game implements IGame, Serializable{
 	/**

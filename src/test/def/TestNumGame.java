@@ -7,9 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Games.NumGame;
-import bot.CommandContainer;
-import bot.IRandomGenerator;
-import bot.RandomGenerator;
+import userDialog.CommandContainer;
+import userDialog.IRandomGenerator;
+import userDialog.RandomGenerator;
 
 
 public class TestNumGame {

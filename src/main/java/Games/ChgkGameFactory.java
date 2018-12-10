@@ -1,8 +1,8 @@
 package Games;
 
-import bot.CommandContainer;
 import bot.Game;
-import bot.IGameFactory;
+import userDialog.CommandContainer;
+import userDialog.IGameFactory;
 
 public class ChgkGameFactory implements IGameFactory {
 

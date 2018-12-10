@@ -1,8 +1,10 @@
-package bot;
+package userDialog;
 
 import java.io.Serializable;
 import java.util.List;
 
+import bot.IResult;
+import bot.ResultState;
 import finders.DictionaryItem;
 import finders.DictionaryItems;
 import finders.DictionaryWithAdditionalSearch;

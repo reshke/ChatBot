@@ -1,4 +1,4 @@
-package bot;
+package userDialog;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -6,6 +6,10 @@ import java.util.Map.Entry;
 import Commands.Command;
 import Commands.CommandExitGame;
 import Commands.LoadCommand;
+import bot.Game;
+import bot.IDialogCommon;
+import bot.IResult;
+import bot.ResultState;
 
 public class CommonUserDialog implements IDialogCommon {
 	private Game currentGame;

@@ -8,8 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import bot.FuzzyDictionary;
-import bot.LevenshteinDictionary;
+import finders.LevenshteinDictionary;
+import userDialog.FuzzyDictionary;
 
 public class TestFuzzyDictoinary {
 	FuzzyDictionary<String, Integer> stringDictionary;

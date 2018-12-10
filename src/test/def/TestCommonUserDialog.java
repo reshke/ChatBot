@@ -4,12 +4,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Commands.CommandHelp;
-import bot.CommandContainer;
-import bot.CommonUserDialog;
-import bot.GameSaver;
-import bot.ICommand;
+import IO.GameSaver;
 import bot.ResultState;
 import classLoader.LoaderGames;
+import userDialog.CommandContainer;
+import userDialog.CommonUserDialog;
+import userDialog.ICommand;
 
 public class TestCommonUserDialog {
 	CommonUserDialog dialog;

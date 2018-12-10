@@ -1,9 +1,11 @@
-package bot;
+package finders;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.glassfish.grizzly.utils.Pair;
+
+import userDialog.FuzzyDictionary;
 
 public class LevenshteinDictionary<TKey, TValue> implements FuzzyDictionary<TKey, TValue> {
 

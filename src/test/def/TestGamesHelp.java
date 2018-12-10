@@ -8,8 +8,8 @@ import Games.CHGK_Game;
 import Games.NumGameFactory;
 import Games.PseudoBase;
 import Games.StringGuessGameFactory;
-import bot.CommandContainer;
 import bot.Game;
+import userDialog.CommandContainer;
 
 public class TestGamesHelp {
 	@Test

@@ -1,4 +1,7 @@
-package bot;
+package userDialog;
+
+import bot.IResult;
+import bot.ResultState;
 
 public class Result implements IResult<String> {
 	private final String result;

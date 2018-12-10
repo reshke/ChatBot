@@ -1,4 +1,4 @@
-package bot;
+package userDialog;
 import java.io.Serializable;
 import java.util.Random;
 

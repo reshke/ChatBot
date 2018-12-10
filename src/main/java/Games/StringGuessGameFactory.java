@@ -1,9 +1,9 @@
 package Games;
 
-import bot.CommandContainer;
 import bot.Game;
-import bot.IGameFactory;
-import bot.RandomGenerator;
+import userDialog.CommandContainer;
+import userDialog.IGameFactory;
+import userDialog.RandomGenerator;
 
 public class StringGuessGameFactory implements IGameFactory {
 

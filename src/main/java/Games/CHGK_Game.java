@@ -2,11 +2,11 @@ package Games;
 
 import Commands.Command;
 import bot.Game;
-import bot.ICommand;
-import bot.ICommandContainer;
 import bot.IResult;
-import bot.Result;
 import bot.ResultState;
+import userDialog.ICommand;
+import userDialog.ICommandContainer;
+import userDialog.Result;
 
 public class CHGK_Game extends Game {
 	private static final long serialVersionUID = -6521591853957602757L;

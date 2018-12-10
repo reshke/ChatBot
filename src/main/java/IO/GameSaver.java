@@ -1,4 +1,4 @@
-package bot;
+package IO;
 
 import java.io.File;
 import java.nio.file.FileSystems;
@@ -14,6 +14,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
+
+import bot.Game;
+import bot.IResult;
+import bot.ResultState;
+import userDialog.IGameSaver;
+import userDialog.Result;
 
 public class GameSaver implements IGameSaver {
 	private final String path;

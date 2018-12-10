@@ -2,7 +2,7 @@ package Commands;
 
 import java.util.function.Function;
 
-import bot.ICommand;
+import userDialog.ICommand;
 
 public class LoadCommand implements ICommand<String> {
 	protected final Function<String, String>  supplier;

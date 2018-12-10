@@ -1,4 +1,4 @@
-package bot;
+package userDialog;
 
 public interface IRandomGenerator {
 	public String generateRandomString(int lenght);

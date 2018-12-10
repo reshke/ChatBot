@@ -9,9 +9,9 @@ import org.junit.Test;
 
 import Games.NumGame;
 import Games.NumGameFactory;
-import bot.CommandContainer;
 import bot.IResult;
 import bot.ResultState;
+import userDialog.CommandContainer;
 
 
 public class NumGameDialogTests {

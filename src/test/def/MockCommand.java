@@ -1,5 +1,5 @@
 package def;
-import bot.ICommand;
+import userDialog.ICommand;
 
 public class MockCommand implements ICommand<String>
 {

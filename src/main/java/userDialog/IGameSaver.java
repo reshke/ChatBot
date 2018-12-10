@@ -1,4 +1,7 @@
-package bot;
+package userDialog;
+
+import bot.Game;
+import bot.IResult;
 
 public interface IGameSaver {
 	public IResult<String> saveGame(Game game, Long userId, String[] args);

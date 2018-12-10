@@ -13,6 +13,7 @@ import bot.Bot;
 import bot.DialogManager;
 import bot.IBot;
 import classLoader.LoaderGames;
+import userDialog.DialogFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
 public class TelegramBot extends TelegramLongPollingBot {
-	private final IBot bot = new Bot(new DialogManager(), new LoaderGames());
+	private final IBot bot = new Bot(new DialogManager(new DialogFactory()), new LoaderGames());
 	
 	public static void main(String[] args) {
 		ApiContextInitializer.init();

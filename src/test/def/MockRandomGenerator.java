@@ -1,5 +1,5 @@
 package def;
-import bot.IRandomGenerator;
+import userDialog.IRandomGenerator;
 
 public class MockRandomGenerator implements IRandomGenerator{
 	public Boolean randomBoolean;

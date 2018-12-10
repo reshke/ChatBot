@@ -1,4 +1,4 @@
-package bot;
+package userDialog;
 
 public enum GameState {
 	RUNNING,

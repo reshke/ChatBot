@@ -1,4 +1,6 @@
-package bot;
+package userDialog;
+
+import bot.IResult;
 
 public interface ICommandContainer {
 	public void clear();

@@ -1,5 +1,6 @@
 package bot;
 
+import userDialog.GameState;
 
 public interface IGame
 {

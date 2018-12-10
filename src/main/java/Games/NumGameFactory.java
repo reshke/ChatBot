@@ -1,8 +1,8 @@
 package Games;
 
-import bot.CommandContainer;
-import bot.IGameFactory;
-import bot.RandomGenerator;
+import userDialog.CommandContainer;
+import userDialog.IGameFactory;
+import userDialog.RandomGenerator;
 
 public class NumGameFactory implements IGameFactory {
 
