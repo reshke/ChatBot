@@ -10,6 +10,7 @@ import bot.GameSaver;
 import bot.ICommand;
 import bot.ResultState;
 import classLoader.LoaderGames;
+
 public class TestCommonUserDialog {
 	CommonUserDialog dialog;
 

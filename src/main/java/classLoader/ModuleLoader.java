@@ -1,6 +1,5 @@
 package classLoader;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,8 +7,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-import kotlin.Pair;
 import bot.Game;
 import bot.IGameFactory;
 
@@ -39,9 +39,9 @@ public class ModuleLoader extends ClassLoader {
     }
     
     @SuppressWarnings("deprecation")
-	public ArrayList<Pair<String, Game>> loadFabrics()
+	public Map<String, Game> loadFabrics()
     {
-    	ArrayList<Pair<String, Game>> result = new ArrayList<>();
+    	Map<String, Game> result = new HashMap<String, Game>();
 
         File dir = new File(pathbin);
         String[] modules = dir.list();
@@ -51,7 +51,7 @@ public class ModuleLoader extends ClassLoader {
                 String moduleName = module.split(".class")[0];
                 Class<?> currentClass = findClass(moduleName);
                 try  {
-                	result.add(new Pair<String, Game>(moduleName, ((IGameFactory) currentClass.newInstance()).Create()));
+                	result.put(moduleName, ((IGameFactory) currentClass.newInstance()).Create());
                 }
                 catch (ClassCastException e) {}
             }

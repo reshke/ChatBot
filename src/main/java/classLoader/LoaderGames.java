@@ -1,8 +1,8 @@
 package classLoader;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
-import kotlin.Pair;
 import bot.Game;
 import bot.IGameLoaderFactory;
 import bot.IResult;
@@ -14,13 +14,13 @@ public class LoaderGames implements IGameLoaderFactory {
 		ModuleLoader moduleLoader = new ModuleLoader(System.getProperty("user.dir") + "\\target\\classes\\Games\\", "Games.");
 		HashMap<String, Game>  games = new HashMap<String, Game> ();
 		try {
-			for (Pair<String, Game> gameInfo : moduleLoader.loadFabrics())
+			for (Entry<String, Game> gameInfo : moduleLoader.loadFabrics().entrySet())
 			{
-				IResult<String> gameName = gameInfo.component2().gameName();
+				IResult<String> gameName = gameInfo.getValue().gameName();
 				if (gameName.getState() == ResultState.SUCCESS)
-					games.put(gameName.getResult(), gameInfo.component2());
+					games.put(gameName.getResult(), gameInfo.getValue());
 				else
-					games.put(gameInfo.component1(), gameInfo.component2());
+					games.put(gameInfo.getKey(), gameInfo.getValue());
 			}
 		} catch (IllegalArgumentException | SecurityException e) {
 		}
