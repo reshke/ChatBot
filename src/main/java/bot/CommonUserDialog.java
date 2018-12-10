@@ -1,11 +1,11 @@
-package main.java.bot;
+package bot;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import main.java.Commands.Command;
-import main.java.Commands.CommandExitGame;
-import main.java.Commands.LoadCommand;
+import Commands.Command;
+import Commands.CommandExitGame;
+import Commands.LoadCommand;
 
 public class CommonUserDialog implements IDialogCommon {
 	private Game currentGame;

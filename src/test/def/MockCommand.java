@@ -1,5 +1,5 @@
-package test;
-import main.java.bot.ICommand;
+package def;
+import bot.ICommand;
 
 public class MockCommand implements ICommand<String>
 {

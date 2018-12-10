@@ -1,6 +1,6 @@
-package main.java.Commands;
+package Commands;
 
-import main.java.bot.ICommand;
+import bot.ICommand;
 
 public class CommandExitGame<TValue> implements ICommand<TValue> {
 	private final String name;

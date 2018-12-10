@@ -1,9 +1,9 @@
-package main.java.Games;
+package Games;
 
-import main.java.bot.CommandContainer;
-import main.java.bot.Game;
-import main.java.bot.IGameFactory;
-import main.java.bot.RandomGenerator;
+import bot.CommandContainer;
+import bot.Game;
+import bot.IGameFactory;
+import bot.RandomGenerator;
 
 public class StringGuessGameFactory implements IGameFactory {
 

@@ -1,4 +1,4 @@
-package main.java.bot;
+package bot;
 
 public interface IDialogCommon {
 	public IResult<String> handleQuery(String query);

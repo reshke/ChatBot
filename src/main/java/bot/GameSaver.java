@@ -1,4 +1,4 @@
-package main.java.bot;
+package bot;
 
 import java.io.File;
 import java.nio.file.FileSystems;

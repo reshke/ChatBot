@@ -1,4 +1,4 @@
-package test;
+package def;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,11 +7,11 @@ import static org.junit.Assert.assertNotEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.Games.NumGame;
-import main.java.Games.NumGameFactory;
-import main.java.bot.CommandContainer;
-import main.java.bot.IResult;
-import main.java.bot.ResultState;
+import Games.NumGame;
+import Games.NumGameFactory;
+import bot.CommandContainer;
+import bot.IResult;
+import bot.ResultState;
 
 
 public class NumGameDialogTests {

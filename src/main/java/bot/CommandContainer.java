@@ -1,15 +1,15 @@
-package main.java.bot;
+package bot;
 
 import java.io.Serializable;
 import java.util.List;
 
-import main.java.finders.DictionaryItem;
-import main.java.finders.DictionaryItems;
-import main.java.finders.DictionaryWithAdditionalSearch;
-import main.java.finders.DictionaryWithSimilarLinesDifference;
-import main.java.finders.FinderSimilarDistanceWords;
-import main.java.finders.FinderSimilarLines;
-import main.java.finders.LevenshteinDifference;
+import finders.DictionaryItem;
+import finders.DictionaryItems;
+import finders.DictionaryWithAdditionalSearch;
+import finders.DictionaryWithSimilarLinesDifference;
+import finders.FinderSimilarDistanceWords;
+import finders.FinderSimilarLines;
+import finders.LevenshteinDifference;
 
 
 public class CommandContainer implements ICommandContainer, Serializable {

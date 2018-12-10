@@ -1,7 +1,7 @@
-package main.java.Games;
+package Games;
 
-import main.java.bot.IResult;
-import main.java.bot.ResultState;
+import bot.IResult;
+import bot.ResultState;
 
 @SuppressWarnings("hiding")
 class QuestionResult<Question> implements IResult<Question>

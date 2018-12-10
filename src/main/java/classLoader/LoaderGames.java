@@ -1,17 +1,17 @@
-package main.java.classLoader;
+package classLoader;
 
 import java.util.HashMap;
 
 import kotlin.Pair;
-import main.java.bot.Game;
-import main.java.bot.IGameLoaderFactory;
-import main.java.bot.IResult;
-import main.java.bot.ResultState;
+import bot.Game;
+import bot.IGameLoaderFactory;
+import bot.IResult;
+import bot.ResultState;
 
 public class LoaderGames implements IGameLoaderFactory {
 	public HashMap<String, Game> Load()
 	{
-		ModuleLoader moduleLoader = new ModuleLoader(System.getProperty("user.dir") + "\\target\\classes\\main\\java\\Games\\", "main.java.Games.");
+		ModuleLoader moduleLoader = new ModuleLoader(System.getProperty("user.dir") + "\\target\\classes\\Games\\", "Games.");
 		HashMap<String, Game>  games = new HashMap<String, Game> ();
 		try {
 			for (Pair<String, Game> gameInfo : moduleLoader.loadFabrics())

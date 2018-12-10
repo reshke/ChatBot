@@ -1,8 +1,8 @@
-package main.java.bot;
+package bot;
 import java.util.HashMap;
 import java.util.Map;
 
-import main.java.Commands.CommandHelp;
+import Commands.CommandHelp;
 
 public class DialogManager implements IDialogManager {
 	
@@ -13,7 +13,7 @@ public class DialogManager implements IDialogManager {
 		CommonUserDialog dialog = 
 				new CommonUserDialog(factory.Load(),
 						new CommandContainer(new ICommand[] { new CommandHelp<String>("help", "help")}),
-						new GameSaver(System.getProperty("user.dir") + "\\out\\production\\ChatBot\\main\\data\\"), userId);
+						new GameSaver(System.getProperty("user.dir") + "\\out\\production\\main\\data\\"), userId);
 		dialogs.put(userId, dialog);
 	}
 	

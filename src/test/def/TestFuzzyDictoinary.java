@@ -1,4 +1,4 @@
-package test;
+package def;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -8,8 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.bot.FuzzyDictionary;
-import main.java.bot.LevenshteinDictionary;
+import bot.FuzzyDictionary;
+import bot.LevenshteinDictionary;
 
 public class TestFuzzyDictoinary {
 	FuzzyDictionary<String, Integer> stringDictionary;

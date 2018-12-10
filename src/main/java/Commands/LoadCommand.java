@@ -1,8 +1,8 @@
-package main.java.Commands;
+package Commands;
 
 import java.util.function.Function;
 
-import main.java.bot.ICommand;
+import bot.ICommand;
 
 public class LoadCommand implements ICommand<String> {
 	protected final Function<String, String>  supplier;

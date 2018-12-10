@@ -1,4 +1,4 @@
-package main.java.finders;
+package finders;
 
 public class LevenshteinDifference implements FinderLinesDifference{
 

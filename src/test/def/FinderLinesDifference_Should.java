@@ -1,11 +1,11 @@
-package test;
+package def;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
 
-import main.java.finders.FinderLinesDifference;
-import main.java.finders.LevenshteinDifference;
+import finders.FinderLinesDifference;
+import finders.LevenshteinDifference;
 
 public class FinderLinesDifference_Should {
 	private final FinderLinesDifference finder = new LevenshteinDifference();

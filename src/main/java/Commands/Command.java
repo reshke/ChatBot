@@ -1,11 +1,11 @@
-package main.java.Commands;
+package Commands;
 
 import java.io.Serializable;
 import java.util.function.Function;
 
-import main.java.bot.ICommand;
-import main.java.bot.IResult;
-import main.java.bot.ResultState;
+import bot.ICommand;
+import bot.IResult;
+import bot.ResultState;
 
 public final class Command implements ICommand<String>, Serializable {
 	/**

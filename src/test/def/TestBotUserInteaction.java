@@ -1,11 +1,11 @@
-package test;
+package def;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-import main.java.Commands.CommandHelp;
-import main.java.bot.Bot;
-import main.java.bot.DialogManager;
-import main.java.classLoader.LoaderGames;
+import Commands.CommandHelp;
+import bot.Bot;
+import bot.DialogManager;
+import classLoader.LoaderGames;
 class TestBotUserInteaction {
 	@Test
 	void testBotExecutesHelpCommand() {

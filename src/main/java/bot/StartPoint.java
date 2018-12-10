@@ -1,10 +1,10 @@
-package main.java.bot;
+package bot;
 
-import main.java.IO.IReader;
-import main.java.IO.IWriter;
-import main.java.IO.Reader;
-import main.java.IO.Writer;
-import main.java.classLoader.LoaderGames;
+import IO.IReader;
+import IO.IWriter;
+import IO.Reader;
+import IO.Writer;
+import classLoader.LoaderGames;
 
 
 public class StartPoint{

@@ -1,10 +1,10 @@
-package test;
+package def;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-import main.java.Games.StringGuessGame;
-import main.java.bot.CommandContainer;
-import main.java.bot.RandomGenerator;
+import Games.StringGuessGame;
+import bot.CommandContainer;
+import bot.RandomGenerator;
 
 public class StringGameTestsException {
 	@Test

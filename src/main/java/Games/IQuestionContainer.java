@@ -1,6 +1,6 @@
-package main.java.Games;
+package Games;
 
-import main.java.bot.IResult;
+import bot.IResult;
 
 public interface IQuestionContainer 
 {

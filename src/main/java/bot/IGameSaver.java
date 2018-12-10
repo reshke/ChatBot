@@ -1,4 +1,4 @@
-package main.java.bot;
+package bot;
 
 public interface IGameSaver {
 	public IResult<String> saveGame(Game game, Long userId, String[] args);

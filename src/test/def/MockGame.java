@@ -1,11 +1,11 @@
-package test;
+package def;
 
-import main.java.bot.CommandContainer;
-import main.java.bot.Game;
-import main.java.bot.ICommand;
-import main.java.bot.ICommandContainer;
-import main.java.bot.IResult;
-import main.java.bot.Result;
+import bot.CommandContainer;
+import bot.Game;
+import bot.ICommand;
+import bot.ICommandContainer;
+import bot.IResult;
+import bot.Result;
 
 public class MockGame extends Game {
 	/**

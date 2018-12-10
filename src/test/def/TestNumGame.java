@@ -1,4 +1,4 @@
-package test;
+package def;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -6,10 +6,12 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.Games.NumGame;
-import main.java.bot.CommandContainer;
-import main.java.bot.IRandomGenerator;
-import main.java.bot.RandomGenerator;
+import Games.NumGame;
+import bot.CommandContainer;
+import bot.IRandomGenerator;
+import bot.RandomGenerator;
+
+
 public class TestNumGame {
 	NumGame game;
 

@@ -1,11 +1,11 @@
-package main.java.Commands;
+package Commands;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import main.java.bot.ICommand;
+import bot.ICommand;
 
 public class CommandHelp<TKey> implements ICommand<TKey> {
 	

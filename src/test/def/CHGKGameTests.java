@@ -1,12 +1,12 @@
-package test;
+package def;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.Games.ChgkGameFactory;
-import main.java.bot.Game;
-import main.java.bot.IResult;
-import main.java.bot.ResultState;
+import Games.ChgkGameFactory;
+import bot.Game;
+import bot.IResult;
+import bot.ResultState;
 
 public class CHGKGameTests {
 	private Game game;

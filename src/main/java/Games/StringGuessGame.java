@@ -1,15 +1,14 @@
-package main.java.Games;
+package Games;
 
-
-import main.java.Commands.Command;
-import main.java.bot.Game;
-import main.java.bot.GameState;
-import main.java.bot.ICommand;
-import main.java.bot.ICommandContainer;
-import main.java.bot.IRandomGenerator;
-import main.java.bot.IResult;
-import main.java.bot.Result;
-import main.java.bot.ResultState;
+import Commands.Command;
+import bot.Game;
+import bot.GameState;
+import bot.ICommand;
+import bot.ICommandContainer;
+import bot.IRandomGenerator;
+import bot.IResult;
+import bot.Result;
+import bot.ResultState;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

@@ -1,14 +1,14 @@
-package test;
+package def;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
 
-import main.java.finders.EqualState;
-import main.java.finders.FinderSimilarDistanceWords;
-import main.java.finders.FinderSimilarLines;
-import main.java.finders.LevenshteinDifference;
+import finders.EqualState;
+import finders.FinderSimilarDistanceWords;
+import finders.FinderSimilarLines;
+import finders.LevenshteinDifference;
 
 public class FinderSimilarDistanceWords_Should {
 	private final FinderSimilarLines finderSimilarLines = new FinderSimilarDistanceWords(new LevenshteinDifference(), 1, 3);

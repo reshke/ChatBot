@@ -3,9 +3,13 @@
   <groupId>ChatBot</groupId>
   <artifactId>ChatBot</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
+  
   <build>
-    <sourceDirectory>src</sourceDirectory>
-    <testSourceDirectory>src/Test</testSourceDirectory>
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <testSourceDirectory>src/test</testSourceDirectory>
+    
+    
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>

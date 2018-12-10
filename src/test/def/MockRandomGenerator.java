@@ -1,5 +1,5 @@
-package test;
-import main.java.bot.IRandomGenerator;
+package def;
+import bot.IRandomGenerator;
 
 public class MockRandomGenerator implements IRandomGenerator{
 	public Boolean randomBoolean;

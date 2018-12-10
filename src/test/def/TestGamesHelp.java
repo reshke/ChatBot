@@ -1,15 +1,15 @@
-package test;
+package def;
 
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import main.java.Games.CHGK_Game;
-import main.java.Games.NumGameFactory;
-import main.java.Games.PseudoBase;
-import main.java.Games.StringGuessGameFactory;
-import main.java.bot.CommandContainer;
-import main.java.bot.Game;
+import Games.CHGK_Game;
+import Games.NumGameFactory;
+import Games.PseudoBase;
+import Games.StringGuessGameFactory;
+import bot.CommandContainer;
+import bot.Game;
 
 public class TestGamesHelp {
 	@Test

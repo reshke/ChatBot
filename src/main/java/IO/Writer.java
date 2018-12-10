@@ -1,4 +1,4 @@
-package main.java.IO;
+package IO;
 
 public class Writer implements IWriter {
 

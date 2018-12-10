@@ -1,4 +1,4 @@
-package test;
+package def;
 
 import static org.junit.Assert.*;
 import java.io.File;
@@ -9,12 +9,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.bot.Game;
-import main.java.classLoader.ModuleLoader;
+import bot.Game;
+import classLoader.ModuleLoader;
 
 
 public class LoaderTests {
-	private final ModuleLoader moduleLoader = new ModuleLoader(System.getProperty("user.dir") + "\\target\\classes\\test\\", "test.");
+	private final ModuleLoader moduleLoader = new ModuleLoader(System.getProperty("user.dir") + "\\target\\test-classes\\def\\", "def.");
 
 //	@Before
 //	public void before() throws IOException

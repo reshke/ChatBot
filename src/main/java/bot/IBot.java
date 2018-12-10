@@ -1,4 +1,4 @@
-package main.java.bot;
+package bot;
 
 public interface IBot {
 	public String startBot(Long userId);

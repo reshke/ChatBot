@@ -1,15 +1,15 @@
-package test;
+package def;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.Commands.CommandHelp;
-import main.java.bot.CommandContainer;
-import main.java.bot.CommonUserDialog;
-import main.java.bot.GameSaver;
-import main.java.bot.ICommand;
-import main.java.bot.ResultState;
-import main.java.classLoader.LoaderGames;
+import Commands.CommandHelp;
+import bot.CommandContainer;
+import bot.CommonUserDialog;
+import bot.GameSaver;
+import bot.ICommand;
+import bot.ResultState;
+import classLoader.LoaderGames;
 public class TestCommonUserDialog {
 	CommonUserDialog dialog;
 

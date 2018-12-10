@@ -1,12 +1,12 @@
-package test;
+package def;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import main.java.bot.IRandomGenerator;
-import main.java.bot.RandomGenerator;
+import bot.IRandomGenerator;
+import bot.RandomGenerator;
 
 public class TestRandomGenerator {
 

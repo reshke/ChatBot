@@ -1,4 +1,4 @@
-package main.java.Games;
+package Games;
 
 public final class Question 
 {

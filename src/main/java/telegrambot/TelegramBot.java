@@ -1,4 +1,4 @@
-package main.java.telegrambot;
+package telegrambot;
 
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -9,10 +9,10 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import main.java.bot.Bot;
-import main.java.bot.DialogManager;
-import main.java.bot.IBot;
-import main.java.classLoader.LoaderGames;
+import bot.Bot;
+import bot.DialogManager;
+import bot.IBot;
+import classLoader.LoaderGames;
 
 import java.util.ArrayList;
 import java.util.List;

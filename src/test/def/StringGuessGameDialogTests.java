@@ -1,11 +1,11 @@
-package test;
+package def;
  import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
-import main.java.Games.StringGuessGameFactory;
-import main.java.bot.Game;
-import main.java.bot.IResult;
-import main.java.bot.ResultState;
+import Games.StringGuessGameFactory;
+import bot.Game;
+import bot.IResult;
+import bot.ResultState;
  public class StringGuessGameDialogTests {
 	@Test
 	public void testStartExecutesCorrect() {

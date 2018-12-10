@@ -1,4 +1,6 @@
-package main.java.classLoader;
+package classLoader;
+
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,8 +10,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import kotlin.Pair;
-import main.java.bot.Game;
-import main.java.bot.IGameFactory;
+import bot.Game;
+import bot.IGameFactory;
 
 public class ModuleLoader extends ClassLoader {
 	private final String gamesDir;

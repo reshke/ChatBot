@@ -1,4 +1,4 @@
-package test;
+package def;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -6,12 +6,12 @@ import static org.junit.Assert.assertNotEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.finders.DictionaryItems;
-import main.java.finders.DictionaryWithAdditionalSearch;
-import main.java.finders.DictionaryWithSimilarLinesDifference;
-import main.java.finders.FinderSimilarDistanceWords;
-import main.java.finders.FinderSimilarLines;
-import main.java.finders.LevenshteinDifference;
+import finders.DictionaryItems;
+import finders.DictionaryWithAdditionalSearch;
+import finders.DictionaryWithSimilarLinesDifference;
+import finders.FinderSimilarDistanceWords;
+import finders.FinderSimilarLines;
+import finders.LevenshteinDifference;
 
 public class DictionaryWithSimilarLinesDifference_Should {
 	private DictionaryWithAdditionalSearch<Integer> dictionary;

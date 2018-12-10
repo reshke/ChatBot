@@ -1,4 +1,4 @@
-package main.java.IO;
+package IO;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

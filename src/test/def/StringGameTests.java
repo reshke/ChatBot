@@ -1,11 +1,11 @@
-package test;
+package def;
 import org.junit.*;
 import static org.junit.Assert.*;
 
-import main.java.Games.StringGuessGame;
-import main.java.bot.CommandContainer;
-import main.java.bot.GameState;
-import main.java.bot.RandomGenerator;
+import Games.StringGuessGame;
+import bot.CommandContainer;
+import bot.GameState;
+import bot.RandomGenerator;
 
 
 public class StringGameTests {

@@ -1,8 +1,8 @@
-package main.java.bot;
+package bot;
 
 import java.io.Serializable;
 
-import main.java.Commands.Command;
+import Commands.Command;
 
 public abstract class Game implements IGame, Serializable{
 	/**
