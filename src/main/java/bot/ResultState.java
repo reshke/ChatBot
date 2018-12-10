@@ -1,0 +1,9 @@
+package bot;
+
+public enum ResultState {
+	SUCCESS,
+	UNKNOWN,
+	WRONG_ARGUMENTS, 
+	POSSIBLE_MISTAKE, 
+	UNSUPPORTED_OPERATION
+}
