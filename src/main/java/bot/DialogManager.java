@@ -7,13 +7,14 @@ import IO.GameSaver;
 import userDialog.CommandContainer;
 import userDialog.CommonUserDialog;
 import userDialog.ICommand;
+import userDialog.ICommonDialogFactory;
 import userDialog.Result;
 
 public class DialogManager implements IDialogManager {
-	private final IDialogFactory dialogFactory;
+	private final ICommonDialogFactory dialogFactory;
 	private final Map<Long, IDialogCommon> dialogs = new HashMap<Long, IDialogCommon>();
 	
-	public DialogManager(IDialogFactory dialogFactory) {
+	public DialogManager(ICommonDialogFactory dialogFactory) {
 		this.dialogFactory = dialogFactory;
 	}
 	

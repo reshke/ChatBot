@@ -3,10 +3,9 @@ package userDialog;
 import Commands.CommandHelp;
 import IO.GameSaver;
 import bot.IDialogCommon;
-import bot.IDialogFactory;
 import bot.IGameLoaderFactory;
 
-public class DialogFactory implements IDialogFactory {
+public class DialogFactory implements ICommonDialogFactory {
 
 	@Override
 	public IDialogCommon createDialog(IGameLoaderFactory factory, Long userId) {

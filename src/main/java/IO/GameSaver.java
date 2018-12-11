@@ -1,6 +1,9 @@
 package IO;
 
 import java.io.File;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+import java.nio.channels.OverlappingFileLockException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,91 +15,100 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeSet;
 
 import bot.Game;
 import bot.IResult;
 import bot.ResultState;
-import userDialog.IGameSaver;
 import userDialog.Result;
 
 public class GameSaver implements IGameSaver {
 	private final String path;
 	private Map<String, Class<? extends Game>> biection = new HashMap<String, Class<? extends Game>>();
-	
 	public GameSaver(String path){
 		this.path = path;
 	}
-	
+
 	public String saveGame(Game game, Long userId, String name) {
+
 		try
-        {  
-		   File f = new File(this.path +userId);
+		{  
+			File f = new File(this.path +userId);
 			if (!f.exists())
 				f.mkdir();
-			
-            FileOutputStream file = new FileOutputStream(this.path + userId + "\\" + name); 
-            ObjectOutputStream out = new ObjectOutputStream(file);
-            
-            game.save();
-            out.writeObject(game); 
-              
-            out.close(); 
-            file.close(); 
-        } 
-          
-        catch(IOException ex) 
-        { 
-        	ex.printStackTrace();
-        	return "Your game was saved unsucessfully!";
-        } 
 
+			FileOutputStream file = new FileOutputStream(this.path + userId + "\\" + name); 
+			ObjectOutputStream out = new ObjectOutputStream(file);
+
+			FileChannel channel = file.getChannel();
+
+			FileLock lock = null;
+			try {
+				lock = channel.tryLock();
+				game.save();
+				out.writeObject(game);
+
+			}
+			finally {
+				if (lock != null)
+					lock.release();
+				channel.close();
+				out.close(); 
+				file.close();
+			}
+		} 
+
+		catch(IOException ex) 
+		{ 
+			return "Your game was saved unsucessfully!";
+		}
 		return "Your game was saved sucessfully!";
 	}
-	
+
 
 	private String getSaveName(Long userId, Game game) {
 		return userId + "\\" + game.gameName().getInfo();
 	}
-	
-	
+
+
 	@Override
 	public IResult<String> saveGame(Game game, Long userId, String[] args) {
 		if (args.length > 2)
 			return new Result("Count of args is not correct!", ResultState.WRONG_ARGUMENTS);
-		
+
 		if (game == null)
 			return new Result("Game is not chosen!");
-		
+
 		if (args.length == 2)
 			return new Result(this.saveGame(game, userId, args[1]));
-			
+
 		String res = this.saveGame(game, userId, this.getSaveName(userId, game));
-		
+
 		return new Result(res);	
 	}
-	
-	
+
+
 	@Override
-	public Game LoadGame(String gameName, Long userId, String name) {
+	public Game LoadGame(String gameName, Long userId, String name) throws ClassNotFoundException {
 		try{    
 			FileInputStream file = new FileInputStream(this.path + userId + "\\" + name); 
 			ObjectInputStream in = new ObjectInputStream(file); 
-	        Game game = (Game)in.readObject();
-	        game.load();
-	        in.close(); 
-	        file.close(); 
-	            
-	        return game;
-	   }catch(IOException ex){
+			Game game = (Game)in.readObject();
+				game.load();
+				in.close(); 
+				file.close(); 
+
+				return game;
+		}catch(IOException ex){
 			ex.printStackTrace();
 		}
-		catch(ClassNotFoundException ex)
-		{
-			ex.printStackTrace();
-		}
-		
+
 		return null; 
 	}
 
@@ -114,7 +126,7 @@ public class GameSaver implements IGameSaver {
 		for (File f : files.listFiles()){
 			if (f.isFile()) {
 				Path path = FileSystems.getDefault().getPath(f.getPath());
-			    BasicFileAttributes attrs = null;
+				BasicFileAttributes attrs = null;
 				try {
 					attrs = Files.readAttributes(path, BasicFileAttributes.class);
 					answer.append(f.getName());
@@ -129,7 +141,7 @@ public class GameSaver implements IGameSaver {
 				}
 			}
 		}
-		
+
 		return answer.toString();
 	}
 }

@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import Commands.Command;
 import Commands.CommandExitGame;
 import Commands.LoadCommand;
+import IO.IGameSaver;
 import bot.Game;
 import bot.IDialogCommon;
 import bot.IResult;
@@ -17,10 +18,10 @@ public class CommonUserDialog implements IDialogCommon {
 	private final ICommandContainer commandContainer;
 	private final IGameSaver gameSaver;
 	private IResult<String> previousAnswer;
-	private HashMap<String, Game> games = new HashMap<String, Game>();
+	private HashMap<String, IGameFactory> games = new HashMap<String, IGameFactory>();
 
 	
-	public CommonUserDialog(HashMap<String, Game> games, ICommandContainer commandContainer,
+	public CommonUserDialog(HashMap<String, IGameFactory> games, ICommandContainer commandContainer,
 			IGameSaver gamesSaver, Long userId) {
 		this.commandContainer = commandContainer;
 		this.gameSaver = gamesSaver;
@@ -34,8 +35,8 @@ public class CommonUserDialog implements IDialogCommon {
 		
 		this.games = games;
 		
-		for (Entry<String, Game> game : this.games.entrySet())
-			gameSaver.registerGame(game.getKey(), game.getValue().getClass());
+		for (Entry<String, IGameFactory> game : this.games.entrySet())
+			gameSaver.registerGame(game.getKey(), game.getValue().Create().getClass());
 		
 		this.userId = userId;
 	}
@@ -49,7 +50,7 @@ public class CommonUserDialog implements IDialogCommon {
 		StringBuilder result = new StringBuilder("Realized games list: \n");
 		
 		for (String gameName : this.games.keySet()) {
-			result.append(this.games.get(gameName).getGameDescriptor().getResult());
+			result.append(this.games.get(gameName).Create().getGameDescriptor().getResult());
 			result.append("\n\n\n");
 		}
 		
@@ -60,7 +61,7 @@ public class CommonUserDialog implements IDialogCommon {
 		if (args.length != 2)
 			return new Result("Count of args is not correct!", ResultState.UNSUPPORTED_OPERATION);
 		String gameName = args[1];
-		Game game = this.games.get(gameName);
+		Game game = this.games.get(gameName).Create();
 		if (game == null)
 			return new Result("Incorrect game name " + gameName + ": no such game founded!" , ResultState.UNSUPPORTED_OPERATION);
 		
@@ -97,12 +98,18 @@ public class CommonUserDialog implements IDialogCommon {
 	}
 
 	@Override
-	public Game LoadGame(String name) {
+	public Game LoadGame(String name) throws ClassNotFoundException {
 		return this.gameSaver.LoadGame(this.currentGame.gameName().getResult(), this.userId, name);
 	}
 	
 	public String loadGame(String name) {
-		this.currentGame = this.LoadGame(name);
+		try {
+			this.currentGame = this.LoadGame(name);
+			if (this.currentGame == null)
+				return "try again later!";
+		} catch (ClassNotFoundException e) {
+			return "Invalid game name: " + name;
+		}
 		
 		return "Your game was loaded sucessfully!";
 	}

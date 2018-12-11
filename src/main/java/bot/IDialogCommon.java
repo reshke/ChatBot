@@ -5,5 +5,5 @@ public interface IDialogCommon {
 	public IResult<String> getLastAnswer();
 	public IResult<String> switchGame(String[] args);
 	public String[] getCurrentUserExecutableCommands();
-	public Game LoadGame(String name);
+	public Game LoadGame(String name) throws ClassNotFoundException;
 }

@@ -39,9 +39,9 @@ public class ModuleLoader extends ClassLoader {
     }
     
     @SuppressWarnings("deprecation")
-	public Map<String, Game> loadFabrics()
+	public Map<String, IGameFactory> loadFabrics()
     {
-    	Map<String, Game> result = new HashMap<String, Game>();
+    	Map<String, IGameFactory> result = new HashMap<String, IGameFactory>();
 
         File dir = new File(pathbin);
         String[] modules = dir.list();
@@ -51,13 +51,12 @@ public class ModuleLoader extends ClassLoader {
                 String moduleName = module.split(".class")[0];
                 Class<?> currentClass = findClass(moduleName);
                 try  {
-                	result.put(moduleName, ((IGameFactory) currentClass.newInstance()).Create());
+                	result.put(moduleName, (IGameFactory) currentClass.newInstance());
                 }
                 catch (ClassCastException e) {}
             }
             catch (IllegalAccessException | ClassNotFoundException | InstantiationException e)
             {
-
             }
         }
 
